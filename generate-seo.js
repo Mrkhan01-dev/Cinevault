@@ -3,7 +3,7 @@ const path = require('path');
 
 const API_KEY = process.env.TMDB_API_KEY;
 const DOMAIN = 'https://cinevault.space';
-const TMDB_BASE = 'const BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_BASE = "https://api.themoviedb.org/3";
 ';
 
 function slugify(text) {
