@@ -14,18 +14,17 @@ function slugify(text) {
 
 async function fetchJSON(url) {
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed: ${url}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status} on ${url}`);
   return res.json();
 }
 
 function buildMovieHTML(movie, providers, trailerKey, cast) {
-  const title = movie.title;
-  const year = (movie.release_date || '').split('-')[0];
+  const title = movie.title || 'Untitled';
+  const year = (movie.release_date || '').slice(0, 4);
   const slug = `${slugify(title)}-${movie.id}`;
   const pageUrl = `${DOMAIN}/movie/${slug}.html`;
   const poster = movie.poster_path
-  ? `https://tmdb.org{movie.poster_path}`
-`
+    ? `https://tmdb.org{movie.poster_path}`
     : '';
 
   const providerList = providers.length
@@ -94,12 +93,13 @@ function buildMovieHTML(movie, providers, trailerKey, cast) {
 }
 
 async function run() {
-  if (!API_KEY) throw new Error('Missing TMDB_API_KEY');
+  if (!API_KEY) {
+    throw new Error('TMDB_API_KEY secret is empty or missing in GitHub Settings -> Secrets!');
+  }
 
   fs.mkdirSync('movie', { recursive: true });
   const moviesMap = new Map();
 
-  // Fetch pages 1 to 5 of Popular & Trending movies (up to ~100-150 movies per run)
   for (let page = 1; page <= 5; page++) {
     const pop = await fetchJSON(`https://themoviedb.org{API_KEY}&page=${page}`);
     const trend = await fetchJSON(`https://themoviedb.org{API_KEY}&page=${page}`);
@@ -125,25 +125,24 @@ async function run() {
         ...(usProviders.rent || []),
         ...(usProviders.buy || [])
       ];
-      // Deduplicate providers
       const uniqueProviders = Array.from(new Map(allProviders.map(p => [p.provider_id, p])).values());
 
       const trailer = (details.videos?.results || []).find(v => v.site === 'YouTube' && v.type === 'Trailer');
       const cast = (details.credits?.cast || []).slice(0, 8);
 
+      const year = (details.release_date || '').slice(0, 4);
       const slug = `${slugify(movie.title)}-${movie.id}`;
       const filePath = path.join('movie', `${slug}.html`);
       const html = buildMovieHTML(details, uniqueProviders, trailer?.key, cast);
 
       fs.writeFileSync(filePath, html, 'utf8');
       urls.push(`${DOMAIN}/movie/${slug}.html`);
-      directoryLinks.push(`<li><a href="/movie/${slug}.html">${details.title} (${(details.release_date || '').split('-')[0]}) — Where to Watch & Trailer</a></li>`);
+      directoryLinks.push(`<li><a href="/movie/${slug}.html">${details.title} (${year}) — Where to Watch & Trailer</a></li>`);
     } catch (err) {
       console.error(`Skipped ${movie.id}:`, err.message);
     }
   }
 
-  // Create a crawlable HTML directory page so Googlebot finds every movie via links
   const directoryHTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -159,15 +158,17 @@ async function run() {
 </html>`;
   fs.writeFileSync(path.join('movie', 'index.html'), directoryHTML, 'utf8');
 
-  // Generate fresh sitemap.xml
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().slice(0, 10);
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://sitemaps.org">
 ${urls.map(u => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
 </urlset>`;
 
   fs.writeFileSync('sitemap.xml', sitemap, 'utf8');
-  console.log(`Generated ${directoryLinks.length} movie pages and updated sitemap.xml!`);
+  console.log(`SUCCESS: Generated ${directoryLinks.length} movie pages!`);
 }
 
-run();
+run().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
