@@ -12,11 +12,13 @@ if (!API_KEY) {
 }
 
 function slugify(text) {
-  return String(text || "movie")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 60) || "movie";
+  return (
+    String(text || "movie")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 60) || "movie"
+  );
 }
 
 function escapeHtml(str) {
@@ -76,7 +78,9 @@ function renderMoviePage(movie, credits, videos, providers, slugFile) {
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
   const runtime = movie.runtime ? `${movie.runtime} min` : "Feature Film";
   const genres = (movie.genres || []).map((g) => g.name).join(", ") || "Movie";
-  const overview = movie.overview || `Discover where to watch ${title} (${year}), check cast details, and watch the official trailer on CineVault.`;
+  const overview =
+    movie.overview ||
+    `Discover where to watch ${title} (${year}), check cast details, and watch the official trailer on CineVault.`;
   const posterUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : "";
@@ -96,7 +100,11 @@ function renderMoviePage(movie, credits, videos, providers, slugFile) {
 
   const canonical = `${SITE_URL}/movie/${slugFile}`;
   const pageTitle = `Where to Watch ${title} (${year}) — Streaming, Trailer & Cast | CineVault`;
-  const metaDesc = `Find where to stream ${title} (${year}) online in the US, UK, and Canada. Watch the trailer, check cast & ratings on CineVault.`.slice(0, 160);
+  const metaDesc =
+    `Find where to stream ${title} (${year}) online in the US, UK, and Canada. Watch the trailer, check cast & ratings on CineVault.`.slice(
+      0,
+      160
+    );
 
   const schema = {
     "@context": "https://schema.org",
@@ -430,7 +438,9 @@ ${urlNodes.join("\n")}
 `;
 
   fs.writeFileSync(path.join(__dirname, "sitemap.xml"), sitemapXml, "utf8");
-  console.log(`Generated ${generatedEntries.length} movie pages. Total indexed movies: ${allMovieFiles.length}`);
+  console.log(
+    `Generated ${generatedEntries.length} movie pages. Total indexed movies: ${allMovieFiles.length}`
+  );
 }
 
 run().catch((err) => {
