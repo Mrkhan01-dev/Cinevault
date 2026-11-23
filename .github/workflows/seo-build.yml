@@ -1,9 +1,9 @@
-name: Auto Generate Movie SEO Pages
+name: Auto-Generate Movie SEO Pages
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs automatically every day at midnight
-  workflow_dispatch: # Allows you to click "Run workflow" manually anytime
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -11,9 +11,12 @@ permissions:
 jobs:
   build-pages:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -25,7 +28,7 @@ jobs:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: node generate-seo.js
 
-            - name: Commit and push generated pages
+      - name: Commit and push generated pages
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -35,6 +38,6 @@ jobs:
             exit 0
           fi
           git commit -m "Auto-update SEO movie pages & sitemap"
-          git pull --rebase --autostash origin main
+          git pull --rebase -X ours --autostash origin main
           git push origin main
           
