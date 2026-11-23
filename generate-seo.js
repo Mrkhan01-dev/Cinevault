@@ -24,7 +24,8 @@ function buildMovieHTML(movie, providers, trailerKey, cast) {
   const slug = `${slugify(title)}-${movie.id}`;
   const pageUrl = `${DOMAIN}/movie/${slug}.html`;
   const poster = movie.poster_path
-    ? `https://tmdb.org{movie.poster_path}`
+  ? `https://tmdb.org{movie.poster_path}`
+`
     : '';
 
   const providerList = providers.length
