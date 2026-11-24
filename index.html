@@ -3,47 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CineVault — Movies &amp; Series Discovery, Trailers &amp; Streaming Guide</title>
+  <title>CineVault — Stream Trailers, Trending Movies &amp; TV Series Guide</title>
   <meta
     name="description"
-    content="Explore trending movies and TV series, search titles, filter by genre, watch trailers, check where to stream, and save your personal watchlist."
+    content="Discover trending movies and TV series on CineVault. Search titles, filter by genre, watch official trailers, check streaming platforms, and build your watchlist."
   />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="[https://cinevault.space/](https://cinevault.space/) />
+  <meta
+    name="keywords"
+    content="CineVault, trending movies, TV series, movie trailers, streaming guide, watchlist, watch movies online guide"
+  />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#06070a" />
+  <link rel="canonical" href="https://cinevault.space/" />
 
   <!-- Open Graph / Social Sharing Tags -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="CineVault — Movies &amp; Series Discovery" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="CineVault — Trending Movies &amp; TV Series Discovery" />
   <meta
     property="og:description"
-    content="Browse movies and series, watch trailers, find streaming availability, and build your watchlist."
+    content="Browse movies and series, watch official trailers, check where to stream, and save favorites to your personal watchlist."
   />
-  <meta property="og:url" content="[https://mrkhan01-dev.github.io/Cinevault/](https://mrkhan01-dev.github.io/Cinevault/)" />
+  <meta property="og:url" content="https://cinevault.space/" />
   <meta property="og:site_name" content="CineVault" />
 
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CineVault — Movies &amp; Series Discovery" />
+  <meta name="twitter:title" content="CineVault — Trending Movies &amp; TV Series Discovery" />
   <meta
     name="twitter:description"
     content="Browse movies and series, watch trailers, find streaming availability, and build your watchlist."
   />
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://cinevault.space/#website",
+        "name": "CineVault",
+        "url": "https://cinevault.space/",
+        "description": "Explore trending movies and TV series, watch trailers, check where to stream, and build your personal watchlist.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://cinevault.space/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://cinevault.space/#catalog",
+        "name": "CineVault Movies & Series Catalog",
+        "url": "https://cinevault.space/",
+        "isPartOf": {
+          "@id": "https://cinevault.space/#website"
+        }
+      }
+    ]
+  }
+  </script>
+
   <style>
     :root {
-      --bg: #090b10;
-      --surface: #111520;
-      --surface-2: #181e2e;
-      --surface-3: #222a3f;
-      --text: #f3f6fc;
-      --muted: #9aa5be;
+      --bg: #050608;
+      --bg-elevated: #0c0f16;
+      --surface: #131722;
+      --surface-2: #1b2130;
+      --surface-3: #252d40;
+      --text: #f6f8fc;
+      --muted: #a4afc6;
       --accent: #e50914;
-      --accent-2: #ff3b46;
-      --gold: #f5b942;
+      --accent-2: #ff1e2d;
+      --gold: #f5c518;
       --border: rgba(255, 255, 255, 0.09);
-      --radius: 14px;
-      --shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
-      --max: 1320px;
+      --border-strong: rgba(255, 255, 255, 0.22);
+      --radius: 10px;
+      --shadow: 0 20px 44px rgba(0, 0, 0, 0.72);
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --max: 1360px;
     }
 
     * {
@@ -52,13 +93,25 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     html, body {
-      background: radial-gradient(circle at top right, #181c2e 0%, var(--bg) 52%);
+      background:
+        radial-gradient(ellipse at top center, rgba(229, 9, 20, 0.16) 0%, rgba(16, 22, 38, 0.44) 36%, var(--bg) 76%);
+      background-color: var(--bg);
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       min-height: 100vh;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body.modal-open {
+      overflow: hidden !important;
+      touch-action: none;
     }
 
     a {
@@ -82,15 +135,15 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      backdrop-filter: blur(14px);
-      background: rgba(9, 11, 16, 0.85);
-      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(5, 6, 8, 0.95) 0%, rgba(5, 6, 8, 0.82) 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .nav-wrap {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 14px 20px;
+      padding: 13px 20px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -102,20 +155,17 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: -0.02em;
+      font-weight: 900;
+      font-size: 1.35rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
 
-    .brand-badge {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent), #99040c);
-      display: grid;
-      place-items: center;
-      font-size: 0.95rem;
-      box-shadow: 0 6px 18px rgba(229, 9, 20, 0.35);
+    .brand-mark {
+      color: var(--accent);
+      font-size: 1.48rem;
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(229, 9, 20, 0.65);
     }
 
     .nav-actions {
@@ -126,65 +176,233 @@
     }
 
     .pill-btn {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: var(--surface-2);
+      padding: 7px 14px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background 0.18s var(--ease), border-color 0.18s var(--ease);
     }
 
     .pill-btn:hover {
-      background: var(--surface-3);
-      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--border-strong);
     }
 
     .pill-btn.active {
       background: var(--accent);
       border-color: var(--accent);
       color: #fff;
+      box-shadow: 0 6px 18px rgba(229, 9, 20, 0.35);
     }
 
     .count-tag {
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.2);
       padding: 1px 7px;
       border-radius: 999px;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
+      font-weight: 700;
     }
 
     /* Main */
     main {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 24px 20px 64px;
+      padding: 18px 20px 56px;
     }
 
-    .hero {
-      background: linear-gradient(135deg, rgba(229, 9, 20, 0.16), rgba(24, 30, 46, 0.92));
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      margin-bottom: 22px;
+    /* Top Swipeable Netflix Spotlight Strip (No Arrows, No Swipe Hint Button) */
+    .spotlight-strip {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100%;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin-bottom: 18px;
+    }
+
+    .spotlight-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .spot-slide {
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      position: relative;
+      background-color: var(--bg-elevated);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 24px 22px;
       box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 185px;
+      gap: 24px;
+      align-items: center;
+      overflow: hidden;
+      min-height: 290px;
     }
 
-    .hero h1 {
-      font-size: clamp(1.5rem, 3.2vw, 2.2rem);
-      font-weight: 800;
+    .spot-slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(95deg, rgba(5, 6, 8, 0.96) 0%, rgba(8, 11, 20, 0.86) 58%, rgba(5, 6, 8, 0.65) 100%),
+        linear-gradient(180deg, rgba(5, 6, 8, 0.28) 0%, rgba(5, 6, 8, 0.94) 100%);
+      z-index: 0;
+    }
+
+    .spot-body,
+    .spot-poster-card {
+      position: relative;
+      z-index: 1;
+    }
+
+    .spot-body {
+      min-width: 0;
+    }
+
+    .spot-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .spot-rank-big {
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.03em;
+      box-shadow: 0 6px 16px rgba(229, 9, 20, 0.45);
+    }
+
+    .spot-slide h1 {
+      font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+      font-weight: 900;
       letter-spacing: -0.025em;
-      line-height: 1.15;
+      line-height: 1.13;
     }
 
-    .hero p {
+    .spot-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.8rem;
       color: var(--muted);
-      font-size: 0.95rem;
-      margin-top: 6px;
+    }
+
+    .spot-tags span {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .spot-gold {
+      color: var(--gold) !important;
+      font-weight: 700;
+    }
+
+    .spot-desc {
+      color: #dce3f2;
+      font-size: 0.93rem;
+      margin-top: 10px;
       margin-bottom: 16px;
       max-width: 660px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .spot-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .primary-btn {
+      padding: 11px 20px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background 0.18s var(--ease), transform 0.14s var(--ease);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .primary-btn:hover {
+      background: var(--accent-2);
+    }
+
+    .primary-btn:active {
+      transform: scale(0.98);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .secondary-btn {
+      padding: 11px 18px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: background 0.16s var(--ease);
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .spot-poster-card {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.78), 0 0 28px rgba(229, 9, 20, 0.22);
+      background: var(--surface-2);
+      cursor: pointer;
+    }
+
+    .spot-poster-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Search & Filter Bar Below Spotlight */
+    .search-section {
+      margin-bottom: 14px;
     }
 
     .search-row {
@@ -201,17 +419,18 @@
 
     .search-input {
       width: 100%;
-      padding: 13px 42px 13px 16px;
-      border-radius: 12px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      font-size: 0.96rem;
+      padding: 11px 42px 11px 15px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      font-size: 0.94rem;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
     }
 
     .search-input:focus {
       border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.22);
     }
 
     .clear-btn {
@@ -219,11 +438,11 @@
       right: 10px;
       width: 28px;
       height: 28px;
-      border-radius: 8px;
+      border-radius: 6px;
       color: var(--muted);
       display: grid;
       place-items: center;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
 
     .clear-btn:hover {
@@ -231,35 +450,11 @@
       background: var(--surface-2);
     }
 
-    .primary-btn {
-      padding: 0 20px;
-      border-radius: 12px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.92rem;
-      transition: background 0.2s, transform 0.12s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .primary-btn:hover {
-      background: var(--accent-2);
-    }
-
-    .primary-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* Filters */
     .filters {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 22px;
+      gap: 10px;
+      margin-bottom: 16px;
     }
 
     .filter-row {
@@ -273,23 +468,24 @@
     .chip-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 7px;
     }
 
     .chip {
-      padding: 7px 13px;
+      padding: 6px 13px;
       border-radius: 999px;
       background: var(--surface);
       border: 1px solid var(--border);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--muted);
-      transition: all 0.18s;
+      transition: all 0.16s var(--ease);
     }
 
     .chip:hover {
       color: var(--text);
       background: var(--surface-2);
+      border-color: var(--border-strong);
     }
 
     .chip.active {
@@ -299,55 +495,102 @@
     }
 
     .sort-select {
-      padding: 8px 12px;
-      border-radius: 10px;
+      padding: 7px 12px;
+      border-radius: 8px;
       background: var(--surface);
       border: 1px solid var(--border);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 600;
       outline: none;
     }
 
-    /* Section Meta */
-    .section-head {
+    /* Netflix Horizontal Rows */
+    .netflix-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .row-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .row-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
+      gap: 10px;
+    }
+
+    .row-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .row-scroller {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(154px, 172px);
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--surface-3) transparent;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .row-scroller > .card {
+      scroll-snap-align: start;
+    }
+
+    /* Section Header */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
       gap: 12px;
       flex-wrap: wrap;
     }
 
     .section-title {
       font-size: 1.2rem;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: -0.015em;
     }
 
     .result-meta {
-      font-size: 0.86rem;
+      font-size: 0.83rem;
       color: var(--muted);
     }
 
-    /* Grid */
+    /* Poster Grid */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 16px;
     }
 
     .card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: var(--radius);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      transition: transform 0.22s var(--ease), border-color 0.22s var(--ease), box-shadow 0.22s var(--ease);
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 255, 255, 0.22);
-      box-shadow: var(--shadow);
+      transform: translateY(-4px) scale(1.012);
+      border-color: rgba(229, 9, 20, 0.55);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.72);
+      z-index: 2;
     }
 
     .poster-box {
@@ -363,56 +606,79 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.28s var(--ease);
+    }
+
+    .card:hover .poster-box img {
+      transform: scale(1.04);
+    }
+
+    /* Large Bold #1 - #10 Rank Badges */
+    .rank-badge-large {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: linear-gradient(135deg, var(--accent-2) 0%, #8e030a 100%);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 7px;
+      font-size: 0.92rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.72);
     }
 
     .rating-pill {
       position: absolute;
-      top: 9px;
-      left: 9px;
-      background: rgba(9, 11, 16, 0.85);
+      top: 8px;
+      left: 8px;
+      background: rgba(5, 6, 8, 0.88);
       backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 0.78rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 0.74rem;
       font-weight: 700;
       color: var(--gold);
     }
 
     .save-btn {
       position: absolute;
-      top: 9px;
-      right: 9px;
-      width: 32px;
-      height: 32px;
+      top: 8px;
+      right: 8px;
+      width: 29px;
+      height: 29px;
       border-radius: 50%;
-      background: rgba(9, 11, 16, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(5, 6, 8, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       display: grid;
       place-items: center;
-      font-size: 0.92rem;
-      transition: background 0.18s, transform 0.15s;
+      font-size: 0.88rem;
+      transition: background 0.16s var(--ease), transform 0.15s var(--ease);
     }
 
     .save-btn:hover,
     .save-btn.saved {
       background: var(--accent);
+      border-color: var(--accent);
       color: #fff;
     }
 
     .card-body {
-      padding: 12px;
+      padding: 9px 10px 11px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
       flex: 1;
       cursor: pointer;
     }
 
     .card-title {
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      line-height: 1.3;
+      line-height: 1.26;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -420,7 +686,7 @@
     }
 
     .card-sub {
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       color: var(--muted);
       display: flex;
       align-items: center;
@@ -431,68 +697,59 @@
 
     .type-badge {
       text-transform: uppercase;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
       padding: 2px 6px;
-      border-radius: 6px;
-      background: var(--surface-2);
-      color: var(--text);
+      border-radius: 4px;
+      background: rgba(229, 9, 20, 0.16);
+      color: #ff6b72;
     }
 
-    /* Non-intrusive Banner Ad Container below Grid */
-    .ad-banner-wrap {
-      margin-top: 28px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 18px;
+    /* Exact-Fit Ad Slot with Small Corner Sponsored Tag */
+    .ad-slot {
+      margin: 22px auto;
+      width: fit-content;
+      max-width: 100%;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
     }
 
-    .ad-banner-tag {
-      font-size: 0.68rem;
+    .ad-corner-tag {
+      font-size: 0.6rem;
+      line-height: 1;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
       color: var(--muted);
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-weight: 700;
-      flex-shrink: 0;
+      background: rgba(19, 23, 34, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
     }
 
-    .ad-banner-content {
-      flex: 1 1 260px;
-      min-height: 36px;
+    .ad-box {
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 100%;
     }
 
-    .ad-promo-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .ad-promo-link:hover {
-      color: var(--gold);
+    .ad-box iframe {
+      display: block;
+      border: 0;
+      max-width: 100%;
     }
 
     /* Load More Bar */
     .load-more-wrap {
-      margin-top: 22px;
+      margin-top: 24px;
       display: flex;
       justify-content: center;
     }
@@ -515,18 +772,19 @@
       font-size: 0.92rem;
     }
 
-    /* Modal */
+    /* Modal with isolated scrolling so background page never moves */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       z-index: 60;
-      background: rgba(5, 7, 11, 0.84);
+      background: rgba(4, 5, 8, 0.88);
       backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
       padding: 18px;
-      overflow-y: auto;
+      overflow: hidden;
+      overscroll-behavior: contain;
     }
 
     .modal-backdrop.open {
@@ -538,10 +796,12 @@
       max-width: 840px;
       max-height: 90vh;
       overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.78);
       position: relative;
     }
 
@@ -551,12 +811,12 @@
       float: right;
       margin: 12px 12px 0 0;
       z-index: 5;
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: rgba(9, 11, 16, 0.88);
+      background: rgba(5, 6, 8, 0.9);
       border: 1px solid var(--border);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       display: grid;
       place-items: center;
     }
@@ -567,7 +827,7 @@
 
     .modal-hero {
       display: grid;
-      grid-template-columns: 215px 1fr;
+      grid-template-columns: 210px 1fr;
       gap: 20px;
       padding: 22px;
     }
@@ -575,13 +835,13 @@
     .modal-poster {
       width: 100%;
       aspect-ratio: 2 / 3;
-      border-radius: 12px;
+      border-radius: 10px;
       object-fit: cover;
       background: var(--surface-2);
     }
 
     .modal-title {
-      font-size: 1.5rem;
+      font-size: 1.48rem;
       font-weight: 800;
       line-height: 1.2;
     }
@@ -591,20 +851,20 @@
       flex-wrap: wrap;
       gap: 8px;
       margin: 10px 0 14px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       color: var(--muted);
     }
 
     .modal-meta span {
       background: var(--surface-2);
       padding: 4px 10px;
-      border-radius: 8px;
+      border-radius: 6px;
       border: 1px solid var(--border);
     }
 
     .modal-overview {
-      font-size: 0.94rem;
-      color: #d7deed;
+      font-size: 0.93rem;
+      color: #dbe2f0;
       margin-bottom: 16px;
     }
 
@@ -614,7 +874,7 @@
     }
 
     .modal-section h3 {
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 700;
       margin-bottom: 10px;
     }
@@ -631,7 +891,7 @@
       background: var(--surface-2);
       border: 1px solid var(--border);
       padding: 6px 12px;
-      border-radius: 10px;
+      border-radius: 8px;
       font-size: 0.82rem;
     }
 
@@ -658,9 +918,9 @@
     .trailer-box {
       position: relative;
       aspect-ratio: 16 / 9;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
-      background: #05070b;
+      background: #040508;
       border: 1px solid var(--border);
     }
 
@@ -671,11 +931,11 @@
     }
 
     .info-note {
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       color: var(--muted);
       background: var(--surface-2);
       padding: 12px 14px;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -686,7 +946,7 @@
 
     .yt-fallback-btn {
       padding: 8px 14px;
-      border-radius: 999px;
+      border-radius: 8px;
       background: var(--accent);
       color: #fff;
       font-size: 0.8rem;
@@ -710,7 +970,7 @@
     .similar-card {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
       cursor: pointer;
       text-align: left;
@@ -735,76 +995,99 @@
     footer {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 20px;
+      padding: 22px 20px 30px;
       border-top: 1px solid var(--border);
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 720px) {
+      .spot-slide {
+        grid-template-columns: 1fr;
+        padding: 18px 15px;
+      }
+      .spot-poster-card {
+        width: 145px;
+        margin: 4px auto 0;
+      }
     }
 
     @media (max-width: 640px) {
+      main {
+        padding: 14px 14px 48px;
+      }
+      .search-row {
+        grid-template-columns: 1fr;
+      }
       .modal-hero {
         grid-template-columns: 1fr;
       }
       .modal-poster {
-        max-width: 190px;
+        max-width: 185px;
         margin: 0 auto;
       }
       .grid {
-        grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 11px;
+      }
+      .row-scroller {
+        grid-auto-columns: minmax(136px, 150px);
+      }
+      .ad-slot {
+        margin: 18px auto;
       }
     }
   </style>
-    <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "CineVault",
-    "url": "[https://cinevault.space/](https://cinevault.space/)" ,
-    "description": "Explore trending movies and TV series, watch trailers, check where to stream, and build your personal watchlist.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "[https://cinevault.space/](https://cinevault.space/)?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
 </head>
 <body>
   <header>
     <div class="nav-wrap">
       <a class="brand" href="#top" id="homeLink">
-        <span class="brand-badge">▶</span>
+        <span class="brand-mark" aria-hidden="true">▶</span>
         <span>CineVault</span>
       </a>
 
-      <div class="nav-actions">
+      <nav class="nav-actions" aria-label="Primary Navigation">
         <button class="pill-btn active" id="catalogTabBtn" type="button">Explore</button>
         <a class="pill-btn" href="guides.html">Guides</a>
         <button class="pill-btn" id="watchlistTabBtn" type="button">
           Watchlist <span class="count-tag" id="watchlistCount">0</span>
         </button>
-      </div>
+      </nav>
     </div>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <h1>Movies &amp; Series</h1>
-      <p>Browse trending releases, search titles, watch trailers, check where to stream, and save favorites to your watchlist.</p>
+    <!-- Top Horizontal Swipeable Netflix Spotlight Strip -->
+    <section class="spotlight-strip" id="spotlightStrip" aria-label="Featured Spotlight Swipe Strip"></section>
 
-      <form class="search-row" id="searchForm">
+    <!-- Search Bar Below Spotlight -->
+    <section class="search-section" aria-label="Search Catalog">
+      <form class="search-row" id="searchForm" role="search">
         <div class="search-input-wrap">
           <input
             class="search-input"
             id="searchInput"
             type="search"
-            placeholder="Search movies or TV series..."
+            placeholder="Search movies, series, or genres..."
             autocomplete="off"
+            aria-label="Search movies or TV series"
           />
           <button class="clear-btn" id="clearSearchBtn" type="button" title="Clear search" aria-label="Clear search">✕</button>
         </div>
@@ -812,7 +1095,8 @@
       </form>
     </section>
 
-    <section class="filters" aria-label="Filters">
+    <!-- Type, Sort & Genre Filters -->
+    <section class="filters" aria-label="Catalog Filters">
       <div class="filter-row">
         <div class="chip-group" id="typeChips">
           <button class="chip active" data-type="all" type="button">All</button>
@@ -831,6 +1115,15 @@
       <div class="chip-group" id="genreChips"></div>
     </section>
 
+    <!-- Exact-fit Top Ad Slot -->
+    <div class="ad-slot" id="adSlotTop" aria-label="Sponsored">
+      <span class="ad-corner-tag">Sponsored</span>
+      <div class="ad-box" id="adBoxTop"></div>
+    </div>
+
+    <!-- Netflix-style Horizontal Category Rows -->
+    <section class="netflix-rows" id="netflixRowsSection" aria-label="Curated Rows"></section>
+
     <div class="section-head">
       <h2 class="section-title" id="sectionTitle">Trending Now</h2>
       <span class="result-meta" id="resultMeta"></span>
@@ -838,11 +1131,11 @@
 
     <section class="grid" id="movieGrid" aria-live="polite"></section>
 
-    <!-- Non-intrusive Banner Ad Slot below the movie grid -->
-    <aside class="ad-banner-wrap" id="adBannerSlot" aria-label="Sponsored Banner">
-      <span class="ad-banner-tag">Sponsored</span>
-      <div class="ad-banner-content" id="adBannerInner"></div>
-    </aside>
+    <!-- Exact-fit Mid Ad Slot -->
+    <div class="ad-slot" id="adSlotMid" aria-label="Sponsored">
+      <span class="ad-corner-tag">Sponsored</span>
+      <div class="ad-box" id="adBoxMid"></div>
+    </div>
 
     <div class="load-more-wrap" id="loadMoreWrap">
       <button class="primary-btn" style="padding: 12px 24px;" id="loadMoreBtn" type="button">Load More Titles</button>
@@ -850,27 +1143,24 @@
   </main>
 
   <div class="modal-backdrop" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal">
+    <div class="modal" id="modalBox">
       <button class="modal-close" id="closeDetailModal" type="button" aria-label="Close modal">✕</button>
       <div id="detailContent"></div>
     </div>
   </div>
 
   <footer>
-    <span>CineVault</span>
-    <span>Watchlist saved locally in your browser</span>
+    <span>CineVault — Movies &amp; Series Discovery</span>
+    <div class="footer-links">
+      <a href="/movie/index.html">Movies &amp; Streaming Directory</a>
+      <span>Watchlist saved locally in your browser</span>
+    </div>
   </footer>
 
   <script>
     (function () {
       "use strict";
 
-      /* =========================================================================
-         CONFIGURATION (For Owner / Developer Only)
-         - API_PROXY_URL / DIRECT_TMDB_V3_KEY: connect your TMDB feed.
-         - PROVIDER_AFFILIATE_LINKS: map platform names to your affiliate URLs.
-         - DEFAULT_AFFILIATE_URL: optional fallback link for unmapped platforms.
-      ========================================================================= */
       const API_PROXY_URL = "";
       const DIRECT_TMDB_V3_KEY = "45bfb471ba5d77a724bbdc3f147bb1b3";
       const WATCH_REGION = "US";
@@ -893,16 +1183,23 @@
 
       const DEFAULT_AFFILIATE_URL = "";
 
-      const AD_SLOT_CONFIG = {
-        enabled: true,
-        label: "Featured Partner",
-        title: "Upgrade Your Movie Night Setup — Explore Streaming & Gear Deals",
-        ctaText: "View Offer",
-        linkUrl: "",
-        customScriptHtml: ""
+      const AD_UNITS = {
+        banner300x250: {
+          key: "cb17739f8f80ca9d8e38e8633ea77f9f",
+          src: "https://bancadeltempoidea.org/22/cb17739f8f80ca9d8e38e8633ea77f9f",
+          width: 300,
+          height: 250
+        },
+        leader728x90: {
+          key: "ca33325a131a107bdffe9c71cd1a39a2",
+          src: "https://bancadeltempoidea.org/22/ca33325a131a107bdffe9c71cd1a39a2",
+          width: 728,
+          height: 90
+        }
       };
 
-      const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
+      const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w500";
+      const TMDB_BACKDROP_BASE = "https://image.tmdb.org/t/p/w1280";
       const WATCHLIST_KEY = "cinevault_watchlist_v2";
 
       const GENRE_MAP = {
@@ -939,6 +1236,7 @@
           popularity: 99,
           runtime: "2h 18m",
           poster_path: "",
+          backdrop_path: "",
           genres: ["scifi", "thriller"],
           genreLabels: ["Sci-Fi", "Thriller"],
           accent: ["#e50914", "#2b1055"],
@@ -957,6 +1255,7 @@
           popularity: 96,
           runtime: "2 Seasons",
           poster_path: "",
+          backdrop_path: "",
           genres: ["thriller", "drama"],
           genreLabels: ["Thriller", "Drama"],
           accent: ["#d97706", "#111827"],
@@ -975,6 +1274,7 @@
           popularity: 92,
           runtime: "2h 04m",
           poster_path: "",
+          backdrop_path: "",
           genres: ["action", "adventure"],
           genreLabels: ["Action", "Adventure"],
           accent: ["#0ea5e9", "#0f172a"],
@@ -993,6 +1293,7 @@
           popularity: 87,
           runtime: "1h 56m",
           poster_path: "",
+          backdrop_path: "",
           genres: ["drama", "comedy"],
           genreLabels: ["Drama", "Comedy"],
           accent: ["#ec4899", "#1e1b4b"],
@@ -1011,6 +1312,7 @@
           popularity: 94,
           runtime: "1 Season",
           poster_path: "",
+          backdrop_path: "",
           genres: ["scifi", "action"],
           genreLabels: ["Sci-Fi", "Action"],
           accent: ["#10b981", "#064e3b"],
@@ -1029,6 +1331,7 @@
           popularity: 83,
           runtime: "2h 11m",
           poster_path: "",
+          backdrop_path: "",
           genres: ["adventure", "drama"],
           genreLabels: ["Adventure", "Drama"],
           accent: ["#f59e0b", "#451a03"],
@@ -1123,7 +1426,17 @@
 
       function getPosterUrl(item) {
         if (item.poster_path) {
-          return `${TMDB_IMAGE_BASE}${item.poster_path}`;
+          return `${TMDB_POSTER_BASE}${item.poster_path}`;
+        }
+        return getFallbackPoster(item);
+      }
+
+      function getBackdropUrl(item) {
+        if (item.backdrop_path) {
+          return `${TMDB_BACKDROP_BASE}${item.backdrop_path}`;
+        }
+        if (item.poster_path) {
+          return `${TMDB_POSTER_BASE}${item.poster_path}`;
         }
         return getFallbackPoster(item);
       }
@@ -1164,65 +1477,61 @@
         watchlistTabBtn: document.getElementById("watchlistTabBtn"),
         watchlistCount: document.getElementById("watchlistCount"),
         homeLink: document.getElementById("homeLink"),
+        spotlightStrip: document.getElementById("spotlightStrip"),
         searchForm: document.getElementById("searchForm"),
         searchInput: document.getElementById("searchInput"),
         clearSearchBtn: document.getElementById("clearSearchBtn"),
         typeChips: document.getElementById("typeChips"),
         genreChips: document.getElementById("genreChips"),
         sortSelect: document.getElementById("sortSelect"),
+        netflixRowsSection: document.getElementById("netflixRowsSection"),
         sectionTitle: document.getElementById("sectionTitle"),
         resultMeta: document.getElementById("resultMeta"),
         movieGrid: document.getElementById("movieGrid"),
-        adBannerSlot: document.getElementById("adBannerSlot"),
-        adBannerInner: document.getElementById("adBannerInner"),
+        adBoxTop: document.getElementById("adBoxTop"),
+        adBoxMid: document.getElementById("adBoxMid"),
         loadMoreWrap: document.getElementById("loadMoreWrap"),
         loadMoreBtn: document.getElementById("loadMoreBtn"),
         detailModal: document.getElementById("detailModal"),
+        modalBox: document.getElementById("modalBox"),
         detailContent: document.getElementById("detailContent"),
         closeDetailModal: document.getElementById("closeDetailModal")
       };
 
+      function buildFittedAd(unit) {
+        const scriptHtml = `<script>atOptions={'key':'${unit.key}','format':'iframe','height':${unit.height},'width':${unit.width},'params':{}};<\/script><script data-cfasync="false" src="${unit.src}"><\/script>`;
+        const srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;width:${unit.width}px;height:${unit.height}px;background:transparent;overflow:hidden;display:flex;align-items:center;justify-content:center;}</style></head><body>${scriptHtml}</body></html>`;
+
+        const iframe = document.createElement("iframe");
+        iframe.width = String(unit.width);
+        iframe.height = String(unit.height);
+        iframe.style.width = `${unit.width}px`;
+        iframe.style.height = `${unit.height}px`;
+        iframe.style.maxWidth = "100%";
+        iframe.setAttribute("scrolling", "no");
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("loading", "lazy");
+        iframe.srcdoc = srcdoc;
+        return iframe;
+      }
+
       function mountAdBanner() {
-        if (!AD_SLOT_CONFIG.enabled) {
-          els.adBannerSlot.style.display = "none";
-          return;
-        }
-        els.adBannerSlot.style.display = "flex";
+        const isDesktop = window.matchMedia && window.matchMedia("(min-width: 780px)").matches;
 
-        const rawScript = (AD_SLOT_CONFIG.customScriptHtml || "").trim();
-        if (rawScript) {
-          els.adBannerInner.innerHTML = "";
-          const temp = document.createElement("div");
-          temp.innerHTML = rawScript;
-          Array.from(temp.childNodes).forEach((node) => {
-            if (node.nodeName === "SCRIPT") {
-              const s = document.createElement("script");
-              Array.from(node.attributes).forEach((attr) => s.setAttribute(attr.name, attr.value));
-              s.textContent = node.textContent || "";
-              els.adBannerInner.appendChild(s);
-            } else {
-              els.adBannerInner.appendChild(node.cloneNode(true));
-            }
-          });
-          return;
+        if (els.adBoxTop) {
+          els.adBoxTop.innerHTML = "";
+          const topUnit = isDesktop ? AD_UNITS.leader728x90 : AD_UNITS.banner300x250;
+          els.adBoxTop.style.width = `${topUnit.width}px`;
+          els.adBoxTop.style.height = `${topUnit.height}px`;
+          els.adBoxTop.appendChild(buildFittedAd(topUnit));
         }
 
-        const safeUrl = (AD_SLOT_CONFIG.linkUrl || "").trim();
-        if (/^https?:\/\//i.test(safeUrl)) {
-          els.adBannerInner.innerHTML = `
-            <a class="ad-promo-link" href="${escapeAttr(safeUrl)}" target="_blank" rel="noopener noreferrer sponsored">
-              <span>${escapeHtml(AD_SLOT_CONFIG.title || "Sponsored Partner")}</span>
-            </a>
-            <a class="pill-btn" href="${escapeAttr(safeUrl)}" target="_blank" rel="noopener noreferrer sponsored">
-              ${escapeHtml(AD_SLOT_CONFIG.ctaText || "Learn More")} ↗
-            </a>
-          `;
-        } else {
-          els.adBannerInner.innerHTML = `
-            <span style="font-size: 0.85rem; color: var(--muted);">
-              Ad slot ready — add a <code>linkUrl</code> or <code>customScriptHtml</code> in <code>AD_SLOT_CONFIG</code>.
-            </span>
-          `;
+        if (els.adBoxMid) {
+          els.adBoxMid.innerHTML = "";
+          const midUnit = AD_UNITS.banner300x250;
+          els.adBoxMid.style.width = `${midUnit.width}px`;
+          els.adBoxMid.style.height = `${midUnit.height}px`;
+          els.adBoxMid.appendChild(buildFittedAd(midUnit));
         }
       }
 
@@ -1282,6 +1591,7 @@
           popularity: Number(r.popularity || 50),
           runtime: isTv ? "TV Series" : "Feature Film",
           poster_path: r.poster_path || "",
+          backdrop_path: r.backdrop_path || "",
           genres: mappedKeys,
           genreLabels: mappedLabels,
           accent: fallbackItem.accent,
@@ -1297,6 +1607,8 @@
           state.items = FALLBACK_ITEMS.slice();
           state.page = 1;
           state.totalPages = 1;
+          renderSpotlightStrip();
+          renderNetflixRows();
           renderGrid();
           return;
         }
@@ -1350,6 +1662,8 @@
           }
         } finally {
           state.isLoadingPage = false;
+          renderSpotlightStrip();
+          renderNetflixRows();
           renderGrid();
         }
       }
@@ -1368,6 +1682,12 @@
 
           if (detailsRes.status === "fulfilled" && detailsRes.value.ok) {
             const d = await detailsRes.value.json();
+            if (d.backdrop_path && !item.backdrop_path) {
+              item.backdrop_path = d.backdrop_path;
+            }
+            if (d.poster_path && !item.poster_path) {
+              item.poster_path = d.poster_path;
+            }
             if (Array.isArray(d.genres) && d.genres.length) {
               item.genreLabels = d.genres.map((g) => g.name).filter(Boolean);
             }
@@ -1440,7 +1760,163 @@
         }
         saveWatchlist(state.watchlist);
         updateWatchlistBadge();
+        renderSpotlightStrip();
+        renderNetflixRows();
         renderGrid();
+      }
+
+      function renderSpotlightStrip() {
+        const pool = state.items.length ? state.items : FALLBACK_ITEMS;
+        const featured = pool.slice(0, Math.min(pool.length, 6));
+        if (!featured.length) return;
+
+        els.spotlightStrip.innerHTML = featured
+          .map((item, idx) => {
+            const typeLabel = item.media_type === "tv" ? "Series" : "Movie";
+            const saved = isSaved(item.id);
+            const poster = getPosterUrl(item);
+            const fallback = getFallbackPoster(item);
+            const backdrop = getBackdropUrl(item);
+            const headingTag = idx === 0 ? "h1" : "h2";
+
+            return `
+              <article class="spot-slide" style="background-image: url('${escapeAttr(backdrop)}');">
+                <div class="spot-body">
+                  <div class="spot-badge-row">
+                    <span class="spot-rank-big">#${idx + 1} TRENDING</span>
+                  </div>
+                  <${headingTag}>${escapeHtml(item.title)}</${headingTag}>
+                  <div class="spot-tags">
+                    <span class="spot-gold">★ ${Number(item.rating || 7.5).toFixed(1)}</span>
+                    <span>${item.year || "—"}</span>
+                    <span>${escapeHtml(typeLabel)}</span>
+                    <span>${escapeHtml((item.genreLabels || []).slice(0, 2).join(" • ") || "Featured")}</span>
+                  </div>
+                  <p class="spot-desc">${escapeHtml(item.overview || "Synopsis not available.")}</p>
+                  <div class="spot-actions">
+                    <button class="primary-btn" data-spot-watch="${escapeAttr(item.id)}" type="button">▶ Watch Trailer</button>
+                    <button class="secondary-btn" data-spot-save="${escapeAttr(item.id)}" type="button">${saved ? "✓ In Watchlist" : "+ My Watchlist"}</button>
+                  </div>
+                </div>
+                <div class="spot-poster-card" data-spot-watch="${escapeAttr(item.id)}" title="Open title details">
+                  <img
+                    src="${poster}"
+                    alt="${escapeAttr(item.title)} poster"
+                    loading="eager"
+                    onerror="if(this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
+                    data-fb="${escapeAttr(fallback)}"
+                  />
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+
+        els.spotlightStrip.querySelectorAll("[data-spot-watch]").forEach((el) => {
+          el.addEventListener("click", () => {
+            const found = findItemById(el.getAttribute("data-spot-watch"));
+            if (found) openDetailModal(found);
+          });
+        });
+
+        els.spotlightStrip.querySelectorAll("[data-spot-save]").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const found = findItemById(btn.getAttribute("data-spot-save"));
+            if (found) toggleWatchlist(found);
+          });
+        });
+      }
+
+      function renderCardHtml(item, rankNum = 0) {
+        const poster = getPosterUrl(item);
+        const fallback = getFallbackPoster(item);
+        const saved = isSaved(item.id);
+        const typeLabel = item.media_type === "tv" ? "Series" : "Movie";
+        const rankHtml = rankNum > 0 ? `<span class="rank-badge-large">#${rankNum}</span>` : "";
+        return `
+          <article class="card">
+            <div class="poster-box" data-open="${escapeAttr(item.id)}">
+              <img
+                src="${poster}"
+                alt="${escapeAttr(item.title)} (${typeLabel}, ${item.year || "2025"}) poster"
+                loading="lazy"
+                onerror="if(this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
+                data-fb="${escapeAttr(fallback)}"
+              />
+              <span class="rating-pill">★ ${Number(item.rating || 7.5).toFixed(1)}</span>
+              ${rankHtml}
+              <button
+                class="save-btn ${saved ? "saved" : ""}"
+                data-save="${escapeAttr(item.id)}"
+                type="button"
+                title="${saved ? "Remove from watchlist" : "Add to watchlist"}"
+                aria-label="${saved ? "Remove from watchlist" : "Add to watchlist"}"
+              >${saved ? "✓" : "+"}</button>
+            </div>
+            <div class="card-body" data-open="${escapeAttr(item.id)}">
+              <h3 class="card-title">${escapeHtml(item.title)}</h3>
+              <div class="card-sub">
+                <span>${item.year || "—"}</span>
+                <span class="type-badge">${typeLabel}</span>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      function bindCardEvents(container) {
+        if (!container) return;
+        container.querySelectorAll("[data-open]").forEach((el) => {
+          el.addEventListener("click", () => {
+            const found = findItemById(el.getAttribute("data-open"));
+            if (found) openDetailModal(found);
+          });
+        });
+
+        container.querySelectorAll("[data-save]").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const found = findItemById(btn.getAttribute("data-save"));
+            if (found) toggleWatchlist(found);
+          });
+        });
+      }
+
+      function renderNetflixRows() {
+        const showRows = state.view === "explore" && !state.query.trim() && state.genre === "all" && state.mediaType === "all";
+        if (!showRows) {
+          els.netflixRowsSection.style.display = "none";
+          els.netflixRowsSection.innerHTML = "";
+          return;
+        }
+
+        const base = state.items.length ? state.items : FALLBACK_ITEMS;
+        const top10Trending = base.slice(0, 10);
+        const topRated = base.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 10);
+
+        const rows = [
+          { id: "rowTop10", title: "Top 10 Trending Today", items: top10Trending, ranked: true },
+          { id: "rowTopRated", title: "Top Rated Picks", items: topRated, ranked: false }
+        ];
+
+        els.netflixRowsSection.style.display = "flex";
+        els.netflixRowsSection.innerHTML = rows
+          .map(
+            (r) => `
+          <div class="row-block">
+            <div class="row-header">
+              <h2 class="row-title">${escapeHtml(r.title)}</h2>
+            </div>
+            <div class="row-scroller" id="${r.id}">
+              ${r.items.map((it, idx) => renderCardHtml(it, r.ranked ? idx + 1 : 0)).join("")}
+            </div>
+          </div>
+        `
+          )
+          .join("");
+
+        bindCardEvents(els.netflixRowsSection);
       }
 
       function getFilteredItems() {
@@ -1487,6 +1963,7 @@
           btn.addEventListener("click", () => {
             state.genre = btn.getAttribute("data-genre") || "all";
             renderGenreChips();
+            renderNetflixRows();
             renderGrid();
           });
         });
@@ -1507,7 +1984,7 @@
           els.sectionTitle.textContent = "My Watchlist";
           els.loadMoreWrap.style.display = "none";
         } else {
-          els.sectionTitle.textContent = state.query.trim() ? `Results for "${state.query.trim()}"` : "Trending Now";
+          els.sectionTitle.textContent = state.query.trim() ? `Results for "${state.query.trim()}"` : "All Trending Titles";
           const canLoadMore = hasTmdbSource() && state.page < state.totalPages;
           els.loadMoreWrap.style.display = canLoadMore ? "flex" : "none";
           els.loadMoreBtn.disabled = state.isLoadingPage;
@@ -1543,57 +2020,9 @@
           return;
         }
 
-        els.movieGrid.innerHTML = list
-          .map((item) => {
-            const poster = getPosterUrl(item);
-            const fallback = getFallbackPoster(item);
-            const saved = isSaved(item.id);
-            const typeLabel = item.media_type === "tv" ? "Series" : "Movie";
-            return `
-              <article class="card">
-                <div class="poster-box" data-open="${escapeAttr(item.id)}">
-                  <img
-                    src="${poster}"
-                    alt="${escapeAttr(item.title)} poster"
-                    loading="lazy"
-                    onerror="if(this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
-                    data-fb="${escapeAttr(fallback)}"
-                  />
-                  <span class="rating-pill">★ ${Number(item.rating || 7.5).toFixed(1)}</span>
-                  <button
-                    class="save-btn ${saved ? "saved" : ""}"
-                    data-save="${escapeAttr(item.id)}"
-                    type="button"
-                    title="${saved ? "Remove from watchlist" : "Add to watchlist"}"
-                    aria-label="${saved ? "Remove from watchlist" : "Add to watchlist"}"
-                  >${saved ? "✓" : "+"}</button>
-                </div>
-                <div class="card-body" data-open="${escapeAttr(item.id)}">
-                  <h3 class="card-title">${escapeHtml(item.title)}</h3>
-                  <div class="card-sub">
-                    <span>${item.year || "—"}</span>
-                    <span class="type-badge">${typeLabel}</span>
-                  </div>
-                </div>
-              </article>
-            `;
-          })
-          .join("");
-
-        els.movieGrid.querySelectorAll("[data-open]").forEach((el) => {
-          el.addEventListener("click", () => {
-            const found = findItemById(el.getAttribute("data-open"));
-            if (found) openDetailModal(found);
-          });
-        });
-
-        els.movieGrid.querySelectorAll("[data-save]").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const found = findItemById(btn.getAttribute("data-save"));
-            if (found) toggleWatchlist(found);
-          });
-        });
+        const showRanks = state.view === "explore" && !state.query.trim() && state.genre === "all" && state.sort === "popular";
+        els.movieGrid.innerHTML = list.map((it, idx) => renderCardHtml(it, showRanks && idx < 10 ? idx + 1 : 0)).join("");
+        bindCardEvents(els.movieGrid);
       }
 
       function renderModalBody(item) {
@@ -1693,14 +2122,19 @@
         els.detailContent.querySelectorAll("[data-sim]").forEach((btn) => {
           btn.addEventListener("click", () => {
             const nextItem = findItemById(btn.getAttribute("data-sim"));
-            if (nextItem) openDetailModal(nextItem);
+            if (nextItem) {
+              els.modalBox.scrollTop = 0;
+              openDetailModal(nextItem);
+            }
           });
         });
       }
 
       async function openDetailModal(item) {
         renderModalBody(item);
+        els.modalBox.scrollTop = 0;
         els.detailModal.classList.add("open");
+        document.body.classList.add("modal-open");
         const enriched = await enrichTitleDetails(item);
         if (els.detailModal.classList.contains("open")) {
           renderModalBody(enriched);
@@ -1709,6 +2143,7 @@
 
       function closeDetailModal() {
         els.detailModal.classList.remove("open");
+        document.body.classList.remove("modal-open");
         els.detailContent.innerHTML = "";
       }
 
@@ -1735,6 +2170,7 @@
         state.view = "explore";
         els.catalogTabBtn.classList.add("active");
         els.watchlistTabBtn.classList.remove("active");
+        renderNetflixRows();
         renderGrid();
       });
 
@@ -1742,6 +2178,7 @@
         state.view = "watchlist";
         els.watchlistTabBtn.classList.add("active");
         els.catalogTabBtn.classList.remove("active");
+        renderNetflixRows();
         renderGrid();
       });
 
@@ -1758,6 +2195,7 @@
         els.watchlistTabBtn.classList.remove("active");
         syncTypeChips();
         renderGenreChips();
+        if (els.spotlightStrip) els.spotlightStrip.scrollLeft = 0;
         fetchCatalogPage(1, false);
       });
 
@@ -1769,6 +2207,7 @@
           if (hasTmdbSource()) {
             fetchCatalogPage(1, false);
           } else {
+            renderNetflixRows();
             renderGrid();
           }
         }, 250);
@@ -1780,6 +2219,7 @@
         if (hasTmdbSource()) {
           fetchCatalogPage(1, false);
         } else {
+          renderNetflixRows();
           renderGrid();
         }
       });
@@ -1790,6 +2230,7 @@
         if (hasTmdbSource()) {
           fetchCatalogPage(1, false);
         } else {
+          renderNetflixRows();
           renderGrid();
         }
       });
@@ -1801,6 +2242,7 @@
           if (hasTmdbSource() && state.view === "explore") {
             fetchCatalogPage(1, false);
           } else {
+            renderNetflixRows();
             renderGrid();
           }
         });
@@ -1829,12 +2271,11 @@
       mountAdBanner();
       updateWatchlistBadge();
       renderGenreChips();
+      renderSpotlightStrip();
+      renderNetflixRows();
       renderGrid();
       fetchCatalogPage(1, false);
     })();
   </script>
-    <footer style="text-align:center; padding:20px; margin-top:30px;">
-    <a href="/movie/index.html" style="color:#e50914; text-decoration:none; font-weight:600;">Browse All Movies &amp; Streaming Directory</a>
-  </footer>
 </body>
 </html>
