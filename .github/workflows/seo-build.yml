@@ -1,43 +1,36 @@
-name: Auto-Generate Movie SEO Pages
+name: Auto Generate CineVault SEO Pages
 
 on:
   schedule:
-    - cron: '0 */8 * * *'
+    - cron: "0 */8 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build-pages:
+  build-seo-pages:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
-      - name: Run SEO page generator
-        env:
-          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+      - name: Generate SEO Movie & TV Pages + Sitemap
         run: node generate-seo.js
 
-      - name: Commit and push generated pages
+      - name: Commit and push updated pages
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add movie tv sitemap.xml
-          if git diff --staged --quiet; then
-            echo "No new changes to commit."
-            exit 0
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html movie/ tv/ sitemap.xml favicon.svg
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(seo): auto-refresh movie/tv pages and sitemap"
+            git push
+          else
+            echo "No changes to commit."
           fi
-          git commit -m "Auto-update SEO movie pages & sitemap"
-          git pull --rebase -X ours --autostash origin main
-          git push origin main
-          
