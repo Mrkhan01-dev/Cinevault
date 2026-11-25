@@ -1,29 +1,30 @@
-const fs = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
 
-const API_KEY = process.env.TMDB_API_KEY;
-const TMDB_BASE = "https://api.themoviedb.org/3";
 const SITE_URL = "https://cinevault.space";
-const MOVIE_DIR = path.join(__dirname, "movie");
-const TV_DIR = path.join(__dirname, "tv");
+const TMDB_KEY = process.env.TMDB_API_KEY || "45bfb471ba5d77a724bbdc3f147bb1b3";
+const TODAY = new Date().toISOString().split("T")[0];
 
-if (!API_KEY) {
-  console.error("Missing TMDB_API_KEY environment variable.");
-  process.exit(1);
+const REGIONS = [
+  { code: "US", name: "United States (US)" },
+  { code: "GB", name: "United Kingdom (UK)" },
+  { code: "CA", name: "Canada (CA)" },
+  { code: "PK", name: "Pakistan (PK)" },
+  { code: "IN", name: "India (IN)" },
+  { code: "AU", name: "Australia (AU)" }
+];
+
+function slugify(str) {
+  return String(str || "title")
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "title";
 }
 
-function slugify(text) {
-  return (
-    String(text || "item")
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "")
-      .slice(0, 60) || "item"
-  );
-}
-
-function escapeHtml(str) {
-  return String(str || "")
+function esc(str) {
+  return String(str ?? "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -31,771 +32,461 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
-async function fetchJSON(endpoint) {
+async function tmdb(endpoint) {
   const sep = endpoint.includes("?") ? "&" : "?";
-  const url = `${TMDB_BASE}${endpoint}${sep}api_key=${API_KEY}`;
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status} on ${TMDB_BASE}${endpoint}`);
-  }
+  const res = await fetch(`https://api.themoviedb.org/3${endpoint}${sep}api_key=${TMDB_KEY}`);
+  if (!res.ok) throw new Error(`TMDB HTTP ${res.status} for ${endpoint}`);
   return res.json();
 }
 
-function getProvidersForRegion(results, regionCode) {
-  const region = results && results[regionCode];
-  if (!region) return [];
-  const combined = [
-    ...(region.flatrate || []),
-    ...(region.free || []),
-    ...(region.ads || []),
-    ...(region.rent || []),
-  ];
-  const seen = new Set();
-  const names = [];
-  for (const p of combined) {
-    if (p && p.provider_name && !seen.has(p.provider_name)) {
-      seen.add(p.provider_name);
-      names.push(p.provider_name);
-    }
+function formatProviders(watchResults, regionCode, releaseDate) {
+  const entry = watchResults?.[regionCode];
+  if (!entry) {
+    return releaseDate && releaseDate > TODAY
+      ? `Scheduled for release (${releaseDate}); streaming & VOD follow.`
+      : `Check local digital VOD & subscription listings.`;
   }
-  return names.slice(0, 6);
+  const stream = (entry.flatrate || []).map((p) => p.provider_name);
+  const rentBuy = [...(entry.rent || []), ...(entry.buy || [])]
+    .map((p) => p.provider_name)
+    .filter((v, i, a) => a.indexOf(v) === i);
+
+  const parts = [];
+  if (stream.length) parts.push(`Stream: ${stream.slice(0, 4).join(", ")}`);
+  if (rentBuy.length) parts.push(`Rent/Buy: ${rentBuy.slice(0, 3).join(", ")}`);
+  return parts.length ? parts.join(" • ") : `Available via regional digital storefronts.`;
 }
 
-function buildAdBannerHtml() {
-  const adCode = `<script>atOptions={'key':'b570c351ca5a05131ca8916fc6b23f71','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src="https://bancadeltempoidea.org/22/b570c351ca5a05131ca8916fc6b23f71"><\/script>`;
-  const srcdoc = escapeHtml(
-    `<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;background:transparent;overflow:hidden;display:flex;justify-content:center;}</style></head><body>${adCode}</body></html>`
-  );
+function sharedStyles() {
   return `
-  <div class="ad-strip" aria-label="Sponsored">
-    <span class="ad-label">Sponsored</span>
-    <iframe width="320" height="50" scrolling="no" frameborder="0" loading="lazy" style="border:0;max-width:100%;display:block;" srcdoc="${srcdoc}"></iframe>
-  </div>`;
-}
-
-function getSharedStyles(backdropUrl) {
-  return `
-    :root {
-      --bg: #090b10; --surface: #111520; --surface-2: #181e2e;
-      --text: #f3f6fc; --muted: #9aa5be; --accent: #e50914;
-      --gold: #f5b942; --border: rgba(255,255,255,0.09); --max: 980px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: radial-gradient(circle at top right, #181c2e 0%, var(--bg) 55%);
-      color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.65;
-    }
-    a { color: inherit; text-decoration: none; }
-    header {
-      position: sticky; top: 0; z-index: 40;
-      backdrop-filter: blur(14px); background: rgba(9,11,16,0.92);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav {
-      max-width: var(--max); margin: 0 auto; padding: 14px 20px;
-      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
-    }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; }
-    .badge {
-      width: 30px; height: 30px; border-radius: 8px;
-      background: linear-gradient(135deg, var(--accent), #99040c);
-      display: grid; place-items: center; font-size: 0.85rem;
-    }
-    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
-    .nav-btn {
-      padding: 7px 13px; border-radius: 999px; background: var(--surface-2);
-      border: 1px solid var(--border); font-size: 0.82rem; font-weight: 600;
-    }
-    .nav-btn:hover { border-color: rgba(255,255,255,0.25); }
-    main { max-width: var(--max); margin: 0 auto; padding: 24px 20px 60px; }
-    .hero-grid {
-      position: relative; overflow: hidden;
-      display: grid; grid-template-columns: 220px 1fr; gap: 22px;
-      background: ${
-        backdropUrl
-          ? `linear-gradient(135deg, rgba(9,11,16,0.94) 35%, rgba(17,21,32,0.84) 100%), url('${backdropUrl}') center/cover no-repeat`
-          : "var(--surface)"
-      };
-      border: 1px solid var(--border);
-      border-radius: 18px; padding: 24px; margin-bottom: 20px;
-    }
-    @media (max-width: 680px) {
-      .hero-grid { grid-template-columns: 1fr; padding: 18px; }
-      .poster { max-width: 200px; margin: 0 auto; }
-    }
-    .poster { width: 100%; border-radius: 12px; display: block; border: 1px solid var(--border); box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
-    .type-tag {
-      display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #fff; background: var(--accent);
-      padding: 3px 10px; border-radius: 6px; margin-bottom: 8px;
-    }
-    h1 { font-size: clamp(1.45rem, 3vw, 2.05rem); line-height: 1.22; margin-bottom: 10px; }
-    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; font-size: 0.82rem; color: var(--gold); font-weight: 600; }
-    .meta span { background: rgba(24,30,46,0.9); padding: 4px 10px; border-radius: 8px; border: 1px solid var(--border); }
-    .overview { color: #e2e8f5; font-size: 0.95rem; margin-bottom: 16px; }
-    .cta {
-      display: inline-block; padding: 10px 18px; border-radius: 10px;
-      background: var(--accent); color: #fff; font-weight: 700; font-size: 0.88rem;
-    }
-    .card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 16px; padding: 20px; margin-bottom: 18px;
-    }
-    .card h2 { font-size: 1.15rem; margin-bottom: 12px; }
-    .region-row { margin-bottom: 12px; }
-    .region-title { font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill {
-      background: var(--surface-2); border: 1px solid var(--border);
-      padding: 5px 12px; border-radius: 999px; font-size: 0.84rem; font-weight: 600;
-    }
-    .seasons-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px;
-    }
-    .season-box {
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 10px 12px;
-    }
-    .season-box strong { display: block; font-size: 0.9rem; margin-bottom: 2px; }
-    .season-box span { font-size: 0.78rem; color: var(--muted); }
-    .related-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px;
-    }
-    .rel-card {
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: 12px; overflow: hidden; display: block; transition: transform 0.18s ease;
-    }
-    .rel-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.25); }
-    .rel-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
-    .rel-title { padding: 8px 10px; font-size: 0.82rem; font-weight: 700; line-height: 1.3; }
-    .muted { color: var(--muted); font-size: 0.86rem; }
-    .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; }
-    .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-    .ad-strip {
-      margin: 18px 0; padding: 12px 16px; background: rgba(17,21,32,0.92);
-      border: 1px solid var(--border); border-radius: 14px;
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
-    }
-    .ad-label {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--muted); background: var(--surface-2); border: 1px solid var(--border);
-      padding: 3px 9px; border-radius: 999px;
-    }
-    footer {
-      max-width: var(--max); margin: 0 auto; padding: 20px; border-top: 1px solid var(--border);
-      color: var(--muted); font-size: 0.82rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
-    }
+    :root{--bg:#090b10;--surface:#111520;--surface-2:#181e2e;--text:#f3f6fc;--muted:#a3aec6;--accent:#e50914;--accent-hover:#ff1e2d;--gold:#f5b942;--border:rgba(255,255,255,.1);--max:1020px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:radial-gradient(circle at top right,#181c2e 0%,var(--bg) 55%);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    header{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rgba(9,11,16,.94);border-bottom:1px solid var(--border)}
+    .nav{max-width:var(--max);margin:0 auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+    .badge{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#99040c);display:grid;place-items:center;font-size:.85rem;color:#fff}
+    .nav-links{display:flex;gap:8px;flex-wrap:wrap}
+    .nav-btn{padding:7px 13px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);font-size:.82rem;font-weight:600}
+    .nav-btn:hover{border-color:rgba(255,255,255,.28);background:#20283d}
+    main{max-width:var(--max);margin:0 auto;padding:18px 20px 60px}
+    .breadcrumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:.8rem;color:var(--muted);margin-bottom:14px}
+    .breadcrumbs a:hover{color:var(--text);text-decoration:underline}
+    .hero-grid{position:relative;overflow:hidden;display:grid;grid-template-columns:220px 1fr;gap:24px;border:1px solid var(--border);border-radius:18px;padding:24px;margin-bottom:20px}
+    @media(max-width:680px){.hero-grid{grid-template-columns:1fr;padding:18px;gap:18px}.poster{max-width:195px;margin:0 auto}}
+    .poster{width:100%;height:auto;aspect-ratio:2/3;border-radius:12px;display:block;border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,.55);background:var(--surface-2)}
+    .type-tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--accent);padding:3px 10px;border-radius:6px;margin-bottom:8px}
+    h1{font-size:clamp(1.45rem,3vw,2.05rem);line-height:1.22;margin-bottom:10px}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;font-size:.82rem;color:var(--gold);font-weight:600}
+    .meta span{background:rgba(24,30,46,.92);padding:4px 10px;border-radius:8px;border:1px solid var(--border)}
+    .overview{color:#e2e8f5;font-size:.95rem;margin-bottom:16px}
+    .cta{display:inline-block;padding:10px 18px;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;font-size:.88rem}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:18px}
+    .card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .card h2{font-size:1.15rem}
+    .card-lead{color:#d5deef;font-size:.91rem;margin-bottom:14px}
+    select.region-select{background:var(--surface-2);color:var(--text);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:.84rem;font-weight:600}
+    .region-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .region-box{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+    .region-box.active-region{border-color:var(--gold)}
+    .region-title{font-size:.85rem;font-weight:700;color:var(--gold);margin-bottom:4px}
+    .region-note{font-size:.83rem;color:var(--muted)}
+    .pills{display:flex;flex-wrap:wrap;gap:8px}
+    .pill{background:var(--surface-2);border:1px solid var(--border);padding:6px 12px;border-radius:999px;font-size:.84rem;font-weight:600}
+    .faq-item{border-top:1px solid var(--border);padding:12px 0}
+    .faq-item:first-of-type{border-top:0;padding-top:2px}
+    .faq-item:last-of-type{padding-bottom:0}
+    .faq-item summary{font-weight:700;font-size:.93rem;cursor:pointer}
+    .faq-item p{margin-top:6px;font-size:.88rem;color:var(--muted)}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px}
+    .rel-card{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:block}
+    .rel-card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
+    .rel-title{padding:8px 10px;font-size:.82rem;font-weight:700;line-height:1.3}
+    .rel-sub{padding:0 10px 8px;font-size:.74rem;color:var(--gold)}
+    .pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+    .pager a{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:.84rem;font-weight:700}
+    .video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#050608}
+    .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+    .ad-strip{margin:18px auto;padding:10px 14px;background:rgba(17,21,32,.92);border:1px solid var(--border);border-radius:14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;min-height:72px}
+    .ad-label{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);padding:3px 9px;border-radius:999px}
+    footer{max-width:var(--max);margin:0 auto;padding:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   `;
 }
 
-function renderRelatedSection(items, headingText) {
-  const valid = (items || []).filter((x) => x && x.poster_path && x.slugFile).slice(0, 6);
-  if (!valid.length) return "";
-  const cards = valid
+function buildDetailPage(item, allOfSameType, indexInList) {
+  const isMovie = item.mediaType === "movie";
+  const folder = isMovie ? "movie" : "tv";
+  const hubLabel = isMovie ? "Movies" : "TV Series";
+  const schemaType = isMovie ? "Movie" : "TVSeries";
+  const pageUrl = `${SITE_URL}/${folder}/${item.slug}.html`;
+  const year = (item.releaseDate || "").slice(0, 4) || "2026";
+  const hasRating = item.voteAverage > 0 && item.voteCount > 0;
+  const ratingLabel = hasRating
+    ? `★ ${item.voteAverage.toFixed(1)} (${item.voteCount.toLocaleString()} votes)`
+    : item.releaseDate
+    ? `Release: ${item.releaseDate}`
+    : "Trending Release";
+  const runtimeLabel = isMovie
+    ? item.runtime ? `${item.runtime} min` : ""
+    : item.seasonsCount ? `${item.seasonsCount} Season${item.seasonsCount > 1 ? "s" : ""}` : "";
+  const genresText = item.genres.join(", ") || "Entertainment";
+  const topCast = item.cast.slice(0, 10);
+  const castLead = topCast.slice(0, 4).join(", ");
+
+  const regionCardsHtml = REGIONS.map(
+    (r) => `
+      <div class="region-box" data-region="${r.code}">
+        <div class="region-title">${esc(r.name)}</div>
+        <p class="region-note">${esc(formatProviders(item.watchProviders, r.code, item.releaseDate))}</p>
+      </div>`
+  ).join("");
+
+  const prevItem = allOfSameType[(indexInList - 1 + allOfSameType.length) % allOfSameType.length];
+  const nextItem = allOfSameType[(indexInList + 1) % allOfSameType.length];
+
+  const related = allOfSameType
+    .filter((x) => x.id !== item.id)
+    .slice(0, 8)
     .map(
-      (item) => `
-      <a class="rel-card" href="${item.slugFile}">
-        <img src="https://image.tmdb.org/t/p/w342${item.poster_path}" alt="${escapeHtml(item.title)}" loading="lazy" />
-        <div class="rel-title">${escapeHtml(item.title)} (${escapeHtml(item.year)})</div>
-      </a>`
+      (r) => `
+        <a class="rel-card" href="${esc(r.slug)}.html">
+          <img src="https://image.tmdb.org/t/p/w342${esc(r.posterPath)}" alt="${esc(r.title)} (${esc((r.releaseDate || "2026").slice(0, 4))}) poster" loading="lazy" />
+          <div class="rel-title">${esc(r.title)} (${esc((r.releaseDate || "2026").slice(0, 4))})</div>
+          <div class="rel-sub">${r.voteAverage > 0 ? `★ ${r.voteAverage.toFixed(1)}` : esc(r.releaseDate || "2026")}</div>
+        </a>`
     )
     .join("");
-  return `
-    <section class="card">
-      <h2>${escapeHtml(headingText)}</h2>
-      <div class="related-grid">${cards}</div>
-    </section>`;
-}
 
-function renderMoviePage(movie, credits, videos, providers, slugFile, relatedMovies) {
-  const title = movie.title || "Untitled Movie";
-  const year = (movie.release_date || "").slice(0, 4) || "2026";
-  const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
-  const runtime = movie.runtime ? `${movie.runtime} min` : "Feature Film";
-  const genres = (movie.genres || []).map((g) => g.name).join(", ") || "Movie";
-  const overview =
-    movie.overview ||
-    `Discover where to watch ${title} (${year}), check cast details, and watch the official trailer on CineVault.`;
-  const posterUrl = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : "";
-  const backdropUrl = movie.backdrop_path
-    ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`
-    : "";
-
-  const trailer = (videos.results || []).find(
-    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser")
-  );
-
-  const castList = (credits.cast || [])
-    .slice(0, 8)
-    .map((c) => c.name)
-    .filter(Boolean);
-
-  const usProviders = getProvidersForRegion(providers.results, "US");
-  const ukProviders = getProvidersForRegion(providers.results, "GB");
-  const caProviders = getProvidersForRegion(providers.results, "CA");
-
-  const canonical = `${SITE_URL}/movie/${slugFile}`;
-  const pageTitle = `Where to Watch ${title} (${year}) — Streaming, Trailer & Cast | CineVault`;
-  const metaDesc =
-    `Find where to stream ${title} (${year}) online in the US, UK, and Canada. Watch the trailer, check cast & ratings on CineVault.`.slice(
-      0,
-      160
-    );
-
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Movie",
-    name: title,
-    datePublished: movie.release_date || year,
-    description: overview,
-    image: posterUrl || undefined,
-    genre: (movie.genres || []).map((g) => g.name),
-    actor: castList.map((name) => ({ "@type": "Person", name })),
-    aggregateRating: movie.vote_count
-      ? {
-          "@type": "AggregateRating",
-          ratingValue: rating,
-          bestRating: "10",
-          ratingCount: movie.vote_count,
+  const graph = [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: hubLabel, item: `${SITE_URL}/${folder}/` },
+        { "@type": "ListItem", position: 3, name: `${item.title} (${year})`, item: pageUrl }
+      ]
+    },
+    {
+      "@type": schemaType,
+      name: item.title,
+      datePublished: item.releaseDate || undefined,
+      description: item.overview,
+      image: `https://image.tmdb.org/t/p/w500${item.posterPath}`,
+      genre: item.genres,
+      ...(hasRating ? { aggregateRating: { "@type": "AggregateRating", ratingValue: item.voteAverage.toFixed(1), bestRating: "10", ratingCount: item.voteCount } } : {}),
+      actor: topCast.map((name) => ({ "@type": "Person", name })),
+      ...(item.trailerKey ? {
+        trailer: {
+          "@type": "VideoObject",
+          name: `${item.title} Official Trailer`,
+          description: `Official trailer for ${item.title} (${year}).`,
+          thumbnailUrl: `https://image.tmdb.org/t/p/w1280${item.backdropPath || item.posterPath}`,
+          embedUrl: `https://www.youtube.com/embed/${item.trailerKey}`,
+          uploadDate: item.releaseDate || TODAY
         }
-      : undefined,
-    url: canonical,
-  };
+      } : {}),
+      url: pageUrl
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: `Where can I watch ${item.title} (${year}) online?`,
+          acceptedAnswer: { "@type": "Answer", text: `${formatProviders(item.watchProviders, "US", item.releaseDate)}` }
+        },
+        {
+          "@type": "Question",
+          name: `When was ${item.title} released?`,
+          acceptedAnswer: { "@type": "Answer", text: `${item.title} has a release date of ${item.releaseDate || year} (${genresText}).` }
+        },
+        {
+          "@type": "Question",
+          name: `Who stars in ${item.title}?`,
+          acceptedAnswer: { "@type": "Answer", text: castLead ? `Featured cast includes ${castLead}.` : `Cast details are updated from TMDB.` }
+        }
+      ]
+    }
+  ];
 
-  const renderPills = (list) =>
-    list.length
-      ? list.map((p) => `<span class="pill">${escapeHtml(p)}</span>`).join("")
-      : `<span class="muted">Check local digital &amp; VOD listings</span>`;
+  const heroBg = item.backdropPath
+    ? `linear-gradient(135deg, rgba(9,11,16,0.95) 38%, rgba(17,21,32,0.84) 100%), url('https://image.tmdb.org/t/p/w1280${item.backdropPath}') center/cover no-repeat`
+    : `linear-gradient(135deg, #0d1220 0%, #171e31 100%)`;
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(pageTitle)}</title>
-  <meta name="description" content="${escapeHtml(metaDesc)}" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="${canonical}" />
-  <meta property="og:title" content="${escapeHtml(pageTitle)}" />
-  <meta property="og:description" content="${escapeHtml(metaDesc)}" />
-  <meta property="og:type" content="video.movie" />
-  <meta property="og:url" content="${canonical}" />
-  ${posterUrl ? `<meta property="og:image" content="${posterUrl}" />` : ""}
-  <style>${getSharedStyles(backdropUrl)}</style>
-  <script type="application/ld+json">${JSON.stringify(schema)}</script>
+  <title>Where to Watch ${esc(item.title)} (${esc(year)}) — Streaming, Trailer &amp; Cast | CineVault</title>
+  <meta name="description" content="Find where to stream ${esc(item.title)} (${esc(year)}) online, watch the official trailer, and explore full cast, release date (${esc(item.releaseDate || year)}), and ratings on CineVault." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="apple-touch-icon" href="../favicon.svg" />
+  <link rel="canonical" href="${esc(pageUrl)}" />
+  <meta property="og:site_name" content="CineVault" />
+  <meta property="og:title" content="Where to Watch ${esc(item.title)} (${esc(year)}) — Trailer, Cast &amp; Streaming | CineVault" />
+  <meta property="og:description" content="${esc(item.overview)}" />
+  <meta property="og:type" content="${isMovie ? "video.movie" : "video.tv_show"}" />
+  <meta property="og:url" content="${esc(pageUrl)}" />
+  <meta property="og:image" content="https://image.tmdb.org/t/p/w500${esc(item.posterPath)}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>${sharedStyles()}</style>
+  <script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>
 </head>
 <body>
   <header>
     <div class="nav">
       <a class="brand" href="../index.html"><span class="badge">▶</span><span>CineVault</span></a>
-      <div class="nav-links">
-        <a class="nav-btn" href="../index.html">Home</a>
-        <a class="nav-btn" href="index.html">Movies</a>
-        <a class="nav-btn" href="../tv/index.html">TV Series</a>
-        <a class="nav-btn" href="../guides.html">Guides</a>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero-grid">
-      ${posterUrl ? `<img class="poster" src="${posterUrl}" alt="${escapeHtml(title)} poster" loading="lazy" />` : ""}
-      <div>
-        <span class="type-tag">Movie</span>
-        <h1>Where to Watch ${escapeHtml(title)} (${escapeHtml(year)})</h1>
-        <div class="meta">
-          <span>★ ${escapeHtml(rating)}</span>
-          <span>${escapeHtml(year)}</span>
-          <span>${escapeHtml(runtime)}</span>
-          <span>${escapeHtml(genres)}</span>
-        </div>
-        <p class="overview">${escapeHtml(overview)}</p>
-        <a class="cta" href="../index.html?q=${encodeURIComponent(title)}">Open in CineVault Interactive App →</a>
-      </div>
-    </section>
-
-    ${buildAdBannerHtml()}
-
-    <section class="card">
-      <h2>Streaming Availability by Region</h2>
-      <div class="region-row">
-        <div class="region-title">United States (US)</div>
-        <div class="pills">${renderPills(usProviders)}</div>
-      </div>
-      <div class="region-row">
-        <div class="region-title">United Kingdom (UK)</div>
-        <div class="pills">${renderPills(ukProviders)}</div>
-      </div>
-      <div class="region-row">
-        <div class="region-title">Canada (CA)</div>
-        <div class="pills">${renderPills(caProviders)}</div>
-      </div>
-    </section>
-
-    ${
-      trailer
-        ? `<section class="card">
-      <h2>Official Trailer</h2>
-      <div class="video-wrap">
-        <iframe src="https://www.youtube.com/embed/${escapeHtml(trailer.key)}" title="${escapeHtml(title)} Trailer" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </section>`
-        : ""
-    }
-
-    ${
-      castList.length
-        ? `<section class="card">
-      <h2>Top Cast</h2>
-      <div class="pills">${castList.map((c) => `<span class="pill">${escapeHtml(c)}</span>`).join("")}</div>
-    </section>`
-        : ""
-    }
-
-    ${buildAdBannerHtml()}
-
-    ${renderRelatedSection(relatedMovies, "More Trending Movies to Stream")}
-  </main>
-
-  <footer>
-    <span>CineVault Streaming Discovery</span>
-    <span><a href="../index.html">Home</a> · <a href="index.html">Movies</a> · <a href="../tv/index.html">TV Series</a> · <a href="../guides.html">Guides</a></span>
-  </footer>
-</body>
-</html>`;
-}
-
-function renderTvPage(show, credits, videos, providers, slugFile, relatedShows) {
-  const title = show.name || "Untitled Series";
-  const year = (show.first_air_date || "").slice(0, 4) || "2026";
-  const rating = show.vote_average ? show.vote_average.toFixed(1) : "N/A";
-  const seasonsCount = show.number_of_seasons
-    ? `${show.number_of_seasons} Season${show.number_of_seasons > 1 ? "s" : ""}`
-    : "TV Series";
-  const episodesCount = show.number_of_episodes
-    ? `${show.number_of_episodes} Episodes`
-    : "";
-  const genres = (show.genres || []).map((g) => g.name).join(", ") || "Series";
-  const overview =
-    show.overview ||
-    `Find where to stream ${title} (${year}) all seasons online, watch the official trailer, and explore cast & episode details on CineVault.`;
-  const posterUrl = show.poster_path
-    ? `https://image.tmdb.org/t/p/w500${show.poster_path}`
-    : "";
-  const backdropUrl = show.backdrop_path
-    ? `https://image.tmdb.org/t/p/w1280${show.backdrop_path}`
-    : "";
-
-  const trailer = (videos.results || []).find(
-    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser")
-  );
-
-  const castList = (credits.cast || [])
-    .slice(0, 8)
-    .map((c) => c.name)
-    .filter(Boolean);
-
-  const validSeasons = (show.seasons || [])
-    .filter((s) => s && s.season_number > 0)
-    .slice(0, 12);
-
-  const usProviders = getProvidersForRegion(providers.results, "US");
-  const ukProviders = getProvidersForRegion(providers.results, "GB");
-  const caProviders = getProvidersForRegion(providers.results, "CA");
-
-  const canonical = `${SITE_URL}/tv/${slugFile}`;
-  const pageTitle = `Where to Watch ${title} (${year}) — All Seasons, Streaming & Trailer | CineVault`;
-  const metaDesc =
-    `Stream ${title} (${year}) online in the US, UK, and Canada. Check ${seasonsCount}, watch the official trailer, and view cast on CineVault.`.slice(
-      0,
-      160
-    );
-
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "TVSeries",
-    name: title,
-    startDate: show.first_air_date || year,
-    numberOfSeasons: show.number_of_seasons || undefined,
-    numberOfEpisodes: show.number_of_episodes || undefined,
-    description: overview,
-    image: posterUrl || undefined,
-    genre: (show.genres || []).map((g) => g.name),
-    actor: castList.map((name) => ({ "@type": "Person", name })),
-    aggregateRating: show.vote_count
-      ? {
-          "@type": "AggregateRating",
-          ratingValue: rating,
-          bestRating: "10",
-          ratingCount: show.vote_count,
-        }
-      : undefined,
-    url: canonical,
-  };
-
-  const renderPills = (list) =>
-    list.length
-      ? list.map((p) => `<span class="pill">${escapeHtml(p)}</span>`).join("")
-      : `<span class="muted">Check local streaming &amp; network listings</span>`;
-
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(pageTitle)}</title>
-  <meta name="description" content="${escapeHtml(metaDesc)}" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="${canonical}" />
-  <meta property="og:title" content="${escapeHtml(pageTitle)}" />
-  <meta property="og:description" content="${escapeHtml(metaDesc)}" />
-  <meta property="og:type" content="video.tv_show" />
-  <meta property="og:url" content="${canonical}" />
-  ${posterUrl ? `<meta property="og:image" content="${posterUrl}" />` : ""}
-  <style>${getSharedStyles(backdropUrl)}</style>
-  <script type="application/ld+json">${JSON.stringify(schema)}</script>
-</head>
-<body>
-  <header>
-    <div class="nav">
-      <a class="brand" href="../index.html"><span class="badge">▶</span><span>CineVault</span></a>
-      <div class="nav-links">
+      <nav class="nav-links" aria-label="Main Navigation">
         <a class="nav-btn" href="../index.html">Home</a>
         <a class="nav-btn" href="../movie/index.html">Movies</a>
-        <a class="nav-btn" href="index.html">TV Series</a>
+        <a class="nav-btn" href="../tv/index.html">TV Series</a>
         <a class="nav-btn" href="../guides.html">Guides</a>
-      </div>
+      </nav>
     </div>
   </header>
-
   <main>
-    <section class="hero-grid">
-      ${posterUrl ? `<img class="poster" src="${posterUrl}" alt="${escapeHtml(title)} poster" loading="lazy" />` : ""}
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a><span>/</span>
+      <a href="index.html">${esc(hubLabel)}</a><span>/</span>
+      <span>${esc(item.title)} (${esc(year)})</span>
+    </nav>
+    <section class="hero-grid" style="background:${heroBg};">
+      <img class="poster" src="https://image.tmdb.org/t/p/w500${esc(item.posterPath)}" alt="${esc(item.title)} (${esc(year)}) poster" width="500" height="750" fetchpriority="high" />
       <div>
-        <span class="type-tag">TV Series</span>
-        <h1>Where to Watch ${escapeHtml(title)} (${escapeHtml(year)})</h1>
+        <span class="type-tag">${isMovie ? "Movie" : "TV Series"}</span>
+        <h1>Where to Watch ${esc(item.title)} (${esc(year)})</h1>
         <div class="meta">
-          <span>★ ${escapeHtml(rating)}</span>
-          <span>${escapeHtml(year)}</span>
-          <span>${escapeHtml(seasonsCount)}</span>
-          ${episodesCount ? `<span>${escapeHtml(episodesCount)}</span>` : ""}
-          <span>${escapeHtml(genres)}</span>
+          <span>${esc(ratingLabel)}</span>
+          <span>${esc(year)}</span>
+          ${runtimeLabel ? `<span>${esc(runtimeLabel)}</span>` : ""}
+          <span>${esc(genresText)}</span>
         </div>
-        <p class="overview">${escapeHtml(overview)}</p>
-        <a class="cta" href="../index.html?q=${encodeURIComponent(title)}">Open in CineVault Interactive App →</a>
+        <p class="overview">${esc(item.overview)}</p>
+        <a class="cta" href="../index.html?q=${encodeURIComponent(item.title)}">Open in CineVault Interactive App →</a>
       </div>
     </section>
-
-    ${buildAdBannerHtml()}
-
     <section class="card">
-      <h2>Streaming Availability by Region</h2>
-      <div class="region-row">
-        <div class="region-title">United States (US)</div>
-        <div class="pills">${renderPills(usProviders)}</div>
+      <div class="card-head">
+        <h2>Streaming Availability by Country</h2>
+        <select id="regionSelect" class="region-select" aria-label="Select your country">
+          ${REGIONS.map((r) => `<option value="${r.code}">${esc(r.name)}</option>`).join("")}
+        </select>
       </div>
-      <div class="region-row">
-        <div class="region-title">United Kingdom (UK)</div>
-        <div class="pills">${renderPills(ukProviders)}</div>
-      </div>
-      <div class="region-row">
-        <div class="region-title">Canada (CA)</div>
-        <div class="pills">${renderPills(caProviders)}</div>
-      </div>
+      <p class="card-lead">Live regional watch status for <strong>${esc(item.title)} (${esc(year)})</strong>:</p>
+      <div class="region-grid" id="regionGrid">${regionCardsHtml}</div>
     </section>
-
-    ${
-      validSeasons.length
-        ? `<section class="card">
-      <h2>Seasons &amp; Episodes Guide</h2>
-      <div class="seasons-grid">
-        ${validSeasons
-          .map(
-            (s) => `<div class="season-box">
-          <strong>${escapeHtml(s.name || `Season ${s.season_number}`)}</strong>
-          <span>${s.episode_count || 0} Episodes${s.air_date ? ` · ${escapeHtml(s.air_date.slice(0, 4))}` : ""}</span>
-        </div>`
-          )
-          .join("")}
-      </div>
-    </section>`
-        : ""
-    }
-
-    ${
-      trailer
-        ? `<section class="card">
-      <h2>Official Series Trailer</h2>
-      <div class="video-wrap">
-        <iframe src="https://www.youtube.com/embed/${escapeHtml(trailer.key)}" title="${escapeHtml(title)} Trailer" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </section>`
-        : ""
-    }
-
-    ${
-      castList.length
-        ? `<section class="card">
-      <h2>Series Cast</h2>
-      <div class="pills">${castList.map((c) => `<span class="pill">${escapeHtml(c)}</span>`).join("")}</div>
-    </section>`
-        : ""
-    }
-
-    ${buildAdBannerHtml()}
-
-    ${renderRelatedSection(relatedShows, "More Trending TV Series to Binge")}
+    ${item.trailerKey ? `<section class="card"><h2>Official Trailer</h2><div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/${esc(item.trailerKey)}" title="${esc(item.title)} Trailer" allowfullscreen loading="lazy"></iframe></div></section>` : ""}
+    <div class="ad-strip" aria-label="Sponsored">
+      <span class="ad-label">Sponsored</span>
+      <iframe width="320" height="50" scrolling="no" frameborder="0" loading="lazy" style="border:0;max-width:100%;display:block;" srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:transparent;overflow:hidden;display:flex;justify-content:center;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt;atOptions={&#39;key&#39;:&#39;b570c351ca5a05131ca8916fc6b23f71&#39;,&#39;format&#39;:&#39;iframe&#39;,&#39;height&#39;:50,&#39;width&#39;:320,&#39;params&#39;:{}};&lt;/script&gt;&lt;script src=&quot;https://bancadeltempoidea.org/22/b570c351ca5a05131ca8916fc6b23f71&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
+    </div>
+    ${topCast.length ? `<section class="card"><h2>Main Cast &amp; Stars</h2><div class="pills">${topCast.map((c) => `<span class="pill">${esc(c)}</span>`).join("")}</div></section>` : ""}
+    <section class="card">
+      <h2>Frequently Asked Questions</h2>
+      <details class="faq-item" open><summary>Where can I watch ${esc(item.title)} (${esc(year)}) online?</summary><p>${esc(formatProviders(item.watchProviders, "US", item.releaseDate))} Select your region above for local availability.</p></details>
+      <details class="faq-item"><summary>When was ${esc(item.title)} released?</summary><p>${esc(item.title)} is listed with a release date of ${esc(item.releaseDate || year)} (${esc(genresText)}).</p></details>
+      <details class="faq-item"><summary>Who stars in ${esc(item.title)}?</summary><p>${esc(castLead ? `The featured cast includes ${castLead}.` : `Cast details are updated automatically from TMDB.`)}</p></details>
+    </section>
+    <nav class="pager" aria-label="More Titles">
+      <a href="${esc(prevItem.slug)}.html">← ${esc(prevItem.title)}</a>
+      <a href="${esc(nextItem.slug)}.html" style="text-align:right;">${esc(nextItem.title)} →</a>
+    </nav>
+    <section class="card">
+      <h2>More Trending ${esc(hubLabel)} to Stream</h2>
+      <div class="related-grid">${related}</div>
+    </section>
   </main>
-
   <footer>
-    <span>CineVault Streaming Discovery</span>
-    <span><a href="../index.html">Home</a> · <a href="../movie/index.html">Movies</a> · <a href="index.html">TV Series</a> · <a href="../guides.html">Guides</a></span>
+    <span>CineVault Streaming Discovery • Updated ${TODAY}</span>
+    <span><a href="../index.html">Home</a> · <a href="../movie/index.html">Movies</a> · <a href="../tv/index.html">TV Series</a> · <a href="../guides.html">Guides</a></span>
   </footer>
+  <script>
+    (function(){
+      const sel=document.getElementById("regionSelect"),grid=document.getElementById("regionGrid");
+      if(!sel||!grid)return;
+      const lang=(navigator.language||"en-US").toUpperCase();
+      const detected=["PK","GB","CA","IN","AU"].find(c=>lang.endsWith("-"+c))||"US";
+      function applyRegion(code){
+        sel.value=code;
+        const boxes=Array.from(grid.children);
+        boxes.forEach(b=>b.classList.toggle("active-region",b.dataset.region===code));
+        const active=boxes.find(b=>b.dataset.region===code);
+        if(active)grid.prepend(active);
+      }
+      sel.addEventListener("change",()=>applyRegion(sel.value));
+      applyRegion(detected);
+    })();
+  </script>
 </body>
 </html>`;
 }
 
-function renderDirectoryIndex({ entries, heading, subtitle, metaTitle, metaDesc, canonicalUrl, switchHref, switchLabel }) {
-  const items = entries
-    .map(
-      (e) =>
-        `<li><a href="${e.file}">${escapeHtml(e.title)} (${escapeHtml(e.year)})</a></li>`
-    )
-    .join("\n");
+function buildDirectoryPage(mediaType, items) {
+  const isMovie = mediaType === "movie";
+  const title = isMovie ? "Trending Movies Directory (2026)" : "Trending TV Series Directory (2026)";
+  const folder = isMovie ? "movie" : "tv";
+  const cards = items.map((item) => {
+    const year = (item.releaseDate || "2026").slice(0, 4);
+    const badge = item.voteAverage > 0 ? `★ ${item.voteAverage.toFixed(1)}` : item.releaseDate || year;
+    return `<a class="rel-card" href="${esc(item.slug)}.html"><img src="https://image.tmdb.org/t/p/w342${esc(item.posterPath)}" alt="${esc(item.title)} (${esc(year)})" loading="lazy" /><div class="rel-title">${esc(item.title)} (${esc(year)})</div><div class="rel-sub">${esc(badge)}</div></a>`;
+  }).join("");
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(metaTitle)}</title>
-  <meta name="description" content="${escapeHtml(metaDesc)}" />
-  <link rel="canonical" href="${canonicalUrl}" />
-  <style>
-    body { background: #090b10; color: #f3f6fc; font-family: system-ui, sans-serif; line-height: 1.7; padding: 24px 20px; max-width: 960px; margin: 0 auto; }
-    a { color: #9ec5ff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .top-bar { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; font-weight: 600; font-size: 0.9rem; }
-    h1 { margin-bottom: 8px; }
-    p.sub { color: #9aa5be; margin-bottom: 16px; }
-    ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px 18px; list-style: none; margin-top: 18px; }
-    li { background: #111520; border: 1px solid rgba(255,255,255,0.09); padding: 10px 14px; border-radius: 10px; }
-  </style>
+  <title>${esc(title)} — Where to Stream, Trailers &amp; Cast | CineVault</title>
+  <meta name="description" content="Browse all ${items.length} trending ${isMovie ? "movies" : "TV series"} on CineVault with direct streaming guides, official trailers, release dates, and cast." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="canonical" href="${SITE_URL}/${folder}/index.html" />
+  <style>${sharedStyles()}</style>
 </head>
 <body>
-  <div class="top-bar">
-    <a href="../index.html">← CineVault Home</a>
-    <a href="${switchHref}">${escapeHtml(switchLabel)}</a>
-    <a href="../guides.html">Streaming Guides</a>
-  </div>
-  <h1>${escapeHtml(heading)}</h1>
-  <p class="sub">${escapeHtml(subtitle)}</p>
-  <ul>${items}</ul>
+  <header><div class="nav"><a class="brand" href="../index.html"><span class="badge">▶</span><span>CineVault</span></a><nav class="nav-links"><a class="nav-btn" href="../index.html">Home</a><a class="nav-btn" href="../movie/index.html">Movies</a><a class="nav-btn" href="../tv/index.html">TV Series</a><a class="nav-btn" href="../guides.html">Guides</a></nav></div></header>
+  <main>
+    <nav class="breadcrumbs"><a href="../index.html">Home</a><span>/</span><span>${esc(title)}</span></nav>
+    <section class="card">
+      <h1>${esc(title)}</h1>
+      <p class="card-lead">Explore ${items.length} curated ${isMovie ? "movies" : "TV shows"} with live regional streaming availability, trailers, and full cast details.</p>
+      <div class="related-grid">${cards}</div>
+    </section>
+  </main>
+  <footer><span>CineVault Streaming Discovery</span><span><a href="../index.html">Home</a> · <a href="../movie/index.html">Movies</a> · <a href="../tv/index.html">TV Series</a> · <a href="../guides.html">Guides</a></span></footer>
 </body>
 </html>`;
 }
 
-async function run() {
-  fs.mkdirSync(MOVIE_DIR, { recursive: true });
-  fs.mkdirSync(TV_DIR, { recursive: true });
+async function fetchFullItem(mediaType, raw) {
+  const details = await tmdb(`/${mediaType}/${raw.id}?append_to_response=credits,videos,watch/providers`);
+  const title = details.title || details.name || raw.title || raw.name;
+  const releaseDate = details.release_date || details.first_air_date || "";
+  const videos = details.videos?.results || [];
+  const trailer =
+    videos.find((v) => v.site === "YouTube" && v.type === "Trailer" && v.official) ||
+    videos.find((v) => v.site === "YouTube" && v.type === "Trailer") ||
+    videos.find((v) => v.site === "YouTube");
 
-  const [trendingMovies, popularMovies, trendingTv, popularTv] = await Promise.all([
-    fetchJSON("/trending/movie/week?page=1"),
-    fetchJSON("/movie/popular?page=1"),
-    fetchJSON("/trending/tv/week?page=1"),
-    fetchJSON("/tv/popular?page=1"),
-  ]);
-
-  // 1. Process Movies
-  const movieMap = new Map();
-  for (const m of [...(trendingMovies.results || []), ...(popularMovies.results || [])]) {
-    if (m && m.id && !movieMap.has(m.id)) {
-      movieMap.set(m.id, m);
-    }
-  }
-  const movies = Array.from(movieMap.values()).slice(0, 25);
-  const movieRecords = [];
-
-  for (const basic of movies) {
-    try {
-      const [details, credits, videos, providers] = await Promise.all([
-        fetchJSON(`/movie/${basic.id}`),
-        fetchJSON(`/movie/${basic.id}/credits`),
-        fetchJSON(`/movie/${basic.id}/videos`),
-        fetchJSON(`/movie/${basic.id}/watch/providers`),
-      ]);
-      const slugFile = `${slugify(details.title)}-${details.id}.html`;
-      movieRecords.push({
-        slugFile,
-        title: details.title || basic.title,
-        year: (details.release_date || "").slice(0, 4) || "2026",
-        poster_path: details.poster_path || basic.poster_path,
-        details,
-        credits,
-        videos,
-        providers,
-      });
-    } catch (err) {
-      console.warn(`Skipping movie ${basic.id}: ${err.message}`);
-    }
-  }
-
-  for (let i = 0; i < movieRecords.length; i++) {
-    const rec = movieRecords[i];
-    const related = movieRecords.filter((_, idx) => idx !== i).slice(0, 6);
-    const html = renderMoviePage(rec.details, rec.credits, rec.videos, rec.providers, rec.slugFile, related);
-    fs.writeFileSync(path.join(MOVIE_DIR, rec.slugFile), html, "utf8");
-  }
-
-  // 2. Process TV Series
-  const tvMap = new Map();
-  for (const s of [...(trendingTv.results || []), ...(popularTv.results || [])]) {
-    if (s && s.id && !tvMap.has(s.id)) {
-      tvMap.set(s.id, s);
-    }
-  }
-  const shows = Array.from(tvMap.values()).slice(0, 25);
-  const tvRecords = [];
-
-  for (const basic of shows) {
-    try {
-      const [details, credits, videos, providers] = await Promise.all([
-        fetchJSON(`/tv/${basic.id}`),
-        fetchJSON(`/tv/${basic.id}/credits`),
-        fetchJSON(`/tv/${basic.id}/videos`),
-        fetchJSON(`/tv/${basic.id}/watch/providers`),
-      ]);
-      const slugFile = `${slugify(details.name)}-${details.id}.html`;
-      tvRecords.push({
-        slugFile,
-        title: details.name || basic.name,
-        year: (details.first_air_date || "").slice(0, 4) || "2026",
-        poster_path: details.poster_path || basic.poster_path,
-        details,
-        credits,
-        videos,
-        providers,
-      });
-    } catch (err) {
-      console.warn(`Skipping TV show ${basic.id}: ${err.message}`);
-    }
-  }
-
-  for (let i = 0; i < tvRecords.length; i++) {
-    const rec = tvRecords[i];
-    const related = tvRecords.filter((_, idx) => idx !== i).slice(0, 6);
-    const html = renderTvPage(rec.details, rec.credits, rec.videos, rec.providers, rec.slugFile, related);
-    fs.writeFileSync(path.join(TV_DIR, rec.slugFile), html, "utf8");
-  }
-
-  // 3. Build Directory Indexes
-  const buildEntriesList = (dir, recentRecords) => {
-    const files = fs
-      .readdirSync(dir)
-      .filter((f) => f.endsWith(".html") && f !== "index.html")
-      .sort();
-    const entries = files.map((file) => {
-      const found = recentRecords.find((g) => g.slugFile === file);
-      if (found) return { file, title: found.title, year: found.year };
-      const cleanTitle = file
-        .replace(/-\d+\.html$/, "")
-        .replace(/-/g, " ")
-        .replace(/\b\w/g, (c) => c.toUpperCase());
-      return { file, title: cleanTitle, year: "2026" };
-    });
-    return { files, entries };
+  return {
+    id: raw.id,
+    mediaType,
+    title,
+    slug: `${slugify(title)}-${raw.id}`,
+    releaseDate,
+    overview: (details.overview || `Discover streaming availability, trailer, release dates, and full cast for ${title} on CineVault.`).trim(),
+    posterPath: details.poster_path || raw.poster_path,
+    backdropPath: details.backdrop_path || raw.backdrop_path || "",
+    voteAverage: Number(details.vote_average || 0),
+    voteCount: Number(details.vote_count || 0),
+    runtime: Number(details.runtime || 0),
+    seasonsCount: Number(details.number_of_seasons || 0),
+    genres: (details.genres || []).map((g) => g.name),
+    cast: (details.credits?.cast || []).slice(0, 10).map((c) => c.name),
+    trailerKey: trailer ? trailer.key : "",
+    watchProviders: details["watch/providers"]?.results || {}
   };
-
-  const movieIndexData = buildEntriesList(MOVIE_DIR, movieRecords);
-  const tvIndexData = buildEntriesList(TV_DIR, tvRecords);
-
-  fs.writeFileSync(
-    path.join(MOVIE_DIR, "index.html"),
-    renderDirectoryIndex({
-      entries: movieIndexData.entries,
-      heading: "CineVault Movie Streaming Directory",
-      subtitle: "Direct streaming availability, official trailers, and cast pages updated daily.",
-      metaTitle: "Movies Directory — Where to Watch & Trailers | CineVault",
-      metaDesc: "Browse individual movie streaming pages, official trailers, and where to watch online on CineVault.",
-      canonicalUrl: `${SITE_URL}/movie/`,
-      switchHref: "../tv/index.html",
-      switchLabel: "Browse TV Series →",
-    }),
-    "utf8"
-  );
-
-  fs.writeFileSync(
-    path.join(TV_DIR, "index.html"),
-    renderDirectoryIndex({
-      entries: tvIndexData.entries,
-      heading: "CineVault TV Series & Web Shows Directory",
-      subtitle: "Find where to binge trending series, check seasons & episodes, and watch official trailers.",
-      metaTitle: "TV Series Directory — Where to Stream Shows & Seasons | CineVault",
-      metaDesc: "Browse TV series streaming availability, seasons & episode counts, and official trailers on CineVault.",
-      canonicalUrl: `${SITE_URL}/tv/`,
-      switchHref: "../movie/index.html",
-      switchLabel: "Browse Movies →",
-    }),
-    "utf8"
-  );
-
-  // 4. Update Sitemap
-  const today = new Date().toISOString().slice(0, 10);
-  const corePages = [
-    { loc: `${SITE_URL}/`, priority: "1.0", freq: "daily" },
-    { loc: `${SITE_URL}/guides.html`, priority: "0.9", freq: "weekly" },
-    { loc: `${SITE_URL}/sci-fi-guides.html`, priority: "0.8", freq: "weekly" },
-    { loc: `${SITE_URL}/crime-thrillers.html`, priority: "0.8", freq: "weekly" },
-    { loc: `${SITE_URL}/movie/`, priority: "0.85", freq: "daily" },
-    { loc: `${SITE_URL}/tv/`, priority: "0.85", freq: "daily" },
-  ];
-
-  const urlNodes = [
-    ...corePages.map(
-      (p) => `  <url>
-    <loc>${p.loc}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>${p.freq}</changefreq>
-    <priority>${p.priority}</priority>
-  </url>`
-    ),
-    ...movieIndexData.files.map(
-      (file) => `  <url>
-    <loc>${SITE_URL}/movie/${file}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>`
-    ),
-    ...tvIndexData.files.map(
-      (file) => `  <url>
-    <loc>${SITE_URL}/tv/${file}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>`
-    ),
-  ];
-
-  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urlNodes.join("\n")}
-</urlset>
-`;
-
-  fs.writeFileSync(path.join(__dirname, "sitemap.xml"), sitemapXml, "utf8");
-  console.log(
-    `Generated ${movieRecords.length} movies & ${tvRecords.length} TV series. Total indexed: ${
-      movieIndexData.files.length + tvIndexData.files.length
-    } pages.`
-  );
 }
 
-run().catch((err) => {
+async function injectHomepageCrawlLinks(movies, tvShows) {
+  try {
+    let html = await fs.readFile("index.html", "utf8");
+    const blockStart = "<!-- SEO-CRAWL-HUB-START -->";
+    const blockEnd = "<!-- SEO-CRAWL-HUB-END -->";
+    const linksHtml = `${blockStart}
+<section aria-label="Featured Movies and Series Directory" style="max-width:1180px;margin:28px auto;padding:20px;background:#111520;border:1px solid rgba(255,255,255,0.09);border-radius:16px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+    <h2 style="font-size:1.15rem;color:#f3f6fc;margin:0;">Latest Movies &amp; TV Streaming Guides</h2>
+    <div style="display:flex;gap:12px;font-size:0.85rem;font-weight:700;color:#f5b942;">
+      <a href="movie/index.html">All Movies (${movies.length}) →</a>
+      <a href="tv/index.html">All TV Series (${tvShows.length}) →</a>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;font-size:0.84rem;">
+    ${movies.slice(0, 20).map((m) => `<a href="movie/${m.slug}.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 ${esc(m.title)} (${esc((m.releaseDate || "2026").slice(0, 4))})</a>`).join("\n    ")}
+    ${tvShows.slice(0, 16).map((t) => `<a href="tv/${t.slug}.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 ${esc(t.title)} (${esc((t.releaseDate || "2026").slice(0, 4))})</a>`).join("\n    ")}
+  </div>
+</section>
+${blockEnd}`;
+
+    if (html.includes(blockStart) && html.includes(blockEnd)) {
+      html = html.replace(new RegExp(`${blockStart}[\\s\\S]*?${blockEnd}`), linksHtml.trim());
+    } else if (html.includes("</footer>")) {
+      html = html.replace("</footer>", `</footer>\n${linksHtml}`);
+    } else if (html.includes("</body>")) {
+      html = html.replace("</body>", `${linksHtml}\n</body>`);
+    }
+
+    if (!html.includes("favicon.svg")) {
+      html = html.replace("</head>", `  <link rel="icon" type="image/svg+xml" href="favicon.svg" />\n  <link rel="apple-touch-icon" href="favicon.svg" />\n</head>`);
+    }
+    await fs.writeFile("index.html", html, "utf8");
+  } catch (err) {
+    console.warn("Skipped index.html injection:", err.message);
+  }
+}
+
+async function main() {
+  await fs.mkdir("movie", { recursive: true });
+  await fs.mkdir("tv", { recursive: true });
+
+  const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff1e2d"/><stop offset="100%" stop-color="#99040c"/></linearGradient></defs><rect width="96" height="96" rx="22" fill="url(#g)"/><polygon points="38,28 72,48 38,68" fill="#ffffff"/></svg>`;
+  await fs.writeFile("favicon.svg", faviconSvg, "utf8");
+
+  const [mTrend, mPop, mUp, tvTrend, tvPop] = await Promise.all([
+    tmdb("/trending/movie/week"),
+    tmdb("/movie/popular"),
+    tmdb("/movie/upcoming"),
+    tmdb("/trending/tv/week"),
+    tmdb("/tv/popular")
+  ]);
+
+  const dedupe = (arr) => {
+    const map = new Map();
+    for (const item of arr) {
+      if (item?.id && item?.poster_path && !map.has(item.id)) map.set(item.id, item);
+    }
+    return Array.from(map.values());
+  };
+
+  const rawMovies = dedupe([...(mTrend.results || []), ...(mPop.results || []), ...(mUp.results || [])]).slice(0, 40);
+  const rawTv = dedupe([...(tvTrend.results || []), ...(tvPop.results || [])]).slice(0, 30);
+
+  const movies = [];
+  for (const m of rawMovies) movies.push(await fetchFullItem("movie", m));
+  const tvShows = [];
+  for (const t of rawTv) tvShows.push(await fetchFullItem("tv", t));
+
+  for (let i = 0; i < movies.length; i++) {
+    await fs.writeFile(path.join("movie", `${movies[i].slug}.html`), buildDetailPage(movies[i], movies, i), "utf8");
+  }
+  for (let i = 0; i < tvShows.length; i++) {
+    await fs.writeFile(path.join("tv", `${tvShows[i].slug}.html`), buildDetailPage(tvShows[i], tvShows, i), "utf8");
+  }
+
+  await fs.writeFile(path.join("movie", "index.html"), buildDirectoryPage("movie", movies), "utf8");
+  await fs.writeFile(path.join("tv", "index.html"), buildDirectoryPage("tv", tvShows), "utf8");
+
+  await injectHomepageCrawlLinks(movies, tvShows);
+
+  const urls = [
+    { loc: `${SITE_URL}/`, priority: "1.0", changefreq: "daily" },
+    { loc: `${SITE_URL}/guides.html`, priority: "0.9", changefreq: "weekly" },
+    { loc: `${SITE_URL}/movie/index.html`, priority: "0.9", changefreq: "daily" },
+    { loc: `${SITE_URL}/tv/index.html`, priority: "0.9", changefreq: "daily" },
+    ...movies.map((m) => ({ loc: `${SITE_URL}/movie/${m.slug}.html`, priority: "0.8", changefreq: "weekly" })),
+    ...tvShows.map((t) => ({ loc: `${SITE_URL}/tv/${t.slug}.html`, priority: "0.8", changefreq: "weekly" }))
+  ];
+
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`).join("\n")}\n</urlset>\n`;
+  await fs.writeFile("sitemap.xml", sitemapXml, "utf8");
+  console.log(`Generated ${movies.length} movies, ${tvShows.length} TV series, and ${urls.length} sitemap URLs.`);
+}
+
+main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
