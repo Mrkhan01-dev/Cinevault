@@ -3,720 +3,1202 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All TV Series &amp; Anime Directory | CineVault</title>
-  <meta name="description" content="Browse all 44 TV series and anime on CineVault with direct streaming guides, coming soon dates, trailers, and cast." />
+  <title>All TV Shows &amp; Series Catalog | CineVault</title>
+  <meta name="description" content="Browse 86 TV series on CineVault with trailers, release dates, cast, and streaming details." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="canonical" href="https://cinevault.space/tv/index.html" />
   <style>
     :root {
-      --bg: #080a0f;
-      --surface: #111520;
-      --surface-2: #171d2c;
-      --surface-3: #1f273b;
-      --text: #f4f7fc;
-      --muted: #9aa6c0;
-      --accent: #e50914;
-      --accent-hover: #ff1e2d;
-      --gold: #f5b942;
-      --cyan: #38bdf8;
-      --border: rgba(255,255,255,0.09);
-      --max: 1240px;
+      --bg: #040406;
+      --card-bg: #11131a;
+      --panel-bg: #0c0e14;
+      --text: #ffffff;
+      --sub: #b3b9c9;
+      --red: #e50914;
+      --red-hi: #f40612;
+      --gold: #f5c518;
+      --border: rgba(255,255,255,0.1);
+      --max: 1360px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: radial-gradient(circle at 85% -10%, #1a2138 0%, var(--bg) 52%);
+      background: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.6;
+      font-family: "Netflix Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
-    header {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(16px);
-      background: rgba(8,10,15,0.92);
+
+    /* Netflix Top Header */
+    .nf-header {
+      position: sticky; top: 0; z-index: 80;
+      background: linear-gradient(180deg, rgba(4,4,6,0.96) 0%, rgba(4,4,6,0.78) 100%);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
-    .nav {
-      max-width: var(--max); margin: 0 auto; padding: 12px 18px;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    .nf-nav {
+      max-width: var(--max); margin: 0 auto; padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
     }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.18rem; letter-spacing: -0.01em; }
-    .badge-icon {
-      width: 32px; height: 32px; border-radius: 9px;
-      background: linear-gradient(135deg, var(--accent-hover), #99040c);
-      display: grid; place-items: center; font-size: 0.85rem; color: #fff;
-      box-shadow: 0 4px 14px rgba(229,9,20,0.4);
+    .nf-logo {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--red-hi); font-size: 1.38rem; font-weight: 900;
+      letter-spacing: 0.05em; text-transform: uppercase;
     }
-    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
-    .nav-btn {
-      padding: 7px 13px; border-radius: 999px;
-      background: var(--surface-2); border: 1px solid var(--border);
-      font-size: 0.82rem; font-weight: 600; color: var(--text);
-      transition: background 0.18s ease, border-color 0.18s ease;
+    .nf-logo-box {
+      width: 28px; height: 28px; border-radius: 5px;
+      background: var(--red); color: #fff;
+      display: grid; place-items: center; font-size: 0.85rem;
     }
-    .nav-btn:hover, .nav-btn.active { background: var(--surface-3); border-color: rgba(255,255,255,0.26); }
-    main { max-width: var(--max); margin: 0 auto; padding: 18px 18px 64px; }
+    .nf-links { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .nf-link {
+      padding: 6px 11px; border-radius: 4px;
+      font-size: 0.82rem; font-weight: 700; color: #d4d9e6;
+    }
+    .nf-link:hover, .nf-link.active { color: #fff; background: rgba(255,255,255,0.1); }
 
-    /* Hero & Search Bar on Homepage */
-    .home-hero {
-      background: linear-gradient(135deg, rgba(22,29,48,0.92), rgba(13,17,27,0.96));
-      border: 1px solid var(--border); border-radius: 20px;
-      padding: 24px 22px; margin-bottom: 22px;
-    }
-    .home-hero h1 { font-size: clamp(1.45rem, 3.2vw, 2.15rem); line-height: 1.2; margin-bottom: 8px; }
-    .home-hero p { color: var(--muted); font-size: 0.94rem; max-width: 760px; margin-bottom: 16px; }
-    .search-bar-wrap {
-      display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px;
-    }
-    .search-input {
-      flex: 1 1 260px; padding: 11px 16px; border-radius: 12px;
-      background: var(--bg); border: 1px solid rgba(255,255,255,0.16);
-      color: var(--text); font-size: 0.94rem; outline: none;
-    }
-    .search-input:focus { border-color: var(--accent-hover); }
-    .cat-pills { display: flex; gap: 8px; flex-wrap: wrap; }
-    .cat-pill {
-      padding: 6px 13px; border-radius: 999px; font-size: 0.8rem; font-weight: 700;
-      background: var(--surface-2); border: 1px solid var(--border); color: var(--muted);
-    }
-    .cat-pill:hover { color: var(--text); border-color: rgba(255,255,255,0.28); }
+    .nf-main { max-width: var(--max); margin: 0 auto; padding: 14px 20px 64px; }
 
-    /* Horizontal Category Shelves */
-    .shelf {
-      margin-bottom: 28px; background: rgba(17,21,32,0.65);
-      border: 1px solid var(--border); border-radius: 18px; padding: 18px 16px;
+    /* Netflix Billboard Hero */
+    .billboard {
+      position: relative; border-radius: 10px; overflow: hidden;
+      min-height: 350px; display: flex; align-items: flex-end;
+      border: 1px solid var(--border); margin-bottom: 20px; background: #090b10;
     }
-    .shelf-head {
+    .billboard-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center 22%;
+      filter: brightness(0.5);
+    }
+    .billboard-overlay {
+      position: relative; z-index: 2; width: 100%;
+      padding: 36px 26px 26px;
+      background: linear-gradient(0deg, rgba(4,4,6,0.98) 10%, rgba(4,4,6,0.65) 62%, transparent 100%);
+    }
+    .billboard-badge {
+      display: inline-block; background: var(--red); color: #fff;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 3px; margin-bottom: 10px;
+    }
+    .billboard h1 { font-size: clamp(1.55rem, 3.6vw, 2.55rem); font-weight: 900; line-height: 1.12; margin-bottom: 10px; }
+    .billboard p { color: #d8dee9; font-size: 0.94rem; max-width: 720px; margin-bottom: 16px; }
+    .billboard-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-white {
+      background: #fff; color: #040406; font-weight: 800; font-size: 0.88rem;
+      padding: 9px 18px; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-white:hover { background: #e5e7eb; }
+    .btn-dark {
+      background: rgba(109,109,110,0.65); color: #fff; font-weight: 700; font-size: 0.88rem;
+      padding: 9px 16px; border-radius: 4px;
+    }
+    .btn-dark:hover { background: rgba(109,109,110,0.85); }
+
+    /* Search & Category Bar */
+    .filter-strip {
+      background: var(--panel-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px; margin-bottom: 26px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .nf-search {
+      width: 100%; padding: 10px 14px; border-radius: 4px;
+      background: #050608; border: 1px solid rgba(255,255,255,0.18);
+      color: #fff; font-size: 0.92rem; outline: none;
+    }
+    .nf-search:focus { border-color: #fff; }
+    .cat-bar { display: flex; gap: 7px; flex-wrap: wrap; }
+    .cat-jump {
+      padding: 4px 11px; border-radius: 4px; font-size: 0.78rem; font-weight: 700;
+      background: rgba(255,255,255,0.06); color: var(--sub); border: 1px solid transparent;
+    }
+    .cat-jump:hover { color: #fff; border-color: rgba(255,255,255,0.28); }
+
+    /* Horizontal Netflix Rows */
+    .nf-row { margin-bottom: 28px; }
+    .nf-row-head {
       display: flex; align-items: center; justify-content: space-between;
-      gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 10px;
     }
-    .shelf-title-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .shelf-title { font-size: 1.18rem; font-weight: 800; }
-    .shelf-count {
-      font-size: 0.74rem; font-weight: 700; color: var(--muted);
-      background: var(--surface-2); border: 1px solid var(--border);
-      padding: 2px 9px; border-radius: 999px;
+    .nf-row-title { font-size: 1.12rem; font-weight: 800; letter-spacing: -0.01em; }
+    .nf-row-meta { font-size: 0.75rem; color: var(--sub); margin-left: 8px; font-weight: 600; }
+    .nf-row-right { display: flex; align-items: center; gap: 10px; }
+    .nf-expand {
+      cursor: pointer; background: transparent; color: var(--sub);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 4px 10px; font-size: 0.76rem; font-weight: 700;
     }
-    .shelf-actions { display: flex; align-items: center; gap: 8px; }
-    .expand-btn {
-      cursor: pointer; padding: 6px 13px; border-radius: 999px;
-      background: var(--surface-2); border: 1px solid var(--border);
-      color: var(--gold); font-size: 0.79rem; font-weight: 700;
-    }
-    .expand-btn:hover { background: var(--surface-3); border-color: var(--gold); }
+    .nf-expand:hover { color: #fff; border-color: rgba(255,255,255,0.35); }
+    .nf-see-all { font-size: 0.78rem; font-weight: 700; color: var(--red-hi); }
+    .nf-see-all:hover { text-decoration: underline; }
 
-    /* Horizontal Track (Default) & Expanded Grid Mode */
-    .card-track {
-      display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px;
+    .nf-track {
+      display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px;
       scroll-snap-type: x mandatory; scrollbar-width: thin;
     }
-    .card-track::-webkit-scrollbar { height: 6px; }
-    .card-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 999px; }
-    .card-track .media-card { flex: 0 0 162px; scroll-snap-align: start; }
+    .nf-track::-webkit-scrollbar { height: 5px; }
+    .nf-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.22); border-radius: 999px; }
+    .nf-track .nf-card { flex: 0 0 152px; scroll-snap-align: start; }
     @media (max-width: 600px) {
-      .card-track .media-card { flex: 0 0 144px; }
+      .nf-track .nf-card { flex: 0 0 132px; }
     }
-    .card-track.expanded {
+    .nf-track.expanded {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(146px, 1fr));
       overflow-x: visible;
     }
-    .card-track.expanded .media-card { flex: unset; width: 100%; }
+    .nf-track.expanded .nf-card { flex: unset; width: 100%; }
 
-    .media-card {
-      position: relative; display: flex; flex-direction: column;
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: 13px; overflow: hidden;
-      transition: transform 0.18s ease, border-color 0.18s ease;
+    .nf-card {
+      display: flex; flex-direction: column; border-radius: 6px; overflow: hidden;
+      background: var(--card-bg); border: 1px solid rgba(255,255,255,0.07);
+      transition: transform 0.16s ease, border-color 0.16s ease;
     }
-    .media-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.32); }
-    .poster-box { position: relative; width: 100%; aspect-ratio: 2/3; background: #0d111b; overflow: hidden; }
-    .poster-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .status-pill {
-      position: absolute; top: 8px; left: 8px; right: 8px;
-      padding: 3px 8px; border-radius: 7px; font-size: 0.69rem; font-weight: 800;
-      letter-spacing: 0.02em; text-transform: uppercase;
-      background: rgba(8,10,15,0.88); border: 1px solid rgba(255,255,255,0.15);
-      color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    .nf-card:hover { transform: scale(1.03); border-color: rgba(255,255,255,0.4); z-index: 3; }
+    .nf-poster { position: relative; aspect-ratio: 2/3; background: #0c0e14; overflow: hidden; }
+    .nf-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nf-soon {
+      position: absolute; top: 6px; left: 6px;
+      background: var(--red); color: #fff; font-size: 0.63rem; font-weight: 800;
+      padding: 2px 6px; border-radius: 3px; text-transform: uppercase;
     }
-    .status-pill.soon {
-      background: rgba(229,9,20,0.94); color: #fff; border-color: rgba(255,255,255,0.28);
+    .nf-rate {
+      position: absolute; bottom: 6px; right: 6px;
+      background: rgba(4,4,6,0.88); color: var(--gold); font-size: 0.67rem; font-weight: 800;
+      padding: 2px 6px; border-radius: 3px;
     }
-    .card-body { padding: 9px 10px 11px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
-    .card-title {
-      font-size: 0.85rem; font-weight: 700; line-height: 1.3;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    .nf-card-body { padding: 7px 8px 9px; }
+    .nf-card-title {
+      font-size: 0.81rem; font-weight: 700; line-height: 1.25;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .card-sub { font-size: 0.74rem; color: var(--muted); }
+    .nf-card-sub { font-size: 0.7rem; color: var(--sub); margin-top: 2px; }
 
-    /* Detail & Hub Page Elements */
-    .breadcrumbs {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
-      font-size: 0.8rem; color: var(--muted); margin-bottom: 14px;
-    }
-    .breadcrumbs a:hover { color: var(--text); text-decoration: underline; }
-    .hero-grid {
-      position: relative; overflow: hidden;
-      display: grid; grid-template-columns: 230px 1fr; gap: 24px;
-      border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 20px;
+    /* Detail & Hub Pages */
+    .nf-crumbs { display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.78rem; color: var(--sub); margin-bottom: 14px; }
+    .nf-crumbs a:hover { color: #fff; }
+    .nf-detail-hero {
+      display: grid; grid-template-columns: 220px 1fr; gap: 22px;
+      background: var(--panel-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px; margin-bottom: 18px;
     }
     @media (max-width: 680px) {
-      .hero-grid { grid-template-columns: 1fr; padding: 18px; gap: 18px; }
-      .detail-poster { max-width: 195px; margin: 0 auto; }
+      .nf-detail-hero { grid-template-columns: 1fr; padding: 15px; }
+      .nf-detail-poster { max-width: 185px; margin: 0 auto; }
     }
-    .detail-poster {
-      width: 100%; height: auto; aspect-ratio: 2/3;
-      border-radius: 12px; display: block; border: 1px solid var(--border);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.6); background: var(--surface-2);
+    .nf-detail-poster { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 6px; display: block; }
+    .nf-detail-h1 { font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 900; margin-bottom: 10px; }
+    .nf-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; font-size: 0.78rem; }
+    .nf-tag { background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 4px; color: #e5e9f2; font-weight: 600; }
+    .nf-tag.red { background: rgba(229,9,20,0.25); color: #ff949a; font-weight: 800; border: 1px solid rgba(229,9,20,0.5); }
+    .nf-plot { color: #d4d9e6; font-size: 0.93rem; margin-bottom: 16px; }
+    .nf-box {
+      background: var(--panel-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px; margin-bottom: 18px;
     }
-    .type-tag {
-      display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #fff; background: var(--accent);
-      padding: 3px 10px; border-radius: 6px; margin-bottom: 8px; margin-right: 6px;
+    .nf-box-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .nf-box h2 { font-size: 1.06rem; font-weight: 800; }
+    select.nf-select {
+      background: #141822; color: #fff; border: 1px solid var(--border);
+      padding: 6px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 700;
     }
-    .type-tag.soon { background: #b91c1c; border: 1px solid rgba(255,255,255,0.28); }
-    .detail-h1 { font-size: clamp(1.45rem, 3vw, 2.1rem); line-height: 1.22; margin-bottom: 10px; }
-    .meta {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
-      font-size: 0.82rem; color: var(--gold); font-weight: 600;
+    .nf-regions { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 10px; }
+    .nf-reg-card { background: #12151f; border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; }
+    .nf-reg-card.active { border-color: var(--red-hi); }
+    .nf-reg-name { font-size: 0.82rem; font-weight: 800; margin-bottom: 3px; }
+    .nf-reg-val { font-size: 0.79rem; color: var(--sub); }
+    .nf-cast { display: flex; flex-wrap: wrap; gap: 7px; }
+    .nf-cast-item { background: #12151f; border: 1px solid var(--border); padding: 5px 11px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+    .nf-faq details { border-top: 1px solid var(--border); padding: 10px 0; }
+    .nf-faq details:first-child { border-top: 0; padding-top: 0; }
+    .nf-faq summary { font-weight: 700; font-size: 0.9rem; cursor: pointer; }
+    .nf-faq p { margin-top: 5px; font-size: 0.85rem; color: var(--sub); }
+    .nf-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000; }
+    .nf-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .nf-ad {
+      margin: 16px 0; padding: 10px 14px; background: var(--panel-bg);
+      border: 1px solid var(--border); border-radius: 8px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
     }
-    .meta span {
-      background: rgba(24,30,46,0.92); padding: 4px 10px;
-      border-radius: 8px; border: 1px solid var(--border);
+    .nf-ad-lbl { font-size: 0.64rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sub); }
+    .nf-footer {
+      max-width: var(--max); margin: 0 auto; padding: 20px;
+      border-top: 1px solid var(--border); color: var(--sub); font-size: 0.79rem;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
     }
-    .overview { color: #e2e8f5; font-size: 0.96rem; margin-bottom: 16px; }
-    .cta {
-      display: inline-block; padding: 10px 18px; border-radius: 10px;
-      background: var(--accent); color: #fff; font-weight: 700; font-size: 0.88rem;
-    }
-    .cta:hover { background: var(--accent-hover); }
-    .card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 16px; padding: 20px; margin-bottom: 18px;
-    }
-    .card-head {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 10px; flex-wrap: wrap; margin-bottom: 12px;
-    }
-    .card h2 { font-size: 1.15rem; }
-    .card-lead { color: #d5deef; font-size: 0.91rem; margin-bottom: 14px; }
-    select.region-select {
-      background: var(--surface-2); color: var(--text); border: 1px solid var(--border);
-      padding: 6px 12px; border-radius: 8px; font-size: 0.84rem; font-weight: 600;
-    }
-    .region-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-    .region-box {
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 12px 14px;
-    }
-    .region-box.active-region { border-color: var(--gold); }
-    .region-title { font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
-    .region-note { font-size: 0.83rem; color: var(--muted); }
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill {
-      background: var(--surface-2); border: 1px solid var(--border);
-      padding: 6px 12px; border-radius: 999px; font-size: 0.84rem; font-weight: 600;
-    }
-    .faq-item { border-top: 1px solid var(--border); padding: 12px 0; }
-    .faq-item:first-of-type { border-top: 0; padding-top: 2px; }
-    .faq-item:last-of-type { padding-bottom: 0; }
-    .faq-item summary { font-weight: 700; font-size: 0.93rem; cursor: pointer; }
-    .faq-item p { margin-top: 6px; font-size: 0.88rem; color: var(--muted); }
-    .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
-    .pager a {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 12px 14px; font-size: 0.84rem; font-weight: 700;
-    }
-    .pager a:hover { border-color: rgba(255,255,255,0.28); }
-    .video-wrap {
-      position: relative; padding-bottom: 56.25%; height: 0;
-      overflow: hidden; border-radius: 12px; background: #050608;
-    }
-    .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-    .ad-strip {
-      margin: 18px auto; padding: 10px 14px; background: rgba(17,21,32,0.92);
-      border: 1px solid var(--border); border-radius: 14px;
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
-      min-height: 72px;
-    }
-    .ad-label {
-      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--muted); background: var(--surface-2); border: 1px solid var(--border);
-      padding: 3px 9px; border-radius: 999px;
-    }
-    footer {
-      max-width: var(--max); margin: 0 auto; padding: 22px 18px; border-top: 1px solid var(--border);
-      color: var(--muted); font-size: 0.82rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
-    }
-    footer a:hover { color: var(--text); }
+    .nf-footer a:hover { color: #fff; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <a class="brand" href="../index.html"><span class="badge-icon">▶</span><span>CineVault</span></a>
-      <nav class="nav-links">
-        <a class="nav-btn" href="../index.html">Home</a>
-        <a class="nav-btn" href="../movie/index.html">Movies</a>
-        <a class="nav-btn active" href="../tv/index.html">TV &amp; Anime</a>
-        <a class="nav-btn" href="../guides.html">Guides</a>
+  <header class="nf-header">
+    <div class="nf-nav">
+      <a class="nf-logo" href="../index.html"><span class="nf-logo-box">▶</span><span>CINEVAULT</span></a>
+      <nav class="nf-links">
+        <a class="nf-link" href="../index.html">Home</a>
+        <a class="nf-link" href="../movie/index.html">Movies</a>
+        <a class="nf-link active" href="../tv/index.html">TV Shows</a>
+        <a class="nf-link" href="../guides.html">Guides</a>
       </nav>
     </div>
   </header>
-  <main>
-    <nav class="breadcrumbs"><a href="../index.html">Home</a><span>/</span><span>All TV Series &amp; Anime Directory</span></nav>
-    <section class="card">
-      <h1>All TV Series &amp; Anime Directory (44)</h1>
-      <p class="card-lead">Click any title below to open its full streaming availability, release date, official trailer, and cast page.</p>
-      <div class="card-track expanded">
-    <a class="media-card" href="../tv/blade-runner-2099-171802.html" data-search="blade runner 2099 2026 sci-fi &amp; fantasy drama">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/d8IKBDXQvj3d6clsjqydT4xcw14.jpg" alt="Blade Runner 2099 (2026) poster" loading="lazy" />
-        <span class="status-pill">★ 5.1 • 2026</span>
+  <main class="nf-main">
+    <nav class="nf-crumbs"><a href="../index.html">Home</a><span>/</span><span>All TV Shows &amp; Series Catalog</span></nav>
+    <section class="nf-box">
+      <h1 style="font-size:1.3rem;font-weight:900;margin-bottom:14px;">All TV Shows &amp; Series Catalog (86)</h1>
+      <div class="nf-track expanded">
+    <a class="nf-card" href="../tv/the-body-291507.html" data-search="the body 2026 mystery drama trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/195kCuy2RqGaEAZDDpGTx7gBUBZ.jpg" alt="The Body (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Blade Runner 2099 (2026)</div>
-        <div class="card-sub">TV Series • Sci-Fi &amp; Fantasy, Drama</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/the-lord-of-the-rings-the-rings-of-power-84773.html" data-search="the lord of the rings: the rings of power 2022 action &amp; adventure sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/bMXWXKM9ydUmMTNvDnYo9QtCBRt.jpg" alt="The Lord of the Rings: The Rings of Power (2022) poster" loading="lazy" />
-        <span class="status-pill">★ 7.2 • 2022</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">The Lord of the Rings: The Rings of Power (2022)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Sci-Fi &amp; Fantasy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Body</div>
+        <div class="nf-card-sub">2026 • Mystery</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/the-blue-road-300523.html" data-search="the blue road 2026 crime mystery">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/cVbilrgtgKi7gN74KK4voyV7iDR.jpg" alt="The Blue Road (2026) poster" loading="lazy" />
-        <span class="status-pill">★ 7.9 • 2026</span>
+    <a class="nf-card" href="../tv/blade-runner-2099-171802.html" data-search="blade runner 2099 2026 sci-fi &amp; fantasy drama trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/d8IKBDXQvj3d6clsjqydT4xcw14.jpg" alt="Blade Runner 2099 (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 5.1</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">The Blue Road (2026)</div>
-        <div class="card-sub">TV Series • Crime, Mystery</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/mobland-247718.html" data-search="mobland 2025 crime drama">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/5Xc7WpWsgflfgEMoBlf9TmWhfbH.jpg" alt="MobLand (2025) poster" loading="lazy" />
-        <span class="status-pill">★ 8.7 • 2025</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">MobLand (2025)</div>
-        <div class="card-sub">TV Series • Crime, Drama</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Blade Runner 2099</div>
+        <div class="nf-card-sub">2026 • Sci-Fi &amp; Fantasy</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/the-body-291507.html" data-search="the body 2026 mystery drama">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/195kCuy2RqGaEAZDDpGTx7gBUBZ.jpg" alt="The Body (2026) poster" loading="lazy" />
-        <span class="status-pill">★ 8.1 • 2026</span>
+    <a class="nf-card" href="../tv/the-remarried-empress-279246.html" data-search="the remarried empress 2026 drama sci-fi &amp; fantasy trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/zn3IXZzGavH3qle3o3g1r32eXDy.jpg" alt="The Remarried Empress (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.8</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">The Body (2026)</div>
-        <div class="card-sub">TV Series • Mystery, Drama</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/the-remarried-empress-279246.html" data-search="the remarried empress 2026 drama sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/zn3IXZzGavH3qle3o3g1r32eXDy.jpg" alt="The Remarried Empress (2026) poster" loading="lazy" />
-        <span class="status-pill">★ 8.8 • 2026</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">The Remarried Empress (2026)</div>
-        <div class="card-sub">TV Series • Drama, Sci-Fi &amp; Fantasy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Remarried Empress</div>
+        <div class="nf-card-sub">2026 • Drama</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/percy-jackson-and-the-olympians-103540.html" data-search="percy jackson and the olympians 2023 action &amp; adventure sci-fi &amp; fantasy drama family">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/zofPiEpwCRYaezOncTlQwXebHFU.jpg" alt="Percy Jackson and the Olympians (2023) poster" loading="lazy" />
-        <span class="status-pill">★ 7.3 • 2023</span>
+    <a class="nf-card" href="../tv/the-lord-of-the-rings-the-rings-of-power-84773.html" data-search="the lord of the rings: the rings of power 2022 action &amp; adventure sci-fi &amp; fantasy trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/bMXWXKM9ydUmMTNvDnYo9QtCBRt.jpg" alt="The Lord of the Rings: The Rings of Power (2022)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.2</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Percy Jackson and the Olympians (2023)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Sci-Fi &amp; Fantasy</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/nine-to-six-310209.html" data-search="nine to six 2026 drama comedy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/1iVlL2Prt9Q5BWMfeZQ6d1ZAZBy.jpg" alt="Nine to Six (2026) poster" loading="lazy" />
-        <span class="status-pill">Nov 25, 2026</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Nine to Six (2026)</div>
-        <div class="card-sub">TV Series • Drama, Comedy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Lord of the Rings: The Rings of Power</div>
+        <div class="nf-card-sub">2022 • Action &amp; Adventure</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/the-hunting-wives-244447.html" data-search="the hunting wives 2025 drama mystery">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/knR0tDKgFwsUMxe0MqZSWQYhwpL.jpg" alt="The Hunting Wives (2025) poster" loading="lazy" />
-        <span class="status-pill">★ 7.0 • 2025</span>
+    <a class="nf-card" href="../tv/mobland-247718.html" data-search="mobland 2025 crime drama trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/5Xc7WpWsgflfgEMoBlf9TmWhfbH.jpg" alt="MobLand (2025)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.7</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">The Hunting Wives (2025)</div>
-        <div class="card-sub">TV Series • Drama, Mystery</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/visionquest-213375.html" data-search="visionquest 2026 sci-fi &amp; fantasy drama">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/WGyAyBPncfuu8MZhLY9RtfZPM0.jpg" alt="VisionQuest (2026) poster" loading="lazy" />
-        <span class="status-pill">★ 8.2 • 2026</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">VisionQuest (2026)</div>
-        <div class="card-sub">TV Series • Sci-Fi &amp; Fantasy, Drama</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">MobLand</div>
+        <div class="nf-card-sub">2025 • Crime</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/pokemon-60572.html" data-search="pokémon 1997 animation action &amp; adventure sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/lP4zwr0F7hWTbAFltfoFTc2AxRG.jpg" alt="Pokémon (1997) poster" loading="lazy" />
-        <span class="status-pill">★ 8.0 • 1997</span>
+    <a class="nf-card" href="../tv/the-blue-road-300523.html" data-search="the blue road 2026 crime mystery trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/cVbilrgtgKi7gN74KK4voyV7iDR.jpg" alt="The Blue Road (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.9</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Pokémon (1997)</div>
-        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/doraemon-65733.html" data-search="doraemon 2005 action &amp; adventure animation comedy sci-fi &amp; fantasy kids family">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/9ZN1P32SHviL3SV51qLivxycvcx.jpg" alt="Doraemon (2005) poster" loading="lazy" />
-        <span class="status-pill">★ 8.1 • 2005</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Doraemon (2005)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Animation</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Blue Road</div>
+        <div class="nf-card-sub">2026 • Crime</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/one-piece-37854.html" data-search="one piece 1999 action &amp; adventure comedy animation">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/dB4EDhre2dsC2kxYDavyKWqLQwi.jpg" alt="One Piece (1999) poster" loading="lazy" />
-        <span class="status-pill">★ 8.8 • 1999</span>
+    <a class="nf-card" href="../tv/percy-jackson-and-the-olympians-103540.html" data-search="percy jackson and the olympians 2023 action &amp; adventure sci-fi &amp; fantasy drama family trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/zofPiEpwCRYaezOncTlQwXebHFU.jpg" alt="Percy Jackson and the Olympians (2023)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.3</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">One Piece (1999)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Comedy</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/chibi-maruko-chan-57775.html" data-search="chibi maruko-chan 1990 animation comedy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/bfn54AAMuh47IFqeoco0jgeVH1a.jpg" alt="Chibi Maruko-chan (1990) poster" loading="lazy" />
-        <span class="status-pill">★ 7.7 • 1990</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Chibi Maruko-chan (1990)</div>
-        <div class="card-sub">TV Series • Animation, Comedy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Percy Jackson and the Olympians</div>
+        <div class="nf-card-sub">2023 • Action &amp; Adventure</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/ninja-boy-rantaro-34860.html" data-search="ninja boy rantaro 1993 comedy action &amp; adventure kids animation family">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/fzNiSp0HhCthOTYu9IYWlPPa7fU.jpg" alt="Ninja Boy Rantaro (1993) poster" loading="lazy" />
-        <span class="status-pill">★ 6.9 • 1993</span>
+    <a class="nf-card" href="../tv/12-12-12-254630.html" data-search="12 12 12 2026 action &amp; adventure crime drama trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/8q6BvFQuKM1Rud4E9NQDaMGy9EL.jpg" alt="12 12 12 (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 6.3</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Ninja Boy Rantaro (1993)</div>
-        <div class="card-sub">TV Series • Comedy, Action &amp; Adventure</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/detective-conan-30983.html" data-search="detective conan 1996 animation crime mystery comedy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/iHfA63x7rFaWbP2C832uCe2r0zy.jpg" alt="Detective Conan (1996) poster" loading="lazy" />
-        <span class="status-pill">★ 8.0 • 1996</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Detective Conan (1996)</div>
-        <div class="card-sub">TV Series • Animation, Crime</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">12 12 12</div>
+        <div class="nf-card-sub">2026 • Action &amp; Adventure</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/bleach-30984.html" data-search="bleach 2004 action &amp; adventure animation sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/2EewmxXe72ogD0EaWM8gqa0ccIw.jpg" alt="Bleach (2004) poster" loading="lazy" />
-        <span class="status-pill">★ 8.3 • 2004</span>
+    <a class="nf-card" href="../tv/visionquest-213375.html" data-search="visionquest 2026 sci-fi &amp; fantasy drama trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/WGyAyBPncfuu8MZhLY9RtfZPM0.jpg" alt="VisionQuest (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.2</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Bleach (2004)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Animation</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/jojo-s-bizarre-adventure-45790.html" data-search="jojo&#39;s bizarre adventure 2012 animation action &amp; adventure sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/ogAWwbh3frWtiTyyXrZaVFtqCgp.jpg" alt="JoJo&#39;s Bizarre Adventure (2012) poster" loading="lazy" />
-        <span class="status-pill">★ 8.6 • 2012</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">JoJo&#39;s Bizarre Adventure (2012)</div>
-        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">VisionQuest</div>
+        <div class="nf-card-sub">2026 • Sci-Fi &amp; Fantasy</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/doraemon-57911.html" data-search="doraemon 1979 action &amp; adventure animation comedy sci-fi &amp; fantasy kids family">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/bHMqPDsW7Lb71CVHXq4PuEvQ4NY.jpg" alt="Doraemon (1979) poster" loading="lazy" />
-        <span class="status-pill">★ 7.7 • 1979</span>
+    <a class="nf-card" href="../tv/the-hunting-wives-244447.html" data-search="the hunting wives 2025 drama mystery trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/knR0tDKgFwsUMxe0MqZSWQYhwpL.jpg" alt="The Hunting Wives (2025)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.0</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Doraemon (1979)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Animation</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/jujutsu-kaisen-95479.html" data-search="jujutsu kaisen 2020 animation sci-fi &amp; fantasy action &amp; adventure">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg" alt="JUJUTSU KAISEN (2020) poster" loading="lazy" />
-        <span class="status-pill">★ 8.6 • 2020</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">JUJUTSU KAISEN (2020)</div>
-        <div class="card-sub">TV Series • Animation, Sci-Fi &amp; Fantasy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Hunting Wives</div>
+        <div class="nf-card-sub">2025 • Drama</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/dragon-ball-z-12971.html" data-search="dragon ball z 1989 animation sci-fi &amp; fantasy action &amp; adventure">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/oQ5CnVj3TRifXl2bIOri6H6rfNe.jpg" alt="Dragon Ball Z (1989) poster" loading="lazy" />
-        <span class="status-pill">★ 8.4 • 1989</span>
+    <a class="nf-card" href="../tv/nine-to-six-310209.html" data-search="nine to six 2026 drama comedy trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/1iVlL2Prt9Q5BWMfeZQ6d1ZAZBy.jpg" alt="Nine to Six (2026)" loading="lazy" />
+        
+        
       </div>
-      <div class="card-body">
-        <div class="card-title">Dragon Ball Z (1989)</div>
-        <div class="card-sub">TV Series • Animation, Sci-Fi &amp; Fantasy</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/naruto-shippuden-31910.html" data-search="naruto shippūden 2007 animation action &amp; adventure sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/kV27j3Nz4d5z8u6mN3EJw9RiLg2.jpg" alt="Naruto Shippūden (2007) poster" loading="lazy" />
-        <span class="status-pill">★ 8.5 • 2007</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Naruto Shippūden (2007)</div>
-        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Nine to Six</div>
+        <div class="nf-card-sub">2026 • Drama</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/naruto-46260.html" data-search="naruto 2002 animation action &amp; adventure sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/xppeysfvDKVx775MFuH8Z9BlpMk.jpg" alt="Naruto (2002) poster" loading="lazy" />
-        <span class="status-pill">★ 8.4 • 2002</span>
+    <a class="nf-card" href="../tv/dexter-resurrection-259909.html" data-search="dexter: resurrection 2025 crime drama mystery trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/o2Oyi3boT100bY5kCP4MBiTeetO.jpg" alt="Dexter: Resurrection (2025)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.5</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Naruto (2002)</div>
-        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/the-apothecary-diaries-220542.html" data-search="the apothecary diaries 2023 animation mystery drama">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/sJZcy8QsOPuRPiCfoCWVB3r9Ohg.jpg" alt="The Apothecary Diaries (2023) poster" loading="lazy" />
-        <span class="status-pill">★ 8.7 • 2023</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">The Apothecary Diaries (2023)</div>
-        <div class="card-sub">TV Series • Animation, Mystery</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Dexter: Resurrection</div>
+        <div class="nf-card-sub">2025 • Crime</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/re-zero-starting-life-in-another-world-65942.html" data-search="re:zero -starting life in another world- 2016 animation mystery action &amp; adventure sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/oHqYrPAsIiTD5m4DuxumV4er8BU.jpg" alt="Re:ZERO -Starting Life in Another World- (2016) poster" loading="lazy" />
-        <span class="status-pill">★ 8.1 • 2016</span>
+    <a class="nf-card" href="../tv/nocturne-292741.html" data-search="nocturne 2026 crime drama mystery trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/nyvXVcPnHEwVmqCdzjjCsu1jqhm.jpg" alt="Nocturne (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.7</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Re:ZERO -Starting Life in Another World- (2016)</div>
-        <div class="card-sub">TV Series • Animation, Mystery</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/atashin-chi-9537.html" data-search="atashin&#39;chi 2002 animation comedy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/bQCZvbyTJFWt3majCn37ykJBpIf.jpg" alt="Atashin&#39;chi (2002) poster" loading="lazy" />
-        <span class="status-pill">★ 8.4 • 2002</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Atashin&#39;chi (2002)</div>
-        <div class="card-sub">TV Series • Animation, Comedy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Nocturne</div>
+        <div class="nf-card-sub">2026 • Crime</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/duel-masters-46392.html" data-search="duel masters 2002 action &amp; adventure animation sci-fi &amp; fantasy kids">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/t5ijeKzOukACRktUfbjuMIlqwfr.jpg" alt="Duel Masters (2002) poster" loading="lazy" />
-        <span class="status-pill">★ 6.2 • 2002</span>
+    <a class="nf-card" href="../tv/dig-290826.html" data-search="dig 2026 comedy trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/eyW6V0R0SzG3BqtYKhlZKGBaUCn.jpg" alt="DIG (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 5.9</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Duel Masters (2002)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Animation</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/hunter-x-hunter-46298.html" data-search="hunter x hunter 2011 animation action &amp; adventure sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/i2EEr2uBvRlAwJ8d8zTG2Y19mIa.jpg" alt="Hunter x Hunter (2011) poster" loading="lazy" />
-        <span class="status-pill">★ 8.7 • 2011</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Hunter x Hunter (2011)</div>
-        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">DIG</div>
+        <div class="nf-card-sub">2026 • Comedy</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/ranma-1-2-57706.html" data-search="ranma ½ 1989 comedy action &amp; adventure animation sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/qb1R5iLZcjIgdDIfXFQXmJadQPI.jpg" alt="Ranma ½ (1989) poster" loading="lazy" />
-        <span class="status-pill">★ 8.6 • 1989</span>
+    <a class="nf-card" href="../tv/yellowjackets-117488.html" data-search="yellowjackets 2021 drama mystery trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/xRnGrn7Z7SC0KIBodocoU1QgDZF.jpg" alt="Yellowjackets (2021)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.4</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Ranma ½ (1989)</div>
-        <div class="card-sub">TV Series • Comedy, Action &amp; Adventure</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/ace-of-the-diamond-60761.html" data-search="ace of the diamond 2013 animation">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/wh9dA4w0iUMVpY7htFSiLDhLTYJ.jpg" alt="Ace of the Diamond (2013) poster" loading="lazy" />
-        <span class="status-pill">★ 7.8 • 2013</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Ace of the Diamond (2013)</div>
-        <div class="card-sub">TV Series • Animation</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Yellowjackets</div>
+        <div class="nf-card-sub">2021 • Drama</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/black-mirror-42009.html" data-search="black mirror 2011 sci-fi &amp; fantasy drama mystery">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/seN6rRfN0I6n8iDXjlSMk1QjNcq.jpg" alt="Black Mirror (2011) poster" loading="lazy" />
-        <span class="status-pill">★ 8.3 • 2011</span>
+    <a class="nf-card" href="../tv/fool-night-326247.html" data-search="fool night 2026 animation drama sci-fi &amp; fantasy mystery trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/7kHLQwQZKbQOZJGx1mIDYIKeBYv.jpg" alt="Fool Night (2026)" loading="lazy" />
+        
+        
       </div>
-      <div class="card-body">
-        <div class="card-title">Black Mirror (2011)</div>
-        <div class="card-sub">TV Series • Sci-Fi &amp; Fantasy, Drama</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/ozark-69740.html" data-search="ozark 2017 crime drama">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/pCGyPVrI9Fzw6rE1Pvi4BIXF6ET.jpg" alt="Ozark (2017) poster" loading="lazy" />
-        <span class="status-pill">★ 8.2 • 2017</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Ozark (2017)</div>
-        <div class="card-sub">TV Series • Crime, Drama</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Fool Night</div>
+        <div class="nf-card-sub">2026 • Animation</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/the-crown-65494.html" data-search="the crown 2016 drama">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/1M876KPjulVwppEpldhdc8V4o68.jpg" alt="The Crown (2016) poster" loading="lazy" />
-        <span class="status-pill">★ 8.2 • 2016</span>
+    <a class="nf-card" href="../tv/love-in-disguise-303745.html" data-search="love in disguise 2026 comedy drama crime trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/c9DEtqCDZBPL9i06WmbDrcndrBy.jpg" alt="Love in Disguise (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.8</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">The Crown (2016)</div>
-        <div class="card-sub">TV Series • Drama</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/the-order-82104.html" data-search="the order 2019 drama mystery sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/yMPjmuSd5Fac8YMNOwofGALQWjR.jpg" alt="The Order (2019) poster" loading="lazy" />
-        <span class="status-pill">★ 7.6 • 2019</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">The Order (2019)</div>
-        <div class="card-sub">TV Series • Drama, Mystery</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Love in Disguise</div>
+        <div class="nf-card-sub">2026 • Comedy</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/mindhunter-67744.html" data-search="mindhunter 2017 drama crime">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/fbKE87mojpIETWepSbD5Qt741fp.jpg" alt="MINDHUNTER (2017) poster" loading="lazy" />
-        <span class="status-pill">★ 8.1 • 2017</span>
+    <a class="nf-card" href="../tv/river-of-no-return-203483.html" data-search="river of no return 2026 drama trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/7fo6B7Wm75WwIlCZP17ohjUjdLd.jpg" alt="River of No Return (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">MINDHUNTER (2017)</div>
-        <div class="card-sub">TV Series • Drama, Crime</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/raw-4656.html" data-search="raw 1993 reality">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/fstEe6RsyNyPUnMwNcL20iNl0nE.jpg" alt="Raw (1993) poster" loading="lazy" />
-        <span class="status-pill">★ 6.7 • 1993</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Raw (1993)</div>
-        <div class="card-sub">TV Series • Reality</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">River of No Return</div>
+        <div class="nf-card-sub">2026 • Drama</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/c-i-d-15226.html" data-search="c.i.d. 1998 action &amp; adventure crime drama mystery">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/3UymnlLfLMKxG8OcFhSnAlnhQfZ.jpg" alt="C.I.D. (1998) poster" loading="lazy" />
-        <span class="status-pill">★ 5.5 • 1998</span>
+    <a class="nf-card" href="../tv/the-altruists-308007.html" data-search="the altruists 2026 crime drama trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/hiX70sXdvEPVE11QqmLuaX16gdh.jpg" alt="The Altruists (2026)" loading="lazy" />
+        
+        <span class="nf-rate">★ 6.5</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">C.I.D. (1998)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Crime</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/good-mythical-morning-65701.html" data-search="good mythical morning 2012 comedy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/jMpBQr2aNOFAI6wsC47zsOG6qOh.jpg" alt="Good Mythical Morning (2012) poster" loading="lazy" />
-        <span class="status-pill">★ 6.9 • 2012</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Good Mythical Morning (2012)</div>
-        <div class="card-sub">TV Series • Comedy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Altruists</div>
+        <div class="nf-card-sub">2026 • Crime</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/sesame-street-502.html" data-search="sesame street 1969 kids comedy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/14k9BfZ2p4rQBMeJ5crKTfUZVwD.jpg" alt="Sesame Street (1969) poster" loading="lazy" />
-        <span class="status-pill">★ 7.1 • 1969</span>
+    <a class="nf-card" href="../tv/one-piece-37854.html" data-search="one piece 1999 action &amp; adventure comedy animation trending now">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/dB4EDhre2dsC2kxYDavyKWqLQwi.jpg" alt="One Piece (1999)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.8</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Sesame Street (1969)</div>
-        <div class="card-sub">TV Series • Kids, Comedy</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/orange-is-the-new-black-1424.html" data-search="orange is the new black 2013 drama comedy crime">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/ekaa7YjGPTkFLcPhwWXTnARuCEU.jpg" alt="Orange Is the New Black (2013) poster" loading="lazy" />
-        <span class="status-pill">★ 7.6 • 2013</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Orange Is the New Black (2013)</div>
-        <div class="card-sub">TV Series • Drama, Comedy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">One Piece</div>
+        <div class="nf-card-sub">1999 • Action &amp; Adventure</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/stranger-things-66732.html" data-search="stranger things 2016 action &amp; adventure mystery sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/uOOtwVbSr4QDjAGIifLDwpb2Pdl.jpg" alt="Stranger Things (2016) poster" loading="lazy" />
-        <span class="status-pill">★ 8.5 • 2016</span>
+    <a class="nf-card" href="../tv/new-girl-1420.html" data-search="new girl 2011 comedy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/8oCqMlKKomCArVtyOjRzMN6g40Z.jpg" alt="New Girl (2011)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.4</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Stranger Things (2016)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Mystery</div>
-      </div>
-    </a>
-    <a class="media-card" href="../tv/lucifer-63174.html" data-search="lucifer 2016 crime sci-fi &amp; fantasy">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/ekZobS8isE6mA53RAiGDG93hBxL.jpg" alt="Lucifer (2016) poster" loading="lazy" />
-        <span class="status-pill">★ 8.4 • 2016</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Lucifer (2016)</div>
-        <div class="card-sub">TV Series • Crime, Sci-Fi &amp; Fantasy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">New Girl</div>
+        <div class="nf-card-sub">2011 • Comedy</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/star-wars-the-clone-wars-4194.html" data-search="star wars: the clone wars 2008 action &amp; adventure sci-fi &amp; fantasy animation">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/e1nWfnnCVqxS2LeTO3dwGyAsG2V.jpg" alt="Star Wars: The Clone Wars (2008) poster" loading="lazy" />
-        <span class="status-pill">★ 8.5 • 2008</span>
+    <a class="nf-card" href="../tv/shetland-46923.html" data-search="shetland 2013 crime drama mystery popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/rKnxmir8m5I3RdSTdZr3jaQaCZi.jpg" alt="Shetland (2013)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.5</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">Star Wars: The Clone Wars (2008)</div>
-        <div class="card-sub">TV Series • Action &amp; Adventure, Sci-Fi &amp; Fantasy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Shetland</div>
+        <div class="nf-card-sub">2013 • Crime</div>
       </div>
     </a>
-    <a class="media-card" href="../tv/the-loud-house-68073.html" data-search="the loud house 2016 animation comedy family kids">
-      <div class="poster-box">
-        <img src="https://image.tmdb.org/t/p/w342/v0xMCeZIkgBUQtiije0IDc8ReHr.jpg" alt="The Loud House (2016) poster" loading="lazy" />
-        <span class="status-pill">May 2, 2016</span>
+    <a class="nf-card" href="../tv/eureka-4620.html" data-search="eureka 2006 sci-fi &amp; fantasy comedy drama popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/f2l5hUk63hPqYTucnFy2HmElFV0.jpg" alt="Eureka (2006)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.7</span>
       </div>
-      <div class="card-body">
-        <div class="card-title">The Loud House (2016)</div>
-        <div class="card-sub">TV Series • Animation, Comedy</div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Eureka</div>
+        <div class="nf-card-sub">2006 • Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/black-mirror-42009.html" data-search="black mirror 2011 sci-fi &amp; fantasy drama mystery popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/seN6rRfN0I6n8iDXjlSMk1QjNcq.jpg" alt="Black Mirror (2011)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.3</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Black Mirror</div>
+        <div class="nf-card-sub">2011 • Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/strike-back-32573.html" data-search="strike back 2010 drama action &amp; adventure popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/c0ItaC2Grf4WVJ06G87BjNn9pRs.jpg" alt="Strike Back (2010)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Strike Back</div>
+        <div class="nf-card-sub">2010 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/succession-76331.html" data-search="succession 2018 drama comedy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/z0XiwdrCQ9yVIr4O0pxzaAYRxdW.jpg" alt="Succession (2018)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.3</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Succession</div>
+        <div class="nf-card-sub">2018 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/supernatural-1622.html" data-search="supernatural 2005 drama mystery sci-fi &amp; fantasy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/8iixmfGx5EIFPdpNvB2JvI3VIqX.jpg" alt="Supernatural (2005)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.3</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Supernatural</div>
+        <div class="nf-card-sub">2005 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/the-wire-1438.html" data-search="the wire 2002 crime drama popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/4lbclFySvugI51fwsyxBTOm4DqK.jpg" alt="The Wire (2002)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.6</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Wire</div>
+        <div class="nf-card-sub">2002 • Crime</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/slow-horses-95480.html" data-search="slow horses 2022 crime drama mystery popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/AdYr4DjOgXvDUMwu6vEhZy1Rnxk.jpg" alt="Slow Horses (2022)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Slow Horses</div>
+        <div class="nf-card-sub">2022 • Crime</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/family-guy-1434.html" data-search="family guy 1999 animation comedy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/3PFsEuAiyLkWsP4GG6dIV37Q6gu.jpg" alt="Family Guy (1999)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Family Guy</div>
+        <div class="nf-card-sub">1999 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/two-and-a-half-men-2691.html" data-search="two and a half men 2003 comedy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/xgfjxyV3g1S68opzuvG6G87muDp.jpg" alt="Two and a Half Men (2003)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Two and a Half Men</div>
+        <div class="nf-card-sub">2003 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/the-mentalist-5920.html" data-search="the mentalist 2008 crime drama mystery popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/k0kMdO52LpC5JWgd0uWEH7gqcCe.jpg" alt="The Mentalist (2008)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Mentalist</div>
+        <div class="nf-card-sub">2008 • Crime</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/banshee-41727.html" data-search="banshee 2013 crime drama popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/5nXFiz8Rn8eezVjSTZBd7HmnF1G.jpg" alt="Banshee (2013)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Banshee</div>
+        <div class="nf-card-sub">2013 • Crime</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/american-horror-story-1413.html" data-search="american horror story 2011 drama mystery sci-fi &amp; fantasy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/yCkPLQ10qKIUgRBXmQVVMF1h96d.jpg" alt="American Horror Story (2011)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">American Horror Story</div>
+        <div class="nf-card-sub">2011 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/community-18347.html" data-search="community 2009 comedy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/3KUjDt8XY7w2Ku70UE0SECmv1zP.jpg" alt="Community (2009)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Community</div>
+        <div class="nf-card-sub">2009 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/phineas-and-ferb-1877.html" data-search="phineas and ferb 2007 animation comedy family sci-fi &amp; fantasy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/g6TidT7be954rrzPPBTIXkSmfXj.jpg" alt="Phineas and Ferb (2007)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.9</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Phineas and Ferb</div>
+        <div class="nf-card-sub">2007 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/person-of-interest-1411.html" data-search="person of interest 2011 action &amp; adventure crime sci-fi &amp; fantasy drama mystery popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/f8aIvYk5h7Z8EP3dinCmVgQFYow.jpg" alt="Person of Interest (2011)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Person of Interest</div>
+        <div class="nf-card-sub">2011 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/doctor-who-57243.html" data-search="doctor who 2005 action &amp; adventure drama sci-fi &amp; fantasy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/lHfmc6d8pOVFrD0eOKPiDbjeucG.jpg" alt="Doctor Who (2005)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.6</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Doctor Who</div>
+        <div class="nf-card-sub">2005 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/what-we-do-in-the-shadows-83631.html" data-search="what we do in the shadows 2019 comedy sci-fi &amp; fantasy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/wa3ZQE9kLnqwN3vQ0NNjg1NPsCa.jpg" alt="What We Do in the Shadows (2019)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">What We Do in the Shadows</div>
+        <div class="nf-card-sub">2019 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/law-order-special-victims-unit-2734.html" data-search="law &amp; order: special victims unit 1999 crime drama mystery popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/pHNhUwSXuDQ9jPZOCb8SgJaQZsc.jpg" alt="Law &amp; Order: Special Victims Unit (1999)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Law &amp; Order: Special Victims Unit</div>
+        <div class="nf-card-sub">1999 • Crime</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/how-i-met-your-mother-1100.html" data-search="how i met your mother 2005 comedy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/b34jPzmB0wZy7EjUZoleXOl2RRI.jpg" alt="How I Met Your Mother (2005)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">How I Met Your Mother</div>
+        <div class="nf-card-sub">2005 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/seinfeld-1400.html" data-search="seinfeld 1989 comedy popular tv shows">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/aCw8ONfyz3AhngVQa1E2Ss4KSUQ.jpg" alt="Seinfeld (1989)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.2</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Seinfeld</div>
+        <div class="nf-card-sub">1989 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/raw-4656.html" data-search="raw 1993 reality netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/fstEe6RsyNyPUnMwNcL20iNl0nE.jpg" alt="Raw (1993)" loading="lazy" />
+        
+        <span class="nf-rate">★ 6.7</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Raw</div>
+        <div class="nf-card-sub">1993 • Reality</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/c-i-d-15226.html" data-search="c.i.d. 1998 action &amp; adventure crime drama mystery netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/3UymnlLfLMKxG8OcFhSnAlnhQfZ.jpg" alt="C.I.D. (1998)" loading="lazy" />
+        
+        <span class="nf-rate">★ 5.5</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">C.I.D.</div>
+        <div class="nf-card-sub">1998 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/the-order-82104.html" data-search="the order 2019 drama mystery sci-fi &amp; fantasy netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/yMPjmuSd5Fac8YMNOwofGALQWjR.jpg" alt="The Order (2019)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.6</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Order</div>
+        <div class="nf-card-sub">2019 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/ozark-69740.html" data-search="ozark 2017 crime drama netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/pCGyPVrI9Fzw6rE1Pvi4BIXF6ET.jpg" alt="Ozark (2017)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.2</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Ozark</div>
+        <div class="nf-card-sub">2017 • Crime</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/mindhunter-67744.html" data-search="mindhunter 2017 drama crime netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/fbKE87mojpIETWepSbD5Qt741fp.jpg" alt="MINDHUNTER (2017)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">MINDHUNTER</div>
+        <div class="nf-card-sub">2017 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/the-crown-65494.html" data-search="the crown 2016 drama netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/1M876KPjulVwppEpldhdc8V4o68.jpg" alt="The Crown (2016)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.2</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Crown</div>
+        <div class="nf-card-sub">2016 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/sesame-street-502.html" data-search="sesame street 1969 kids comedy netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/14k9BfZ2p4rQBMeJ5crKTfUZVwD.jpg" alt="Sesame Street (1969)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.1</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Sesame Street</div>
+        <div class="nf-card-sub">1969 • Kids</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/good-mythical-morning-65701.html" data-search="good mythical morning 2012 comedy netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/jMpBQr2aNOFAI6wsC47zsOG6qOh.jpg" alt="Good Mythical Morning (2012)" loading="lazy" />
+        
+        <span class="nf-rate">★ 6.9</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Good Mythical Morning</div>
+        <div class="nf-card-sub">2012 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/lupin-96677.html" data-search="lupin 2021 crime drama mystery netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/h6Z2oogE4mJk2uffdtIlLhb0EHx.jpg" alt="Lupin (2021)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.7</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Lupin</div>
+        <div class="nf-card-sub">2021 • Crime</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/orange-is-the-new-black-1424.html" data-search="orange is the new black 2013 drama comedy crime netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/ekaa7YjGPTkFLcPhwWXTnARuCEU.jpg" alt="Orange Is the New Black (2013)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.6</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Orange Is the New Black</div>
+        <div class="nf-card-sub">2013 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/lucifer-63174.html" data-search="lucifer 2016 crime sci-fi &amp; fantasy netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/ekZobS8isE6mA53RAiGDG93hBxL.jpg" alt="Lucifer (2016)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Lucifer</div>
+        <div class="nf-card-sub">2016 • Crime</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/stranger-things-66732.html" data-search="stranger things 2016 action &amp; adventure mystery sci-fi &amp; fantasy netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/uOOtwVbSr4QDjAGIifLDwpb2Pdl.jpg" alt="Stranger Things (2016)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.5</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Stranger Things</div>
+        <div class="nf-card-sub">2016 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/squid-game-93405.html" data-search="squid game 2021 action &amp; adventure mystery drama netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/1QdXdRYfktUSONkl1oD5gc6Be0s.jpg" alt="Squid Game (2021)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.8</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Squid Game</div>
+        <div class="nf-card-sub">2021 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/arrested-development-4589.html" data-search="arrested development 2003 comedy netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/p4r4RD7RsNcJVoz0H6z3dBoTBtW.jpg" alt="Arrested Development (2003)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.9</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Arrested Development</div>
+        <div class="nf-card-sub">2003 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/house-of-cards-1425.html" data-search="house of cards 2013 drama netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/hKWxWjFwnMvkWQawbhvC0Y7ygQ8.jpg" alt="House of Cards (2013)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">House of Cards</div>
+        <div class="nf-card-sub">2013 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/the-witcher-71912.html" data-search="the witcher 2019 sci-fi &amp; fantasy action &amp; adventure netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/AoGsDM02UVt0npBA8OvpDcZbaMi.jpg" alt="The Witcher (2019)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.9</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Witcher</div>
+        <div class="nf-card-sub">2019 • Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/you-78191.html" data-search="you 2018 mystery crime drama netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/oANi0vEE92nuijiZQgPZ88FSxqQ.jpg" alt="You (2018)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">You</div>
+        <div class="nf-card-sub">2018 • Mystery</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/la-promesa-212907.html" data-search="la promesa 2023 drama mystery soap netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/y656ZhHU2Hh3bmC5vBtMa2vKpUM.jpg" alt="La promesa (2023)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.6</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">La promesa</div>
+        <div class="nf-card-sub">2023 • Drama</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/wednesday-119051.html" data-search="wednesday 2022 sci-fi &amp; fantasy mystery comedy netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/9PFonBhy4cQy7Jz20NpMygczOkv.jpg" alt="Wednesday (2022)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.3</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Wednesday</div>
+        <div class="nf-card-sub">2022 • Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/pen-tor-50524.html" data-search="pen tor 2004 comedy netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/3X1P4Olgmx1kFsvNIv4FZd2M4O5.jpg" alt="Pen Tor (2004)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Pen Tor</div>
+        <div class="nf-card-sub">2004 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/the-last-kingdom-63333.html" data-search="the last kingdom 2015 action &amp; adventure drama war &amp; politics netflix originals">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/8eJf0hxgIhE6QSxbtuNCekTddy1.jpg" alt="The Last Kingdom (2015)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.3</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Last Kingdom</div>
+        <div class="nf-card-sub">2015 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/detective-conan-30983.html" data-search="detective conan 1996 animation crime mystery comedy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/iHfA63x7rFaWbP2C832uCe2r0zy.jpg" alt="Detective Conan (1996)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Detective Conan</div>
+        <div class="nf-card-sub">1996 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/chibi-maruko-chan-57775.html" data-search="chibi maruko-chan 1990 animation comedy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/bfn54AAMuh47IFqeoco0jgeVH1a.jpg" alt="Chibi Maruko-chan (1990)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.7</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Chibi Maruko-chan</div>
+        <div class="nf-card-sub">1990 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/pokemon-60572.html" data-search="pokémon 1997 animation action &amp; adventure sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/lP4zwr0F7hWTbAFltfoFTc2AxRG.jpg" alt="Pokémon (1997)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Pokémon</div>
+        <div class="nf-card-sub">1997 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/doraemon-65733.html" data-search="doraemon 2005 action &amp; adventure animation comedy sci-fi &amp; fantasy kids family anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/9ZN1P32SHviL3SV51qLivxycvcx.jpg" alt="Doraemon (2005)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Doraemon</div>
+        <div class="nf-card-sub">2005 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/jojo-s-bizarre-adventure-45790.html" data-search="jojo&#39;s bizarre adventure 2012 animation action &amp; adventure sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/ogAWwbh3frWtiTyyXrZaVFtqCgp.jpg" alt="JoJo&#39;s Bizarre Adventure (2012)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.6</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">JoJo&#39;s Bizarre Adventure</div>
+        <div class="nf-card-sub">2012 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/ninja-boy-rantaro-34860.html" data-search="ninja boy rantaro 1993 comedy action &amp; adventure kids animation family anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/fzNiSp0HhCthOTYu9IYWlPPa7fU.jpg" alt="Ninja Boy Rantaro (1993)" loading="lazy" />
+        
+        <span class="nf-rate">★ 6.9</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Ninja Boy Rantaro</div>
+        <div class="nf-card-sub">1993 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/naruto-46260.html" data-search="naruto 2002 animation action &amp; adventure sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/xppeysfvDKVx775MFuH8Z9BlpMk.jpg" alt="Naruto (2002)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Naruto</div>
+        <div class="nf-card-sub">2002 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/the-apothecary-diaries-220542.html" data-search="the apothecary diaries 2023 animation mystery drama anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/sJZcy8QsOPuRPiCfoCWVB3r9Ohg.jpg" alt="The Apothecary Diaries (2023)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.7</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">The Apothecary Diaries</div>
+        <div class="nf-card-sub">2023 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/re-zero-starting-life-in-another-world-65942.html" data-search="re:zero -starting life in another world- 2016 animation mystery action &amp; adventure sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/oHqYrPAsIiTD5m4DuxumV4er8BU.jpg" alt="Re:ZERO -Starting Life in Another World- (2016)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Re:ZERO -Starting Life in Another World-</div>
+        <div class="nf-card-sub">2016 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/atashin-chi-9537.html" data-search="atashin&#39;chi 2002 animation comedy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/bQCZvbyTJFWt3majCn37ykJBpIf.jpg" alt="Atashin&#39;chi (2002)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Atashin&#39;chi</div>
+        <div class="nf-card-sub">2002 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/jujutsu-kaisen-95479.html" data-search="jujutsu kaisen 2020 animation sci-fi &amp; fantasy action &amp; adventure anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg" alt="JUJUTSU KAISEN (2020)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.6</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">JUJUTSU KAISEN</div>
+        <div class="nf-card-sub">2020 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/duel-masters-46392.html" data-search="duel masters 2002 action &amp; adventure animation sci-fi &amp; fantasy kids anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/t5ijeKzOukACRktUfbjuMIlqwfr.jpg" alt="Duel Masters (2002)" loading="lazy" />
+        
+        <span class="nf-rate">★ 6.2</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Duel Masters</div>
+        <div class="nf-card-sub">2002 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/bleach-30984.html" data-search="bleach 2004 action &amp; adventure animation sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/2EewmxXe72ogD0EaWM8gqa0ccIw.jpg" alt="Bleach (2004)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.3</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Bleach</div>
+        <div class="nf-card-sub">2004 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/ranma-1-2-57706.html" data-search="ranma ½ 1989 comedy action &amp; adventure animation sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/qb1R5iLZcjIgdDIfXFQXmJadQPI.jpg" alt="Ranma ½ (1989)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.6</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Ranma ½</div>
+        <div class="nf-card-sub">1989 • Comedy</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/ace-of-the-diamond-60761.html" data-search="ace of the diamond 2013 animation anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/wh9dA4w0iUMVpY7htFSiLDhLTYJ.jpg" alt="Ace of the Diamond (2013)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.8</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Ace of the Diamond</div>
+        <div class="nf-card-sub">2013 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/hunter-x-hunter-46298.html" data-search="hunter x hunter 2011 animation action &amp; adventure sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/i2EEr2uBvRlAwJ8d8zTG2Y19mIa.jpg" alt="Hunter x Hunter (2011)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.7</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Hunter x Hunter</div>
+        <div class="nf-card-sub">2011 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/doraemon-57911.html" data-search="doraemon 1979 action &amp; adventure animation comedy sci-fi &amp; fantasy kids family anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/bHMqPDsW7Lb71CVHXq4PuEvQ4NY.jpg" alt="Doraemon (1979)" loading="lazy" />
+        
+        <span class="nf-rate">★ 7.7</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Doraemon</div>
+        <div class="nf-card-sub">1979 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/lupin-the-3rd-31572.html" data-search="lupin the 3rd 1971 animation action &amp; adventure sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/khfsxY7EyQsdEHzlnkn42CIjZI.jpg" alt="Lupin the 3rd (1971)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Lupin the 3rd</div>
+        <div class="nf-card-sub">1971 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/title-324301.html" data-search="クレヨンしんちゃん 1992 animation anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/qTW3lU85NG83hXWtAdC3qwOgeDO.jpg" alt="クレヨンしんちゃん (1992)" loading="lazy" />
+        
+        <span class="nf-rate">★ 9.0</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">クレヨンしんちゃん</div>
+        <div class="nf-card-sub">1992 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/monogatari-46195.html" data-search="monogatari 2009 animation comedy drama mystery anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/zCEjjb1NH3LLsWeZx47wOeqkezf.jpg" alt="Monogatari (2009)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.1</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Monogatari</div>
+        <div class="nf-card-sub">2009 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/mushoku-tensei-jobless-reincarnation-94664.html" data-search="mushoku tensei: jobless reincarnation 2021 action &amp; adventure animation sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/lDS7WuWrq6i1XC1AaKlf9qvJBVi.jpg" alt="Mushoku Tensei: Jobless Reincarnation (2021)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Mushoku Tensei: Jobless Reincarnation</div>
+        <div class="nf-card-sub">2021 • Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/dragon-ball-z-12971.html" data-search="dragon ball z 1989 animation sci-fi &amp; fantasy action &amp; adventure anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/oQ5CnVj3TRifXl2bIOri6H6rfNe.jpg" alt="Dragon Ball Z (1989)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.4</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Dragon Ball Z</div>
+        <div class="nf-card-sub">1989 • Animation</div>
+      </div>
+    </a>
+    <a class="nf-card" href="../tv/naruto-shippuden-31910.html" data-search="naruto shippūden 2007 animation action &amp; adventure sci-fi &amp; fantasy anime">
+      <div class="nf-poster">
+        <img src="https://image.tmdb.org/t/p/w342/kV27j3Nz4d5z8u6mN3EJw9RiLg2.jpg" alt="Naruto Shippūden (2007)" loading="lazy" />
+        
+        <span class="nf-rate">★ 8.5</span>
+      </div>
+      <div class="nf-card-body">
+        <div class="nf-card-title">Naruto Shippūden</div>
+        <div class="nf-card-sub">2007 • Animation</div>
       </div>
     </a></div>
     </section>
   </main>
-  <footer>
-    <span>CineVault Streaming Discovery • Updated 2026-11-26</span>
-    <span><a href="../index.html">Home</a> · <a href="../movie/index.html">Movies</a> · <a href="../tv/index.html">TV &amp; Anime</a> · <a href="../guides.html">Guides</a></span>
+  <footer class="nf-footer">
+    <span>CineVault • Updated 2026-11-26</span>
+    <span><a href="../index.html">Home</a> · <a href="../movie/index.html">Movies</a> · <a href="../tv/index.html">TV Shows</a> · <a href="../guides.html">Guides</a></span>
   </footer>
 </body>
 </html>
