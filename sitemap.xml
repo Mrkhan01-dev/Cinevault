@@ -25,19 +25,31 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/avengers-doomsday-1003596.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://cinevault.space/movie/the-hunger-games-sunrise-on-the-reaping-1300968.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cinevault.space/movie/avengers-doomsday-1003596.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://cinevault.space/movie/the-odyssey-1368337.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/steps-1595124.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/hexed-1538497.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -49,7 +61,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/hexed-1538497.html</loc>
+    <loc>https://cinevault.space/movie/spider-man-brand-new-day-969681.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/wicker-1195803.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/the-social-reckoning-1281331.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -67,31 +91,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/wicker-1195803.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/movie/spider-man-brand-new-day-969681.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/movie/the-social-reckoning-1281331.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/movie/steps-1595124.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/movie/focker-in-law-1400336.html</loc>
+    <loc>https://cinevault.space/movie/guarding-stars-1551025.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -112,19 +112,7 @@
     <loc>https://cinevault.space/movie/dune-part-three-1170608.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/movie/resident-evil-1423191.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/movie/guarding-stars-1551025.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://cinevault.space/movie/madden-1131943.html</loc>
@@ -133,25 +121,91 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/breeder-1496696.html</loc>
+    <loc>https://cinevault.space/movie/perfect-liars-1568060.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/fjord-1401459.html</loc>
+    <loc>https://cinevault.space/movie/focker-in-law-1400336.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/violent-night-2-1078446.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/the-angry-birds-movie-3-1300926.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/de-gaulle-liberte-1165369.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/behemoth-1452168.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/the-debut-1391239.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/ray-gunn-940009.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/november-1963-1287520.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/la-gradiva-1154730.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/zero-a-d-the-birth-of-christ-1408207.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/rose-1176962.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/flavia-1129104.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/the-fox-1045968.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://cinevault.space/movie/iron-man-1726.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/movie/kalki-2898-ad-801688.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -169,19 +223,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/hope-1058424.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/movie/apocalypse-z-new-world-1507696.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/movie/never-surrender-1616687.html</loc>
+    <loc>https://cinevault.space/movie/resident-evil-1423191.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -205,6 +247,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cinevault.space/movie/breeder-1496696.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/the-mongoose-1294189.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/dracula-eternal-1492566.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cinevault.space/movie/ghost-soldier-1562642.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -217,49 +277,103 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/the-mongoose-1294189.html</loc>
+    <loc>https://cinevault.space/movie/gajab-raat-1453407.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/la-bola-negra-1422041.html</loc>
+    <loc>https://cinevault.space/movie/reporting-live-1389172.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/ebenezer-1567605.html</loc>
+    <loc>https://cinevault.space/movie/3-idiots-20453.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/buddy-1514026.html</loc>
+    <loc>https://cinevault.space/movie/dhurandhar-the-revenge-1582770.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/project-hail-mary-687163.html</loc>
+    <loc>https://cinevault.space/movie/dilwale-dulhania-le-jayenge-19404.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/wildwood-791523.html</loc>
+    <loc>https://cinevault.space/movie/dhurandhar-1291608.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/dune-part-two-693134.html</loc>
+    <loc>https://cinevault.space/movie/drishyam-the-conclusion-1269325.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/movie/i-play-rocky-1286656.html</loc>
+    <loc>https://cinevault.space/movie/tante-siska-1141868.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/hanuman-ansh-1709391.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/dangal-360814.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/daayra-1215889.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/like-stars-on-earth-7508.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/parivarik-manuranjan-1493572.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/ramayana-part-two-1383500.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/alpha-1122030.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/pk-297222.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/movie/fighter-784651.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -277,13 +391,13 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/mobland-247718.html</loc>
+    <loc>https://cinevault.space/tv/the-blue-road-300523.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/the-remarried-empress-279246.html</loc>
+    <loc>https://cinevault.space/tv/mobland-247718.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -295,13 +409,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/the-blue-road-300523.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/tv/dexter-resurrection-259909.html</loc>
+    <loc>https://cinevault.space/tv/the-remarried-empress-279246.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -313,49 +421,31 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/visionquest-213375.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/tv/12-12-12-254630.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://cinevault.space/tv/nine-to-six-310209.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/dig-290826.html</loc>
+    <loc>https://cinevault.space/tv/the-hunting-wives-244447.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/nocturne-292741.html</loc>
+    <loc>https://cinevault.space/tv/visionquest-213375.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/yellowjackets-117488.html</loc>
+    <loc>https://cinevault.space/tv/pokemon-60572.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/love-in-disguise-303745.html</loc>
-    <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cinevault.space/tv/tulsa-king-153312.html</loc>
+    <loc>https://cinevault.space/tv/doraemon-65733.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -367,19 +457,103 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/the-altruists-308007.html</loc>
+    <loc>https://cinevault.space/tv/chibi-maruko-chan-57775.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/lupin-96677.html</loc>
+    <loc>https://cinevault.space/tv/ninja-boy-rantaro-34860.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/tracker-211288.html</loc>
+    <loc>https://cinevault.space/tv/detective-conan-30983.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/bleach-30984.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/jojo-s-bizarre-adventure-45790.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/doraemon-57911.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/jujutsu-kaisen-95479.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/dragon-ball-z-12971.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/naruto-shippuden-31910.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/naruto-46260.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/the-apothecary-diaries-220542.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/re-zero-starting-life-in-another-world-65942.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/atashin-chi-9537.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/duel-masters-46392.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/hunter-x-hunter-46298.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/ranma-1-2-57706.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/ace-of-the-diamond-60761.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -391,55 +565,79 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/strike-back-32573.html</loc>
+    <loc>https://cinevault.space/tv/ozark-69740.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/eureka-4620.html</loc>
+    <loc>https://cinevault.space/tv/the-crown-65494.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/shetland-46923.html</loc>
+    <loc>https://cinevault.space/tv/the-order-82104.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/new-girl-1420.html</loc>
+    <loc>https://cinevault.space/tv/mindhunter-67744.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/succession-76331.html</loc>
+    <loc>https://cinevault.space/tv/raw-4656.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/the-wire-1438.html</loc>
+    <loc>https://cinevault.space/tv/c-i-d-15226.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/slow-horses-95480.html</loc>
+    <loc>https://cinevault.space/tv/good-mythical-morning-65701.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/supernatural-1622.html</loc>
+    <loc>https://cinevault.space/tv/sesame-street-502.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cinevault.space/tv/family-guy-1434.html</loc>
+    <loc>https://cinevault.space/tv/orange-is-the-new-black-1424.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/stranger-things-66732.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/lucifer-63174.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/star-wars-the-clone-wars-4194.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cinevault.space/tv/the-loud-house-68073.html</loc>
     <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

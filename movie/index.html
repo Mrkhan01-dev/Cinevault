@@ -3,76 +3,870 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trending Movies Directory (2026) — Where to Stream, Trailers &amp; Cast | CineVault</title>
-  <meta name="description" content="Browse all 40 trending movies on CineVault with direct streaming guides, official trailers, release dates, and cast." />
+  <title>All Movies Directory — Hollywood, Bollywood &amp; Coming Soon | CineVault</title>
+  <meta name="description" content="Browse all 59 movies on CineVault with direct streaming guides, coming soon dates, trailers, and cast." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="canonical" href="https://cinevault.space/movie/index.html" />
   <style>
-    :root{--bg:#090b10;--surface:#111520;--surface-2:#181e2e;--text:#f3f6fc;--muted:#a3aec6;--accent:#e50914;--accent-hover:#ff1e2d;--gold:#f5b942;--border:rgba(255,255,255,.1);--max:1020px}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{background:radial-gradient(circle at top right,#181c2e 0%,var(--bg) 55%);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}
-    header{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rgba(9,11,16,.94);border-bottom:1px solid var(--border)}
-    .nav{max-width:var(--max);margin:0 auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
-    .badge{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#99040c);display:grid;place-items:center;font-size:.85rem;color:#fff}
-    .nav-links{display:flex;gap:8px;flex-wrap:wrap}
-    .nav-btn{padding:7px 13px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);font-size:.82rem;font-weight:600}
-    .nav-btn:hover{border-color:rgba(255,255,255,.28);background:#20283d}
-    main{max-width:var(--max);margin:0 auto;padding:18px 20px 60px}
-    .breadcrumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:.8rem;color:var(--muted);margin-bottom:14px}
-    .breadcrumbs a:hover{color:var(--text);text-decoration:underline}
-    .hero-grid{position:relative;overflow:hidden;display:grid;grid-template-columns:220px 1fr;gap:24px;border:1px solid var(--border);border-radius:18px;padding:24px;margin-bottom:20px}
-    @media(max-width:680px){.hero-grid{grid-template-columns:1fr;padding:18px;gap:18px}.poster{max-width:195px;margin:0 auto}}
-    .poster{width:100%;height:auto;aspect-ratio:2/3;border-radius:12px;display:block;border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,.55);background:var(--surface-2)}
-    .type-tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--accent);padding:3px 10px;border-radius:6px;margin-bottom:8px}
-    h1{font-size:clamp(1.45rem,3vw,2.05rem);line-height:1.22;margin-bottom:10px}
-    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;font-size:.82rem;color:var(--gold);font-weight:600}
-    .meta span{background:rgba(24,30,46,.92);padding:4px 10px;border-radius:8px;border:1px solid var(--border)}
-    .overview{color:#e2e8f5;font-size:.95rem;margin-bottom:16px}
-    .cta{display:inline-block;padding:10px 18px;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;font-size:.88rem}
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:18px}
-    .card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-    .card h2{font-size:1.15rem}
-    .card-lead{color:#d5deef;font-size:.91rem;margin-bottom:14px}
-    select.region-select{background:var(--surface-2);color:var(--text);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:.84rem;font-weight:600}
-    .region-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .region-box{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
-    .region-box.active-region{border-color:var(--gold)}
-    .region-title{font-size:.85rem;font-weight:700;color:var(--gold);margin-bottom:4px}
-    .region-note{font-size:.83rem;color:var(--muted)}
-    .pills{display:flex;flex-wrap:wrap;gap:8px}
-    .pill{background:var(--surface-2);border:1px solid var(--border);padding:6px 12px;border-radius:999px;font-size:.84rem;font-weight:600}
-    .faq-item{border-top:1px solid var(--border);padding:12px 0}
-    .faq-item:first-of-type{border-top:0;padding-top:2px}
-    .faq-item:last-of-type{padding-bottom:0}
-    .faq-item summary{font-weight:700;font-size:.93rem;cursor:pointer}
-    .faq-item p{margin-top:6px;font-size:.88rem;color:var(--muted)}
-    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px}
-    .rel-card{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:block}
-    .rel-card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
-    .rel-title{padding:8px 10px;font-size:.82rem;font-weight:700;line-height:1.3}
-    .rel-sub{padding:0 10px 8px;font-size:.74rem;color:var(--gold)}
-    .pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
-    .pager a{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:.84rem;font-weight:700}
-    .video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#050608}
-    .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
-    .ad-strip{margin:18px auto;padding:10px 14px;background:rgba(17,21,32,.92);border:1px solid var(--border);border-radius:14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;min-height:72px}
-    .ad-label{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);padding:3px 9px;border-radius:999px}
-    footer{max-width:var(--max);margin:0 auto;padding:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    :root {
+      --bg: #080a0f;
+      --surface: #111520;
+      --surface-2: #171d2c;
+      --surface-3: #1f273b;
+      --text: #f4f7fc;
+      --muted: #9aa6c0;
+      --accent: #e50914;
+      --accent-hover: #ff1e2d;
+      --gold: #f5b942;
+      --cyan: #38bdf8;
+      --border: rgba(255,255,255,0.09);
+      --max: 1240px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: radial-gradient(circle at 85% -10%, #1a2138 0%, var(--bg) 52%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(8,10,15,0.92);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      max-width: var(--max); margin: 0 auto; padding: 12px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.18rem; letter-spacing: -0.01em; }
+    .badge-icon {
+      width: 32px; height: 32px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent-hover), #99040c);
+      display: grid; place-items: center; font-size: 0.85rem; color: #fff;
+      box-shadow: 0 4px 14px rgba(229,9,20,0.4);
+    }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-btn {
+      padding: 7px 13px; border-radius: 999px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      font-size: 0.82rem; font-weight: 600; color: var(--text);
+      transition: background 0.18s ease, border-color 0.18s ease;
+    }
+    .nav-btn:hover, .nav-btn.active { background: var(--surface-3); border-color: rgba(255,255,255,0.26); }
+    main { max-width: var(--max); margin: 0 auto; padding: 18px 18px 64px; }
+
+    /* Hero & Search Bar on Homepage */
+    .home-hero {
+      background: linear-gradient(135deg, rgba(22,29,48,0.92), rgba(13,17,27,0.96));
+      border: 1px solid var(--border); border-radius: 20px;
+      padding: 24px 22px; margin-bottom: 22px;
+    }
+    .home-hero h1 { font-size: clamp(1.45rem, 3.2vw, 2.15rem); line-height: 1.2; margin-bottom: 8px; }
+    .home-hero p { color: var(--muted); font-size: 0.94rem; max-width: 760px; margin-bottom: 16px; }
+    .search-bar-wrap {
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px;
+    }
+    .search-input {
+      flex: 1 1 260px; padding: 11px 16px; border-radius: 12px;
+      background: var(--bg); border: 1px solid rgba(255,255,255,0.16);
+      color: var(--text); font-size: 0.94rem; outline: none;
+    }
+    .search-input:focus { border-color: var(--accent-hover); }
+    .cat-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cat-pill {
+      padding: 6px 13px; border-radius: 999px; font-size: 0.8rem; font-weight: 700;
+      background: var(--surface-2); border: 1px solid var(--border); color: var(--muted);
+    }
+    .cat-pill:hover { color: var(--text); border-color: rgba(255,255,255,0.28); }
+
+    /* Horizontal Category Shelves */
+    .shelf {
+      margin-bottom: 28px; background: rgba(17,21,32,0.65);
+      border: 1px solid var(--border); border-radius: 18px; padding: 18px 16px;
+    }
+    .shelf-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .shelf-title-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .shelf-title { font-size: 1.18rem; font-weight: 800; }
+    .shelf-count {
+      font-size: 0.74rem; font-weight: 700; color: var(--muted);
+      background: var(--surface-2); border: 1px solid var(--border);
+      padding: 2px 9px; border-radius: 999px;
+    }
+    .shelf-actions { display: flex; align-items: center; gap: 8px; }
+    .expand-btn {
+      cursor: pointer; padding: 6px 13px; border-radius: 999px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--gold); font-size: 0.79rem; font-weight: 700;
+    }
+    .expand-btn:hover { background: var(--surface-3); border-color: var(--gold); }
+
+    /* Horizontal Track (Default) & Expanded Grid Mode */
+    .card-track {
+      display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px;
+      scroll-snap-type: x mandatory; scrollbar-width: thin;
+    }
+    .card-track::-webkit-scrollbar { height: 6px; }
+    .card-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 999px; }
+    .card-track .media-card { flex: 0 0 162px; scroll-snap-align: start; }
+    @media (max-width: 600px) {
+      .card-track .media-card { flex: 0 0 144px; }
+    }
+    .card-track.expanded {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+      overflow-x: visible;
+    }
+    .card-track.expanded .media-card { flex: unset; width: 100%; }
+
+    .media-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 13px; overflow: hidden;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+    .media-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.32); }
+    .poster-box { position: relative; width: 100%; aspect-ratio: 2/3; background: #0d111b; overflow: hidden; }
+    .poster-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .status-pill {
+      position: absolute; top: 8px; left: 8px; right: 8px;
+      padding: 3px 8px; border-radius: 7px; font-size: 0.69rem; font-weight: 800;
+      letter-spacing: 0.02em; text-transform: uppercase;
+      background: rgba(8,10,15,0.88); border: 1px solid rgba(255,255,255,0.15);
+      color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .status-pill.soon {
+      background: rgba(229,9,20,0.94); color: #fff; border-color: rgba(255,255,255,0.28);
+    }
+    .card-body { padding: 9px 10px 11px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .card-title {
+      font-size: 0.85rem; font-weight: 700; line-height: 1.3;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .card-sub { font-size: 0.74rem; color: var(--muted); }
+
+    /* Detail & Hub Page Elements */
+    .breadcrumbs {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: var(--muted); margin-bottom: 14px;
+    }
+    .breadcrumbs a:hover { color: var(--text); text-decoration: underline; }
+    .hero-grid {
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 230px 1fr; gap: 24px;
+      border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 20px;
+    }
+    @media (max-width: 680px) {
+      .hero-grid { grid-template-columns: 1fr; padding: 18px; gap: 18px; }
+      .detail-poster { max-width: 195px; margin: 0 auto; }
+    }
+    .detail-poster {
+      width: 100%; height: auto; aspect-ratio: 2/3;
+      border-radius: 12px; display: block; border: 1px solid var(--border);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6); background: var(--surface-2);
+    }
+    .type-tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #fff; background: var(--accent);
+      padding: 3px 10px; border-radius: 6px; margin-bottom: 8px; margin-right: 6px;
+    }
+    .type-tag.soon { background: #b91c1c; border: 1px solid rgba(255,255,255,0.28); }
+    .detail-h1 { font-size: clamp(1.45rem, 3vw, 2.1rem); line-height: 1.22; margin-bottom: 10px; }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+      font-size: 0.82rem; color: var(--gold); font-weight: 600;
+    }
+    .meta span {
+      background: rgba(24,30,46,0.92); padding: 4px 10px;
+      border-radius: 8px; border: 1px solid var(--border);
+    }
+    .overview { color: #e2e8f5; font-size: 0.96rem; margin-bottom: 16px; }
+    .cta {
+      display: inline-block; padding: 10px 18px; border-radius: 10px;
+      background: var(--accent); color: #fff; font-weight: 700; font-size: 0.88rem;
+    }
+    .cta:hover { background: var(--accent-hover); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; margin-bottom: 18px;
+    }
+    .card-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .card h2 { font-size: 1.15rem; }
+    .card-lead { color: #d5deef; font-size: 0.91rem; margin-bottom: 14px; }
+    select.region-select {
+      background: var(--surface-2); color: var(--text); border: 1px solid var(--border);
+      padding: 6px 12px; border-radius: 8px; font-size: 0.84rem; font-weight: 600;
+    }
+    .region-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .region-box {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 14px;
+    }
+    .region-box.active-region { border-color: var(--gold); }
+    .region-title { font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+    .region-note { font-size: 0.83rem; color: var(--muted); }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      background: var(--surface-2); border: 1px solid var(--border);
+      padding: 6px 12px; border-radius: 999px; font-size: 0.84rem; font-weight: 600;
+    }
+    .faq-item { border-top: 1px solid var(--border); padding: 12px 0; }
+    .faq-item:first-of-type { border-top: 0; padding-top: 2px; }
+    .faq-item:last-of-type { padding-bottom: 0; }
+    .faq-item summary { font-weight: 700; font-size: 0.93rem; cursor: pointer; }
+    .faq-item p { margin-top: 6px; font-size: 0.88rem; color: var(--muted); }
+    .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+    .pager a {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 14px; font-size: 0.84rem; font-weight: 700;
+    }
+    .pager a:hover { border-color: rgba(255,255,255,0.28); }
+    .video-wrap {
+      position: relative; padding-bottom: 56.25%; height: 0;
+      overflow: hidden; border-radius: 12px; background: #050608;
+    }
+    .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .ad-strip {
+      margin: 18px auto; padding: 10px 14px; background: rgba(17,21,32,0.92);
+      border: 1px solid var(--border); border-radius: 14px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+      min-height: 72px;
+    }
+    .ad-label {
+      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); background: var(--surface-2); border: 1px solid var(--border);
+      padding: 3px 9px; border-radius: 999px;
+    }
+    footer {
+      max-width: var(--max); margin: 0 auto; padding: 22px 18px; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.82rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    footer a:hover { color: var(--text); }
   </style>
 </head>
 <body>
-  <header><div class="nav"><a class="brand" href="../index.html"><span class="badge">▶</span><span>CineVault</span></a><nav class="nav-links"><a class="nav-btn" href="../index.html">Home</a><a class="nav-btn" href="../movie/index.html">Movies</a><a class="nav-btn" href="../tv/index.html">TV Series</a><a class="nav-btn" href="../guides.html">Guides</a></nav></div></header>
+  <header>
+    <div class="nav">
+      <a class="brand" href="../index.html"><span class="badge-icon">▶</span><span>CineVault</span></a>
+      <nav class="nav-links">
+        <a class="nav-btn" href="../index.html">Home</a>
+        <a class="nav-btn active" href="../movie/index.html">Movies</a>
+        <a class="nav-btn" href="../tv/index.html">TV &amp; Anime</a>
+        <a class="nav-btn" href="../guides.html">Guides</a>
+      </nav>
+    </div>
+  </header>
   <main>
-    <nav class="breadcrumbs"><a href="../index.html">Home</a><span>/</span><span>Trending Movies Directory (2026)</span></nav>
+    <nav class="breadcrumbs"><a href="../index.html">Home</a><span>/</span><span>All Movies Directory — Hollywood, Bollywood &amp; Coming Soon</span></nav>
     <section class="card">
-      <h1>Trending Movies Directory (2026)</h1>
-      <p class="card-lead">Explore 40 curated movies with live regional streaming availability, trailers, and full cast details.</p>
-      <div class="related-grid"><a class="rel-card" href="avengers-doomsday-1003596.html"><img src="https://image.tmdb.org/t/p/w342/1zqWkLwC1zLBBBtIWzmkmWeMWnT.jpg" alt="Avengers: Doomsday (2026)" loading="lazy" /><div class="rel-title">Avengers: Doomsday (2026)</div><div class="rel-sub">2026-12-16</div></a><a class="rel-card" href="the-hunger-games-sunrise-on-the-reaping-1300968.html"><img src="https://image.tmdb.org/t/p/w342/5ffVOGY3x3Sn3jovzvycJeizpks.jpg" alt="The Hunger Games: Sunrise on the Reaping (2026)" loading="lazy" /><div class="rel-title">The Hunger Games: Sunrise on the Reaping (2026)</div><div class="rel-sub">★ 7.8</div></a><a class="rel-card" href="the-odyssey-1368337.html"><img src="https://image.tmdb.org/t/p/w342/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg" alt="The Odyssey (2026)" loading="lazy" /><div class="rel-title">The Odyssey (2026)</div><div class="rel-sub">★ 8.0</div></a><a class="rel-card" href="the-mosquito-bowl-1458300.html"><img src="https://image.tmdb.org/t/p/w342/zbT4sxoCEeFWlQG4SC5X9Q8v6PC.jpg" alt="The Mosquito Bowl (2026)" loading="lazy" /><div class="rel-title">The Mosquito Bowl (2026)</div><div class="rel-sub">★ 6.8</div></a><a class="rel-card" href="hexed-1538497.html"><img src="https://image.tmdb.org/t/p/w342/yykeYKbDBM9eUMJUucaaDo2mi1p.jpg" alt="Hexed (2026)" loading="lazy" /><div class="rel-title">Hexed (2026)</div><div class="rel-sub">★ 6.2</div></a><a class="rel-card" href="you-can-see-everything-1765072.html"><img src="https://image.tmdb.org/t/p/w342/mVh3qkw2NUFxWWyF0G1hg2Wh0K5.jpg" alt="You Can See Everything (2026)" loading="lazy" /><div class="rel-title">You Can See Everything (2026)</div><div class="rel-sub">★ 8.6</div></a><a class="rel-card" href="way-of-the-warrior-kid-1280115.html"><img src="https://image.tmdb.org/t/p/w342/atI81xXKNVah7PJFBo3aXqQKtnG.jpg" alt="Way of the Warrior Kid (2026)" loading="lazy" /><div class="rel-title">Way of the Warrior Kid (2026)</div><div class="rel-sub">★ 8.0</div></a><a class="rel-card" href="wicker-1195803.html"><img src="https://image.tmdb.org/t/p/w342/6FcBZOKvyrLCKGCyBG0ySCR4okt.jpg" alt="Wicker (2026)" loading="lazy" /><div class="rel-title">Wicker (2026)</div><div class="rel-sub">★ 7.4</div></a><a class="rel-card" href="spider-man-brand-new-day-969681.html"><img src="https://image.tmdb.org/t/p/w342/bjiS5ipwxb9JFy3XRRN4OAilSeX.jpg" alt="Spider-Man: Brand New Day (2026)" loading="lazy" /><div class="rel-title">Spider-Man: Brand New Day (2026)</div><div class="rel-sub">★ 8.5</div></a><a class="rel-card" href="the-social-reckoning-1281331.html"><img src="https://image.tmdb.org/t/p/w342/vWbEuI3LuFOGYZIxESLAmwFwtvr.jpg" alt="The Social Reckoning (2026)" loading="lazy" /><div class="rel-title">The Social Reckoning (2026)</div><div class="rel-sub">★ 7.0</div></a><a class="rel-card" href="steps-1595124.html"><img src="https://image.tmdb.org/t/p/w342/jtfCcWZ3ZyKdgi0u7JVOxEOSSJP.jpg" alt="Steps (2026)" loading="lazy" /><div class="rel-title">Steps (2026)</div><div class="rel-sub">★ 7.2</div></a><a class="rel-card" href="focker-in-law-1400336.html"><img src="https://image.tmdb.org/t/p/w342/iHJhSfqFpDMOyeMc6h6BOeHxse2.jpg" alt="Focker In-Law (2026)" loading="lazy" /><div class="rel-title">Focker In-Law (2026)</div><div class="rel-sub">★ 7.0</div></a><a class="rel-card" href="godzilla-minus-zero-1381071.html"><img src="https://image.tmdb.org/t/p/w342/hSmIJluOJmTWvJs4d7kHRxjc8s8.jpg" alt="Godzilla Minus Zero (2026)" loading="lazy" /><div class="rel-title">Godzilla Minus Zero (2026)</div><div class="rel-sub">★ 7.7</div></a><a class="rel-card" href="clashing-through-the-snow-1611767.html"><img src="https://image.tmdb.org/t/p/w342/95K1Y96ELBDL3M8kyTVb5wocCtX.jpg" alt="Clashing Through the Snow (2026)" loading="lazy" /><div class="rel-title">Clashing Through the Snow (2026)</div><div class="rel-sub">★ 6.8</div></a><a class="rel-card" href="dune-part-three-1170608.html"><img src="https://image.tmdb.org/t/p/w342/d43fvHQsIMa4kpyhKXw0haEJIvI.jpg" alt="Dune: Part Three (2026)" loading="lazy" /><div class="rel-title">Dune: Part Three (2026)</div><div class="rel-sub">2026-12-15</div></a><a class="rel-card" href="resident-evil-1423191.html"><img src="https://image.tmdb.org/t/p/w342/gAgWJhUSQWCgtKR8170nMkYlBda.jpg" alt="Resident Evil (2026)" loading="lazy" /><div class="rel-title">Resident Evil (2026)</div><div class="rel-sub">★ 7.5</div></a><a class="rel-card" href="guarding-stars-1551025.html"><img src="https://image.tmdb.org/t/p/w342/5bsXFYXOlbzHBpl9mPaxmOPIQJ9.jpg" alt="Guarding Stars (2026)" loading="lazy" /><div class="rel-title">Guarding Stars (2026)</div><div class="rel-sub">★ 6.8</div></a><a class="rel-card" href="madden-1131943.html"><img src="https://image.tmdb.org/t/p/w342/bRa83oPFFPqaAF3wrpVWPqqfFel.jpg" alt="Madden (2026)" loading="lazy" /><div class="rel-title">Madden (2026)</div><div class="rel-sub">★ 6.5</div></a><a class="rel-card" href="breeder-1496696.html"><img src="https://image.tmdb.org/t/p/w342/alsb3UC17kxIcytLWvwkmL0STgU.jpg" alt="Breeder (2026)" loading="lazy" /><div class="rel-title">Breeder (2026)</div><div class="rel-sub">★ 7.2</div></a><a class="rel-card" href="fjord-1401459.html"><img src="https://image.tmdb.org/t/p/w342/3PPPIeSdeivjUn3O9RahGiaJ9b8.jpg" alt="Fjord (2026)" loading="lazy" /><div class="rel-title">Fjord (2026)</div><div class="rel-sub">★ 7.3</div></a><a class="rel-card" href="iron-man-1726.html"><img src="https://image.tmdb.org/t/p/w342/78lPtwv72eTNqFW9COBYI0dWDJa.jpg" alt="Iron Man (2008)" loading="lazy" /><div class="rel-title">Iron Man (2008)</div><div class="rel-sub">★ 7.7</div></a><a class="rel-card" href="kalki-2898-ad-801688.html"><img src="https://image.tmdb.org/t/p/w342/rstcAnBeCkxNQjNp3YXrF6IP1tW.jpg" alt="Kalki 2898-AD (2024)" loading="lazy" /><div class="rel-title">Kalki 2898-AD (2024)</div><div class="rel-sub">★ 6.4</div></a><a class="rel-card" href="heart-of-the-beast-1263337.html"><img src="https://image.tmdb.org/t/p/w342/6sYemVUn79UPKz1ZsSG6kPU4RVy.jpg" alt="Heart of the Beast (2026)" loading="lazy" /><div class="rel-title">Heart of the Beast (2026)</div><div class="rel-sub">★ 7.9</div></a><a class="rel-card" href="other-mommy-1400837.html"><img src="https://image.tmdb.org/t/p/w342/fGRNCssTRrhYZxNzykGGCoMsAVq.jpg" alt="Other Mommy (2026)" loading="lazy" /><div class="rel-title">Other Mommy (2026)</div><div class="rel-sub">★ 6.5</div></a><a class="rel-card" href="hope-1058424.html"><img src="https://image.tmdb.org/t/p/w342/6VY1ZKgpsc8CfGsQcCGiYEgHdH0.jpg" alt="Hope (2026)" loading="lazy" /><div class="rel-title">Hope (2026)</div><div class="rel-sub">★ 6.9</div></a><a class="rel-card" href="apocalypse-z-new-world-1507696.html"><img src="https://image.tmdb.org/t/p/w342/wXln4DUrwcyjcFPwgQxFPYTlG1Z.jpg" alt="Apocalypse Z: New World (2026)" loading="lazy" /><div class="rel-title">Apocalypse Z: New World (2026)</div><div class="rel-sub">★ 6.2</div></a><a class="rel-card" href="never-surrender-1616687.html"><img src="https://image.tmdb.org/t/p/w342/hKROmLddpzpjkxKKVFYFRAOXX1b.jpg" alt="Never Surrender (2026)" loading="lazy" /><div class="rel-title">Never Surrender (2026)</div><div class="rel-sub">★ 7.0</div></a><a class="rel-card" href="beware-boiuna-1244523.html"><img src="https://image.tmdb.org/t/p/w342/tENVMxKvOkslv8kagVNdIEQ13RT.jpg" alt="Beware Boiúna (2026)" loading="lazy" /><div class="rel-title">Beware Boiúna (2026)</div><div class="rel-sub">★ 6.0</div></a><a class="rel-card" href="hansel-gretel-s-halloween-1741617.html"><img src="https://image.tmdb.org/t/p/w342/taNnBPN5FrJqYxsiJIqAL0KhqZ.jpg" alt="Hansel &amp; Gretel&#39;s Halloween (2026)" loading="lazy" /><div class="rel-title">Hansel &amp; Gretel&#39;s Halloween (2026)</div><div class="rel-sub">★ 6.8</div></a><a class="rel-card" href="a-story-of-derry-1813355.html"><img src="https://image.tmdb.org/t/p/w342/4PtzGcegF5Po1NmDAW9IklyvAUh.jpg" alt="A Story of Derry (2026)" loading="lazy" /><div class="rel-title">A Story of Derry (2026)</div><div class="rel-sub">★ 6.6</div></a><a class="rel-card" href="ghost-soldier-1562642.html"><img src="https://image.tmdb.org/t/p/w342/8Y4oJ5iUs3hgPcDB3SIEmsNYjZk.jpg" alt="Ghost Soldier (2026)" loading="lazy" /><div class="rel-title">Ghost Soldier (2026)</div><div class="rel-sub">★ 9.0</div></a><a class="rel-card" href="ramayana-rise-of-a-legend-656908.html"><img src="https://image.tmdb.org/t/p/w342/vBQ7wks68OhJKlb3RnXSl2yXBXK.jpg" alt="Ramayana: Rise of a Legend (2026)" loading="lazy" /><div class="rel-title">Ramayana: Rise of a Legend (2026)</div><div class="rel-sub">★ 7.5</div></a><a class="rel-card" href="the-mongoose-1294189.html"><img src="https://image.tmdb.org/t/p/w342/eSS5mvSG84UUuvtbHel5Yu3Wik4.jpg" alt="The Mongoose (2026)" loading="lazy" /><div class="rel-title">The Mongoose (2026)</div><div class="rel-sub">★ 6.6</div></a><a class="rel-card" href="la-bola-negra-1422041.html"><img src="https://image.tmdb.org/t/p/w342/7HwFQTMghL6HOvzEnXYUvyuZXeh.jpg" alt="LA BOLA NEGRA (2026)" loading="lazy" /><div class="rel-title">LA BOLA NEGRA (2026)</div><div class="rel-sub">★ 7.9</div></a><a class="rel-card" href="ebenezer-1567605.html"><img src="https://image.tmdb.org/t/p/w342/6H2N59jJW1hZEzn2ZdrMvJw5vNI.jpg" alt="Ebenezer (2026)" loading="lazy" /><div class="rel-title">Ebenezer (2026)</div><div class="rel-sub">★ 7.5</div></a><a class="rel-card" href="buddy-1514026.html"><img src="https://image.tmdb.org/t/p/w342/1BdZbNvl1SfrrX8J9X5tQzN6Ivu.jpg" alt="Buddy (2026)" loading="lazy" /><div class="rel-title">Buddy (2026)</div><div class="rel-sub">★ 6.8</div></a><a class="rel-card" href="project-hail-mary-687163.html"><img src="https://image.tmdb.org/t/p/w342/iOb2fjXLbpJgyQXe46n1WtGCnaa.jpg" alt="Project Hail Mary (2026)" loading="lazy" /><div class="rel-title">Project Hail Mary (2026)</div><div class="rel-sub">★ 8.6</div></a><a class="rel-card" href="wildwood-791523.html"><img src="https://image.tmdb.org/t/p/w342/snFM00mpNAfUzUtkdEW0uDEvXA0.jpg" alt="Wildwood (2026)" loading="lazy" /><div class="rel-title">Wildwood (2026)</div><div class="rel-sub">★ 8.5</div></a><a class="rel-card" href="dune-part-two-693134.html"><img src="https://image.tmdb.org/t/p/w342/6izwz7rsy95ARzTR3poZ8H6c5pp.jpg" alt="Dune: Part Two (2024)" loading="lazy" /><div class="rel-title">Dune: Part Two (2024)</div><div class="rel-sub">★ 8.1</div></a><a class="rel-card" href="i-play-rocky-1286656.html"><img src="https://image.tmdb.org/t/p/w342/8q8AF8xvV1drhACtEL2Iti5gJ8P.jpg" alt="I Play Rocky (2026)" loading="lazy" /><div class="rel-title">I Play Rocky (2026)</div><div class="rel-sub">★ 8.3</div></a></div>
+      <h1>All Movies Directory — Hollywood, Bollywood &amp; Coming Soon (59)</h1>
+      <p class="card-lead">Click any title below to open its full streaming availability, release date, official trailer, and cast page.</p>
+      <div class="card-track expanded">
+    <a class="media-card" href="../movie/the-hunger-games-sunrise-on-the-reaping-1300968.html" data-search="the hunger games: sunrise on the reaping 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5ffVOGY3x3Sn3jovzvycJeizpks.jpg" alt="The Hunger Games: Sunrise on the Reaping (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.8 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Hunger Games: Sunrise on the Reaping (2026)</div>
+        <div class="card-sub">Movie • Science Fiction, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/avengers-doomsday-1003596.html" data-search="avengers: doomsday 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/1zqWkLwC1zLBBBtIWzmkmWeMWnT.jpg" alt="Avengers: Doomsday (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 16, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Avengers: Doomsday (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 16, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/the-odyssey-1368337.html" data-search="the odyssey 2026 adventure action fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg" alt="The Odyssey (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Odyssey (2026)</div>
+        <div class="card-sub">Movie • Adventure, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/steps-1595124.html" data-search="steps 2026 animation family comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/jtfCcWZ3ZyKdgi0u7JVOxEOSSJP.jpg" alt="Steps (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Steps (2026)</div>
+        <div class="card-sub">Movie • Animation, Family</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/hexed-1538497.html" data-search="hexed 2026 adventure animation family fantasy comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/yykeYKbDBM9eUMJUucaaDo2mi1p.jpg" alt="Hexed (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.3 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Hexed (2026)</div>
+        <div class="card-sub">Movie • Adventure, Animation</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/the-mosquito-bowl-1458300.html" data-search="the mosquito bowl 2026 war history drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/uxYs0bNTF4XzM8LThJk2x3AJ0Iv.jpg" alt="The Mosquito Bowl (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Mosquito Bowl (2026)</div>
+        <div class="card-sub">Movie • War, History</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/spider-man-brand-new-day-969681.html" data-search="spider-man: brand new day 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bjiS5ipwxb9JFy3XRRN4OAilSeX.jpg" alt="Spider-Man: Brand New Day (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Spider-Man: Brand New Day (2026)</div>
+        <div class="card-sub">Movie • Science Fiction, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/wicker-1195803.html" data-search="wicker 2026 romance fantasy comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/6FcBZOKvyrLCKGCyBG0ySCR4okt.jpg" alt="Wicker (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Wicker (2026)</div>
+        <div class="card-sub">Movie • Romance, Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/the-social-reckoning-1281331.html" data-search="the social reckoning 2026 drama thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/vWbEuI3LuFOGYZIxESLAmwFwtvr.jpg" alt="The Social Reckoning (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Social Reckoning (2026)</div>
+        <div class="card-sub">Movie • Drama, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/you-can-see-everything-1765072.html" data-search="you can see everything 2026 documentary">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/mVh3qkw2NUFxWWyF0G1hg2Wh0K5.jpg" alt="You Can See Everything (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.6 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">You Can See Everything (2026)</div>
+        <div class="card-sub">Movie • Documentary</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/way-of-the-warrior-kid-1280115.html" data-search="way of the warrior kid 2026 drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/atI81xXKNVah7PJFBo3aXqQKtnG.jpg" alt="Way of the Warrior Kid (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Way of the Warrior Kid (2026)</div>
+        <div class="card-sub">Movie • Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/guarding-stars-1551025.html" data-search="guarding stars 2026 romance comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5bsXFYXOlbzHBpl9mPaxmOPIQJ9.jpg" alt="Guarding Stars (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.8 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Guarding Stars (2026)</div>
+        <div class="card-sub">Movie • Romance, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/godzilla-minus-zero-1381071.html" data-search="godzilla minus zero 2026 science fiction horror action">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/hSmIJluOJmTWvJs4d7kHRxjc8s8.jpg" alt="Godzilla Minus Zero (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Godzilla Minus Zero (2026)</div>
+        <div class="card-sub">Movie • Science Fiction, Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/clashing-through-the-snow-1611767.html" data-search="clashing through the snow 2026 romance comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/95K1Y96ELBDL3M8kyTVb5wocCtX.jpg" alt="Clashing Through the Snow (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.7 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Clashing Through the Snow (2026)</div>
+        <div class="card-sub">Movie • Romance, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/dune-part-three-1170608.html" data-search="dune: part three 2026 science fiction adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/d43fvHQsIMa4kpyhKXw0haEJIvI.jpg" alt="Dune: Part Three (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 15, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dune: Part Three (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 15, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/madden-1131943.html" data-search="madden 2026 drama history comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bRa83oPFFPqaAF3wrpVWPqqfFel.jpg" alt="Madden (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Madden (2026)</div>
+        <div class="card-sub">Movie • Drama, History</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/perfect-liars-1568060.html" data-search="perfect liars 2026 drama romance thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/kej8EipJOvfHUHFg5wtT7gQ6bNb.jpg" alt="Perfect Liars (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Perfect Liars (2026)</div>
+        <div class="card-sub">Movie • Drama, Romance</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/focker-in-law-1400336.html" data-search="focker in-law 2026 comedy romance">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/iHJhSfqFpDMOyeMc6h6BOeHxse2.jpg" alt="Focker In-Law (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.9 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Focker In-Law (2026)</div>
+        <div class="card-sub">Movie • Comedy, Romance</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/violent-night-2-1078446.html" data-search="violent night 2 2026 action comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/7HPvgItDw9NgW3iy4tFRRuGNbuN.jpg" alt="Violent Night 2 (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 2, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Violent Night 2 (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 2, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/the-angry-birds-movie-3-1300926.html" data-search="the angry birds movie 3 2026 adventure animation comedy family">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/xyml31x5gu23tOMIFJ43XO4aTD6.jpg" alt="The Angry Birds Movie 3 (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 23, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Angry Birds Movie 3 (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 23, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/de-gaulle-liberte-1165369.html" data-search="de gaulle: liberté 2026 drama war history">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/297x0HIqSCp19pN9wlduK9PONRv.jpg" alt="De Gaulle: Liberté (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.9 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">De Gaulle: Liberté (2026)</div>
+        <div class="card-sub">Movie • Drama, War</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/behemoth-1452168.html" data-search="behemoth! 2026 music drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bcyGYWfcXr0GnXewaE5gkvYy1iQ.jpg" alt="Behemoth! (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 2, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Behemoth! (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 2, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/the-debut-1391239.html" data-search="the debut 2026 music comedy drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/qk8qWJxM9hZSbSjSoEz0LAzcoPb.jpg" alt="The Debut (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 10, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Debut (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 10, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/ray-gunn-940009.html" data-search="ray gunn 2026 animation science fiction crime mystery">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/rpP29aOKpHy1FhX8OZQdUICEs2j.jpg" alt="Ray Gunn (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 2, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ray Gunn (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 2, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/november-1963-1287520.html" data-search="november 1963 2026 crime thriller drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ujp2aHu1lWMjAGoletnsmv3mcMn.jpg" alt="November 1963 (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 5.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">November 1963 (2026)</div>
+        <div class="card-sub">Movie • Crime, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/la-gradiva-1154730.html" data-search="la gradiva 2026 drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/y6AkOgTEPM9nTJUOeyvHqlf6Bgp.jpg" alt="La Gradiva (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">La Gradiva (2026)</div>
+        <div class="card-sub">Movie • Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/zero-a-d-the-birth-of-christ-1408207.html" data-search="zero a.d.: the birth of christ 2026 drama thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/dUeEofJFpp04OjRr2hatZGCFrlR.jpg" alt="Zero A.D.: The Birth of Christ (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 3, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Zero A.D.: The Birth of Christ (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 3, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/rose-1176962.html" data-search="rose 2026 drama history war">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/4k3ph6BoeZr7IMiQx8ioEV8d9cJ.jpg" alt="Rose (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.6 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Rose (2026)</div>
+        <div class="card-sub">Movie • Drama, History</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/flavia-1129104.html" data-search="flavia 2026 family adventure mystery comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/xwm7TGTmQcM2PkVvMxTjpYYk600.jpg" alt="Flavia (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Flavia (2026)</div>
+        <div class="card-sub">Movie • Family, Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/the-fox-1045968.html" data-search="the fox 2026 comedy fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/unIaSB9LZ0r3iZ2jBAQ2Qi5mFIp.jpg" alt="The Fox (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Fox (2026)</div>
+        <div class="card-sub">Movie • Comedy, Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/iron-man-1726.html" data-search="iron man 2008 action science fiction adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/78lPtwv72eTNqFW9COBYI0dWDJa.jpg" alt="Iron Man (2008) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2008</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Iron Man (2008)</div>
+        <div class="card-sub">Movie • Action, Science Fiction</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/heart-of-the-beast-1263337.html" data-search="heart of the beast 2026 adventure thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/6sYemVUn79UPKz1ZsSG6kPU4RVy.jpg" alt="Heart of the Beast (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.9 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Heart of the Beast (2026)</div>
+        <div class="card-sub">Movie • Adventure, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/other-mommy-1400837.html" data-search="other mommy 2026 horror">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/fGRNCssTRrhYZxNzykGGCoMsAVq.jpg" alt="Other Mommy (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Other Mommy (2026)</div>
+        <div class="card-sub">Movie • Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/resident-evil-1423191.html" data-search="resident evil 2026 horror science fiction adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/gAgWJhUSQWCgtKR8170nMkYlBda.jpg" alt="Resident Evil (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Resident Evil (2026)</div>
+        <div class="card-sub">Movie • Horror, Science Fiction</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/beware-boiuna-1244523.html" data-search="beware boiúna 2026 adventure horror thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/tENVMxKvOkslv8kagVNdIEQ13RT.jpg" alt="Beware Boiúna (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Beware Boiúna (2026)</div>
+        <div class="card-sub">Movie • Adventure, Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/hansel-gretel-s-halloween-1741617.html" data-search="hansel &amp; gretel&#39;s halloween 2026 horror fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/taNnBPN5FrJqYxsiJIqAL0KhqZ.jpg" alt="Hansel &amp; Gretel&#39;s Halloween (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.8 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Hansel &amp; Gretel&#39;s Halloween (2026)</div>
+        <div class="card-sub">Movie • Horror, Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/a-story-of-derry-1813355.html" data-search="a story of derry 2026 drama horror mystery">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/4PtzGcegF5Po1NmDAW9IklyvAUh.jpg" alt="A Story of Derry (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.6 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">A Story of Derry (2026)</div>
+        <div class="card-sub">Movie • Drama, Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/breeder-1496696.html" data-search="breeder 2026 horror thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/alsb3UC17kxIcytLWvwkmL0STgU.jpg" alt="Breeder (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.3 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Breeder (2026)</div>
+        <div class="card-sub">Movie • Horror, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/the-mongoose-1294189.html" data-search="the mongoose 2026 action thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/eSS5mvSG84UUuvtbHel5Yu3Wik4.jpg" alt="The Mongoose (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.6 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Mongoose (2026)</div>
+        <div class="card-sub">Movie • Action, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/dracula-eternal-1492566.html" data-search="dracula eternal 2026 horror">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/qDFHLI5s1o7TgeBN4wSPrvJN8D5.jpg" alt="Dracula Eternal (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 2.3 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dracula Eternal (2026)</div>
+        <div class="card-sub">Movie • Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/ghost-soldier-1562642.html" data-search="ghost soldier 2026 action thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/8Y4oJ5iUs3hgPcDB3SIEmsNYjZk.jpg" alt="Ghost Soldier (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 9.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ghost Soldier (2026)</div>
+        <div class="card-sub">Movie • Action, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/ramayana-rise-of-a-legend-656908.html" data-search="ramayana: rise of a legend 2026 fantasy action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/vBQ7wks68OhJKlb3RnXSl2yXBXK.jpg" alt="Ramayana: Rise of a Legend (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ramayana: Rise of a Legend (2026)</div>
+        <div class="card-sub">Movie • Fantasy, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/gajab-raat-1453407.html" data-search="gajab raat 2026 thriller crime">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/e4N7M52cBbyi24xLga8yI6yt1u1.jpg" alt="Gajab Raat (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.1 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Gajab Raat (2026)</div>
+        <div class="card-sub">Movie • Thriller, Crime</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/reporting-live-1389172.html" data-search="reporting live 2026 crime thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/xVabS4lTi6IMscr2FOucxydE6ZD.jpg" alt="Reporting Live (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.1 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Reporting Live (2026)</div>
+        <div class="card-sub">Movie • Crime, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/3-idiots-20453.html" data-search="3 idiots 2009 drama comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/66A9MqXOyVFCssoloscw79z8Tew.jpg" alt="3 Idiots (2009) poster" loading="lazy" />
+        <span class="status-pill">★ 8.0 • 2009</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">3 Idiots (2009)</div>
+        <div class="card-sub">Movie • Drama, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/dhurandhar-the-revenge-1582770.html" data-search="dhurandhar: the revenge 2026 action crime thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ov8vrRLZGoXHpYjSY9Vpv1tHJX7.jpg" alt="Dhurandhar: The Revenge (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dhurandhar: The Revenge (2026)</div>
+        <div class="card-sub">Movie • Action, Crime</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/dilwale-dulhania-le-jayenge-19404.html" data-search="dilwale dulhania le jayenge 1995 comedy drama romance">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/lfRkUr7DYdHldAqi3PwdQGBRBPM.jpg" alt="Dilwale Dulhania Le Jayenge (1995) poster" loading="lazy" />
+        <span class="status-pill">★ 8.5 • 1995</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dilwale Dulhania Le Jayenge (1995)</div>
+        <div class="card-sub">Movie • Comedy, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/dhurandhar-1291608.html" data-search="dhurandhar 2025 action crime thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/8FHOtUpNIk5ZPEay2N2EY5lrxkv.jpg" alt="Dhurandhar (2025) poster" loading="lazy" />
+        <span class="status-pill">★ 7.3 • 2025</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dhurandhar (2025)</div>
+        <div class="card-sub">Movie • Action, Crime</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/drishyam-the-conclusion-1269325.html" data-search="drishyam: the conclusion 2026 thriller drama mystery crime">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/67FsF2kpgEZ1T5Qos4adgqm9dLf.jpg" alt="Drishyam: The Conclusion (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Drishyam: The Conclusion (2026)</div>
+        <div class="card-sub">Movie • Thriller, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/tante-siska-1141868.html" data-search="tante siska 2023 drama romance">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ui5arpwdiTrnAJ3P5Ue6XPSBMQx.jpg" alt="Tante Siska (2023) poster" loading="lazy" />
+        <span class="status-pill">★ 3.0 • 2023</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Tante Siska (2023)</div>
+        <div class="card-sub">Movie • Drama, Romance</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/hanuman-ansh-1709391.html" data-search="hanuman ansh 2026 family drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/as2Y3zGUa2IUS3uAx2sh6Ano3es.jpg" alt="Hanuman Ansh (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Hanuman Ansh (2026)</div>
+        <div class="card-sub">Movie • Family, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/dangal-360814.html" data-search="dangal 2016 drama family comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/cJRPOLEexI7qp2DKtFfCh7YaaUG.jpg" alt="Dangal (2016) poster" loading="lazy" />
+        <span class="status-pill">★ 7.9 • 2016</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dangal (2016)</div>
+        <div class="card-sub">Movie • Drama, Family</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/daayra-1215889.html" data-search="daayra 2026 crime drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/eAsR8oCZGCOqaxDVt0c0WrRFjrn.jpg" alt="Daayra (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.4 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Daayra (2026)</div>
+        <div class="card-sub">Movie • Crime, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/like-stars-on-earth-7508.html" data-search="like stars on earth 2007 drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/puHRt6Raovm5ujGCdwLWvRv4NHU.jpg" alt="Like Stars on Earth (2007) poster" loading="lazy" />
+        <span class="status-pill">★ 8.0 • 2007</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Like Stars on Earth (2007)</div>
+        <div class="card-sub">Movie • Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/parivarik-manuranjan-1493572.html" data-search="parivarik manuranjan 2026 romance comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/2gKGkD0pN2Ss9LrHA6tv5hEjHOs.jpg" alt="Parivarik ManuRanjan (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 4.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Parivarik ManuRanjan (2026)</div>
+        <div class="card-sub">Movie • Romance, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/ramayana-part-two-1383500.html" data-search="ramayana: part two 2028 fantasy action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/3TzWp9sYDmLoVYMsHPuufdTNuAn.jpg" alt="Ramayana: Part Two (2028) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Oct 17, 2028</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ramayana: Part Two (2028)</div>
+        <div class="card-sub">Movie • Releases Oct 17, 2028</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/alpha-1122030.html" data-search="alpha 2026 action thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bPtRt3ajQ0EkyeQ1O6iJwAIi9Py.jpg" alt="Alpha (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 5.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Alpha (2026)</div>
+        <div class="card-sub">Movie • Action, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/pk-297222.html" data-search="pk 2014 comedy drama science fiction">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/z2x2Y4tncefsIU7h82gmUM5vnBJ.jpg" alt="PK (2014) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2014</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">PK (2014)</div>
+        <div class="card-sub">Movie • Comedy, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="../movie/fighter-784651.html" data-search="fighter 2024 action drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/zqFuriKJ6pYDvf72kXNLONnuE8k.jpg" alt="Fighter (2024) poster" loading="lazy" />
+        <span class="status-pill">★ 6.1 • 2024</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Fighter (2024)</div>
+        <div class="card-sub">Movie • Action, Drama</div>
+      </div>
+    </a></div>
     </section>
   </main>
-  <footer><span>CineVault Streaming Discovery</span><span><a href="../index.html">Home</a> · <a href="../movie/index.html">Movies</a> · <a href="../tv/index.html">TV Series</a> · <a href="../guides.html">Guides</a></span></footer>
+  <footer>
+    <span>CineVault Streaming Discovery • Updated 2026-11-26</span>
+    <span><a href="../index.html">Home</a> · <a href="../movie/index.html">Movies</a> · <a href="../tv/index.html">TV &amp; Anime</a> · <a href="../guides.html">Guides</a></span>
+  </footer>
 </body>
 </html>

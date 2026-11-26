@@ -3,2329 +3,1524 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CineVault — Stream Trailers, Trending Movies &amp; TV Series Guide</title>
-  <meta
-    name="description"
-    content="Discover trending movies and TV series on CineVault. Search titles, filter by genre, watch official trailers, check streaming platforms, and build your watchlist."
-  />
-  <meta
-    name="keywords"
-    content="CineVault, trending movies, TV series, movie trailers, streaming guide, watchlist, watch movies online guide"
-  />
+  <title>CineVault — Stream Trailers, Coming Soon Movies, Anime, Hollywood &amp; Bollywood</title>
+  <meta name="description" content="Explore Trending Movies, Coming Soon release dates, Anime, Hollywood, Bollywood, and Netflix series on CineVault. Click any title for full streaming availability, trailers, and cast." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="theme-color" content="#06070a" />
-  <link rel="canonical" href="https://cinevault.space/" />
-
-  <!-- Open Graph / Social Sharing Tags -->
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:title" content="CineVault — Trending Movies &amp; TV Series Discovery" />
-  <meta
-    property="og:description"
-    content="Browse movies and series, watch official trailers, check where to stream, and save favorites to your personal watchlist."
-  />
-  <meta property="og:url" content="https://cinevault.space/" />
-  <meta property="og:site_name" content="CineVault" />
-
-  <!-- Twitter Card Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CineVault — Trending Movies &amp; TV Series Discovery" />
-  <meta
-    name="twitter:description"
-    content="Browse movies and series, watch trailers, find streaming availability, and build your watchlist."
-  />
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://cinevault.space/#website",
-        "name": "CineVault",
-        "url": "https://cinevault.space/",
-        "description": "Explore trending movies and TV series, watch trailers, check where to stream, and build your personal watchlist.",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://cinevault.space/?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
-      },
-      {
-        "@type": "CollectionPage",
-        "@id": "https://cinevault.space/#catalog",
-        "name": "CineVault Movies & Series Catalog",
-        "url": "https://cinevault.space/",
-        "isPartOf": {
-          "@id": "https://cinevault.space/#website"
-        }
-      }
-    ]
-  }
-  </script>
-
-  <style>
-    :root {
-      --bg: #050608;
-      --bg-elevated: #0c0f16;
-      --surface: #131722;
-      --surface-2: #1b2130;
-      --surface-3: #252d40;
-      --text: #f6f8fc;
-      --muted: #a4afc6;
-      --accent: #e50914;
-      --accent-2: #ff1e2d;
-      --gold: #f5c518;
-      --border: rgba(255, 255, 255, 0.09);
-      --border-strong: rgba(255, 255, 255, 0.22);
-      --radius: 10px;
-      --shadow: 0 20px 44px rgba(0, 0, 0, 0.72);
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
-      --max: 1360px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    html, body {
-      background:
-        radial-gradient(ellipse at top center, rgba(229, 9, 20, 0.16) 0%, rgba(16, 22, 38, 0.44) 36%, var(--bg) 76%);
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      min-height: 100vh;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    body.modal-open {
-      overflow: hidden !important;
-      touch-action: none;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button, input, select {
-      font-family: inherit;
-      color: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      backdrop-filter: blur(16px);
-      background: linear-gradient(180deg, rgba(5, 6, 8, 0.95) 0%, rgba(5, 6, 8, 0.82) 100%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .nav-wrap {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 13px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 900;
-      font-size: 1.35rem;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-    }
-
-    .brand-mark {
-      color: var(--accent);
-      font-size: 1.48rem;
-      line-height: 1;
-      text-shadow: 0 0 20px rgba(229, 9, 20, 0.65);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .pill-btn {
-      padding: 7px 14px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--border);
-      font-size: 0.86rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      transition: background 0.18s var(--ease), border-color 0.18s var(--ease);
-    }
-
-    .pill-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: var(--border-strong);
-    }
-
-    .pill-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      box-shadow: 0 6px 18px rgba(229, 9, 20, 0.35);
-    }
-
-    .count-tag {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 1px 7px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-    }
-
-    /* Main */
-    main {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px 20px 56px;
-    }
-
-    /* Top Swipeable Netflix Spotlight Strip (No Arrows, No Swipe Hint Button) */
-    .spotlight-strip {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: 100%;
-      gap: 16px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      margin-bottom: 18px;
-    }
-
-    .spotlight-strip::-webkit-scrollbar {
-      display: none;
-    }
-
-    .spot-slide {
-      scroll-snap-align: center;
-      scroll-snap-stop: always;
-      position: relative;
-      background-color: var(--bg-elevated);
-      background-size: cover;
-      background-position: center;
-      border: 1px solid var(--border-strong);
-      border-radius: 16px;
-      padding: 24px 22px;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1fr 185px;
-      gap: 24px;
-      align-items: center;
-      overflow: hidden;
-      min-height: 290px;
-    }
-
-    .spot-slide::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(95deg, rgba(5, 6, 8, 0.96) 0%, rgba(8, 11, 20, 0.86) 58%, rgba(5, 6, 8, 0.65) 100%),
-        linear-gradient(180deg, rgba(5, 6, 8, 0.28) 0%, rgba(5, 6, 8, 0.94) 100%);
-      z-index: 0;
-    }
-
-    .spot-body,
-    .spot-poster-card {
-      position: relative;
-      z-index: 1;
-    }
-
-    .spot-body {
-      min-width: 0;
-    }
-
-    .spot-badge-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-
-    .spot-rank-big {
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.88rem;
-      font-weight: 900;
-      padding: 3px 10px;
-      border-radius: 6px;
-      letter-spacing: 0.03em;
-      box-shadow: 0 6px 16px rgba(229, 9, 20, 0.45);
-    }
-
-    .spot-slide h1 {
-      font-size: clamp(1.5rem, 3.4vw, 2.3rem);
-      font-weight: 900;
-      letter-spacing: -0.025em;
-      line-height: 1.13;
-    }
-
-    .spot-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .spot-tags span {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--border);
-      padding: 3px 9px;
-      border-radius: 6px;
-    }
-
-    .spot-gold {
-      color: var(--gold) !important;
-      font-weight: 700;
-    }
-
-    .spot-desc {
-      color: #dce3f2;
-      font-size: 0.93rem;
-      margin-top: 10px;
-      margin-bottom: 16px;
-      max-width: 660px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .spot-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .primary-btn {
-      padding: 11px 20px;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      transition: background 0.18s var(--ease), transform 0.14s var(--ease);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-    }
-
-    .primary-btn:hover {
-      background: var(--accent-2);
-    }
-
-    .primary-btn:active {
-      transform: scale(0.98);
-    }
-
-    .primary-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .secondary-btn {
-      padding: 11px 18px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.13);
-      border: 1px solid var(--border-strong);
-      color: var(--text);
-      font-weight: 700;
-      font-size: 0.88rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      transition: background 0.16s var(--ease);
-    }
-
-    .secondary-btn:hover {
-      background: rgba(255, 255, 255, 0.22);
-    }
-
-    .spot-poster-card {
-      width: 100%;
-      aspect-ratio: 2 / 3;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border-strong);
-      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.78), 0 0 28px rgba(229, 9, 20, 0.22);
-      background: var(--surface-2);
-      cursor: pointer;
-    }
-
-    .spot-poster-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Search & Filter Bar Below Spotlight */
-    .search-section {
-      margin-bottom: 14px;
-    }
-
-    .search-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-    }
-
-    .search-input-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 11px 42px 11px 15px;
-      border-radius: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border-strong);
-      font-size: 0.94rem;
-      outline: none;
-      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
-    }
-
-    .search-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.22);
-    }
-
-    .clear-btn {
-      position: absolute;
-      right: 10px;
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      color: var(--muted);
-      display: grid;
-      place-items: center;
-      font-size: 0.92rem;
-    }
-
-    .clear-btn:hover {
-      color: var(--text);
-      background: var(--surface-2);
-    }
-
-    .filters {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .filter-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-    }
-
-    .chip {
-      padding: 6px 13px;
-      border-radius: 999px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--muted);
-      transition: all 0.16s var(--ease);
-    }
-
-    .chip:hover {
-      color: var(--text);
-      background: var(--surface-2);
-      border-color: var(--border-strong);
-    }
-
-    .chip.active {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
-    }
-
-    .sort-select {
-      padding: 7px 12px;
-      border-radius: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-size: 0.84rem;
-      font-weight: 600;
-      outline: none;
-    }
-
-    /* Netflix Horizontal Rows */
-    .netflix-rows {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      margin-bottom: 26px;
-    }
-
-    .row-block {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .row-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .row-title {
-      font-size: 1.08rem;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-    }
-
-    .row-scroller {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(154px, 172px);
-      gap: 12px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--surface-3) transparent;
-      scroll-snap-type: x proximity;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .row-scroller > .card {
-      scroll-snap-align: start;
-    }
-
-    /* Section Header */
-    .section-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .section-title {
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: -0.015em;
-    }
-
-    .result-meta {
-      font-size: 0.83rem;
-      color: var(--muted);
-    }
-
-    /* Poster Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.22s var(--ease), border-color 0.22s var(--ease), box-shadow 0.22s var(--ease);
-    }
-
-    .card:hover {
-      transform: translateY(-4px) scale(1.012);
-      border-color: rgba(229, 9, 20, 0.55);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.72);
-      z-index: 2;
-    }
-
-    .poster-box {
-      position: relative;
-      aspect-ratio: 2 / 3;
-      background: var(--surface-2);
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .poster-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.28s var(--ease);
-    }
-
-    .card:hover .poster-box img {
-      transform: scale(1.04);
-    }
-
-    /* Large Bold #1 - #10 Rank Badges */
-    .rank-badge-large {
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      background: linear-gradient(135deg, var(--accent-2) 0%, #8e030a 100%);
-      color: #fff;
-      padding: 4px 10px;
-      border-radius: 7px;
-      font-size: 0.92rem;
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: 0.02em;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.72);
-    }
-
-    .rating-pill {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background: rgba(5, 6, 8, 0.88);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 2px 7px;
-      border-radius: 6px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: var(--gold);
-    }
-
-    .save-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 29px;
-      height: 29px;
-      border-radius: 50%;
-      background: rgba(5, 6, 8, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      display: grid;
-      place-items: center;
-      font-size: 0.88rem;
-      transition: background 0.16s var(--ease), transform 0.15s var(--ease);
-    }
-
-    .save-btn:hover,
-    .save-btn.saved {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-
-    .card-body {
-      padding: 9px 10px 11px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex: 1;
-      cursor: pointer;
-    }
-
-    .card-title {
-      font-size: 0.88rem;
-      font-weight: 700;
-      line-height: 1.26;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .card-sub {
-      font-size: 0.74rem;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      margin-top: auto;
-    }
-
-    .type-badge {
-      text-transform: uppercase;
-      font-size: 0.64rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: rgba(229, 9, 20, 0.16);
-      color: #ff6b72;
-    }
-
-    /* Exact-Fit Ad Slot with Small Corner Sponsored Tag */
-    .ad-slot {
-      margin: 22px auto;
-      width: fit-content;
-      max-width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 3px;
-    }
-
-    .ad-corner-tag {
-      font-size: 0.6rem;
-      line-height: 1;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: rgba(19, 23, 34, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-
-    .ad-box {
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--surface);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      max-width: 100%;
-    }
-
-    .ad-box iframe {
-      display: block;
-      border: 0;
-      max-width: 100%;
-    }
-
-    /* Load More Bar */
-    .load-more-wrap {
-      margin-top: 24px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .empty-state {
-      background: var(--surface);
-      border: 1px dashed rgba(255, 255, 255, 0.18);
-      border-radius: var(--radius);
-      padding: 36px 20px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .empty-state p {
-      color: var(--muted);
-      max-width: 440px;
-      font-size: 0.92rem;
-    }
-
-    /* Modal with isolated scrolling so background page never moves */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 60;
-      background: rgba(4, 5, 8, 0.88);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      overflow: hidden;
-      overscroll-behavior: contain;
-    }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
-
-    .modal {
-      width: 100%;
-      max-width: 840px;
-      max-height: 90vh;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
-      background: var(--surface);
-      border: 1px solid var(--border-strong);
-      border-radius: 14px;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.78);
-      position: relative;
-    }
-
-    .modal-close {
-      position: sticky;
-      top: 12px;
-      float: right;
-      margin: 12px 12px 0 0;
-      z-index: 5;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: rgba(5, 6, 8, 0.9);
-      border: 1px solid var(--border);
-      font-size: 1.05rem;
-      display: grid;
-      place-items: center;
-    }
-
-    .modal-close:hover {
-      background: var(--accent);
-    }
-
-    .modal-hero {
-      display: grid;
-      grid-template-columns: 210px 1fr;
-      gap: 20px;
-      padding: 22px;
-    }
-
-    .modal-poster {
-      width: 100%;
-      aspect-ratio: 2 / 3;
-      border-radius: 10px;
-      object-fit: cover;
-      background: var(--surface-2);
-    }
-
-    .modal-title {
-      font-size: 1.48rem;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .modal-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 10px 0 14px;
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    .modal-meta span {
-      background: var(--surface-2);
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-    }
-
-    .modal-overview {
-      font-size: 0.93rem;
-      color: #dbe2f0;
-      margin-bottom: 16px;
-    }
-
-    .modal-section {
-      padding: 16px 22px 22px;
-      border-top: 1px solid var(--border);
-    }
-
-    .modal-section h3 {
-      font-size: 0.98rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .provider-list,
-    .cast-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .provider-pill,
-    .cast-pill {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-    }
-
-    .provider-pill {
-      font-weight: 600;
-      color: #e6ecfa;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .provider-link {
-      cursor: pointer;
-      transition: background 0.18s, border-color 0.18s, transform 0.15s;
-    }
-
-    .provider-link:hover {
-      background: var(--surface-3);
-      border-color: var(--gold);
-      color: #fff;
-      transform: translateY(-1px);
-    }
-
-    .trailer-box {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #040508;
-      border: 1px solid var(--border);
-    }
-
-    .trailer-box iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .info-note {
-      font-size: 0.84rem;
-      color: var(--muted);
-      background: var(--surface-2);
-      padding: 12px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .yt-fallback-btn {
-      padding: 8px 14px;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.8rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-
-    .yt-fallback-btn:hover {
-      background: var(--accent-2);
-    }
-
-    .similar-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 12px;
-    }
-
-    .similar-card {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .similar-card img {
-      width: 100%;
-      aspect-ratio: 2 / 3;
-      object-fit: cover;
-      display: block;
-    }
-
-    .similar-card p {
-      padding: 7px 8px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    footer {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 22px 20px 30px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.83rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
-    }
-
-    @media (max-width: 720px) {
-      .spot-slide {
-        grid-template-columns: 1fr;
-        padding: 18px 15px;
-      }
-      .spot-poster-card {
-        width: 145px;
-        margin: 4px auto 0;
-      }
-    }
-
-    @media (max-width: 640px) {
-      main {
-        padding: 14px 14px 48px;
-      }
-      .search-row {
-        grid-template-columns: 1fr;
-      }
-      .modal-hero {
-        grid-template-columns: 1fr;
-      }
-      .modal-poster {
-        max-width: 185px;
-        margin: 0 auto;
-      }
-      .grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 11px;
-      }
-      .row-scroller {
-        grid-auto-columns: minmax(136px, 150px);
-      }
-      .ad-slot {
-        margin: 18px auto;
-      }
-    }
-  </style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
+  <link rel="canonical" href="https://cinevault.space/" />
+  <meta property="og:site_name" content="CineVault" />
+  <meta property="og:title" content="CineVault — Trending Movies, Coming Soon, Anime, Hollywood &amp; Bollywood" />
+  <meta property="og:description" content="Discover where to stream trending movies, upcoming releases, anime, Hollywood, and Bollywood titles with official trailers and regional streaming guides." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cinevault.space/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    :root {
+      --bg: #080a0f;
+      --surface: #111520;
+      --surface-2: #171d2c;
+      --surface-3: #1f273b;
+      --text: #f4f7fc;
+      --muted: #9aa6c0;
+      --accent: #e50914;
+      --accent-hover: #ff1e2d;
+      --gold: #f5b942;
+      --cyan: #38bdf8;
+      --border: rgba(255,255,255,0.09);
+      --max: 1240px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: radial-gradient(circle at 85% -10%, #1a2138 0%, var(--bg) 52%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(8,10,15,0.92);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      max-width: var(--max); margin: 0 auto; padding: 12px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.18rem; letter-spacing: -0.01em; }
+    .badge-icon {
+      width: 32px; height: 32px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent-hover), #99040c);
+      display: grid; place-items: center; font-size: 0.85rem; color: #fff;
+      box-shadow: 0 4px 14px rgba(229,9,20,0.4);
+    }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-btn {
+      padding: 7px 13px; border-radius: 999px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      font-size: 0.82rem; font-weight: 600; color: var(--text);
+      transition: background 0.18s ease, border-color 0.18s ease;
+    }
+    .nav-btn:hover, .nav-btn.active { background: var(--surface-3); border-color: rgba(255,255,255,0.26); }
+    main { max-width: var(--max); margin: 0 auto; padding: 18px 18px 64px; }
+
+    /* Hero & Search Bar on Homepage */
+    .home-hero {
+      background: linear-gradient(135deg, rgba(22,29,48,0.92), rgba(13,17,27,0.96));
+      border: 1px solid var(--border); border-radius: 20px;
+      padding: 24px 22px; margin-bottom: 22px;
+    }
+    .home-hero h1 { font-size: clamp(1.45rem, 3.2vw, 2.15rem); line-height: 1.2; margin-bottom: 8px; }
+    .home-hero p { color: var(--muted); font-size: 0.94rem; max-width: 760px; margin-bottom: 16px; }
+    .search-bar-wrap {
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px;
+    }
+    .search-input {
+      flex: 1 1 260px; padding: 11px 16px; border-radius: 12px;
+      background: var(--bg); border: 1px solid rgba(255,255,255,0.16);
+      color: var(--text); font-size: 0.94rem; outline: none;
+    }
+    .search-input:focus { border-color: var(--accent-hover); }
+    .cat-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cat-pill {
+      padding: 6px 13px; border-radius: 999px; font-size: 0.8rem; font-weight: 700;
+      background: var(--surface-2); border: 1px solid var(--border); color: var(--muted);
+    }
+    .cat-pill:hover { color: var(--text); border-color: rgba(255,255,255,0.28); }
+
+    /* Horizontal Category Shelves */
+    .shelf {
+      margin-bottom: 28px; background: rgba(17,21,32,0.65);
+      border: 1px solid var(--border); border-radius: 18px; padding: 18px 16px;
+    }
+    .shelf-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .shelf-title-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .shelf-title { font-size: 1.18rem; font-weight: 800; }
+    .shelf-count {
+      font-size: 0.74rem; font-weight: 700; color: var(--muted);
+      background: var(--surface-2); border: 1px solid var(--border);
+      padding: 2px 9px; border-radius: 999px;
+    }
+    .shelf-actions { display: flex; align-items: center; gap: 8px; }
+    .expand-btn {
+      cursor: pointer; padding: 6px 13px; border-radius: 999px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--gold); font-size: 0.79rem; font-weight: 700;
+    }
+    .expand-btn:hover { background: var(--surface-3); border-color: var(--gold); }
+
+    /* Horizontal Track (Default) & Expanded Grid Mode */
+    .card-track {
+      display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px;
+      scroll-snap-type: x mandatory; scrollbar-width: thin;
+    }
+    .card-track::-webkit-scrollbar { height: 6px; }
+    .card-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 999px; }
+    .card-track .media-card { flex: 0 0 162px; scroll-snap-align: start; }
+    @media (max-width: 600px) {
+      .card-track .media-card { flex: 0 0 144px; }
+    }
+    .card-track.expanded {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+      overflow-x: visible;
+    }
+    .card-track.expanded .media-card { flex: unset; width: 100%; }
+
+    .media-card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 13px; overflow: hidden;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+    .media-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.32); }
+    .poster-box { position: relative; width: 100%; aspect-ratio: 2/3; background: #0d111b; overflow: hidden; }
+    .poster-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .status-pill {
+      position: absolute; top: 8px; left: 8px; right: 8px;
+      padding: 3px 8px; border-radius: 7px; font-size: 0.69rem; font-weight: 800;
+      letter-spacing: 0.02em; text-transform: uppercase;
+      background: rgba(8,10,15,0.88); border: 1px solid rgba(255,255,255,0.15);
+      color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .status-pill.soon {
+      background: rgba(229,9,20,0.94); color: #fff; border-color: rgba(255,255,255,0.28);
+    }
+    .card-body { padding: 9px 10px 11px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .card-title {
+      font-size: 0.85rem; font-weight: 700; line-height: 1.3;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .card-sub { font-size: 0.74rem; color: var(--muted); }
+
+    /* Detail & Hub Page Elements */
+    .breadcrumbs {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: var(--muted); margin-bottom: 14px;
+    }
+    .breadcrumbs a:hover { color: var(--text); text-decoration: underline; }
+    .hero-grid {
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 230px 1fr; gap: 24px;
+      border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 20px;
+    }
+    @media (max-width: 680px) {
+      .hero-grid { grid-template-columns: 1fr; padding: 18px; gap: 18px; }
+      .detail-poster { max-width: 195px; margin: 0 auto; }
+    }
+    .detail-poster {
+      width: 100%; height: auto; aspect-ratio: 2/3;
+      border-radius: 12px; display: block; border: 1px solid var(--border);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6); background: var(--surface-2);
+    }
+    .type-tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #fff; background: var(--accent);
+      padding: 3px 10px; border-radius: 6px; margin-bottom: 8px; margin-right: 6px;
+    }
+    .type-tag.soon { background: #b91c1c; border: 1px solid rgba(255,255,255,0.28); }
+    .detail-h1 { font-size: clamp(1.45rem, 3vw, 2.1rem); line-height: 1.22; margin-bottom: 10px; }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+      font-size: 0.82rem; color: var(--gold); font-weight: 600;
+    }
+    .meta span {
+      background: rgba(24,30,46,0.92); padding: 4px 10px;
+      border-radius: 8px; border: 1px solid var(--border);
+    }
+    .overview { color: #e2e8f5; font-size: 0.96rem; margin-bottom: 16px; }
+    .cta {
+      display: inline-block; padding: 10px 18px; border-radius: 10px;
+      background: var(--accent); color: #fff; font-weight: 700; font-size: 0.88rem;
+    }
+    .cta:hover { background: var(--accent-hover); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; margin-bottom: 18px;
+    }
+    .card-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .card h2 { font-size: 1.15rem; }
+    .card-lead { color: #d5deef; font-size: 0.91rem; margin-bottom: 14px; }
+    select.region-select {
+      background: var(--surface-2); color: var(--text); border: 1px solid var(--border);
+      padding: 6px 12px; border-radius: 8px; font-size: 0.84rem; font-weight: 600;
+    }
+    .region-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .region-box {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 14px;
+    }
+    .region-box.active-region { border-color: var(--gold); }
+    .region-title { font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+    .region-note { font-size: 0.83rem; color: var(--muted); }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      background: var(--surface-2); border: 1px solid var(--border);
+      padding: 6px 12px; border-radius: 999px; font-size: 0.84rem; font-weight: 600;
+    }
+    .faq-item { border-top: 1px solid var(--border); padding: 12px 0; }
+    .faq-item:first-of-type { border-top: 0; padding-top: 2px; }
+    .faq-item:last-of-type { padding-bottom: 0; }
+    .faq-item summary { font-weight: 700; font-size: 0.93rem; cursor: pointer; }
+    .faq-item p { margin-top: 6px; font-size: 0.88rem; color: var(--muted); }
+    .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+    .pager a {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 14px; font-size: 0.84rem; font-weight: 700;
+    }
+    .pager a:hover { border-color: rgba(255,255,255,0.28); }
+    .video-wrap {
+      position: relative; padding-bottom: 56.25%; height: 0;
+      overflow: hidden; border-radius: 12px; background: #050608;
+    }
+    .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .ad-strip {
+      margin: 18px auto; padding: 10px 14px; background: rgba(17,21,32,0.92);
+      border: 1px solid var(--border); border-radius: 14px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+      min-height: 72px;
+    }
+    .ad-label {
+      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); background: var(--surface-2); border: 1px solid var(--border);
+      padding: 3px 9px; border-radius: 999px;
+    }
+    footer {
+      max-width: var(--max); margin: 0 auto; padding: 22px 18px; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.82rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    footer a:hover { color: var(--text); }
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"CineVault","url":"https://cinevault.space/","potentialAction":{"@type":"SearchAction","target":"https://cinevault.space/?q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"ItemList","name":"CineVault Featured Movies, Coming Soon, Anime, Hollywood & Bollywood","numberOfItems":103,"itemListElement":[{"@type":"ListItem","position":1,"name":"The Hunger Games: Sunrise on the Reaping (2026)","url":"https://cinevault.space/movie/the-hunger-games-sunrise-on-the-reaping-1300968.html"},{"@type":"ListItem","position":2,"name":"Avengers: Doomsday (2026)","url":"https://cinevault.space/movie/avengers-doomsday-1003596.html"},{"@type":"ListItem","position":3,"name":"The Odyssey (2026)","url":"https://cinevault.space/movie/the-odyssey-1368337.html"},{"@type":"ListItem","position":4,"name":"Steps (2026)","url":"https://cinevault.space/movie/steps-1595124.html"},{"@type":"ListItem","position":5,"name":"Hexed (2026)","url":"https://cinevault.space/movie/hexed-1538497.html"},{"@type":"ListItem","position":6,"name":"The Mosquito Bowl (2026)","url":"https://cinevault.space/movie/the-mosquito-bowl-1458300.html"},{"@type":"ListItem","position":7,"name":"Spider-Man: Brand New Day (2026)","url":"https://cinevault.space/movie/spider-man-brand-new-day-969681.html"},{"@type":"ListItem","position":8,"name":"Wicker (2026)","url":"https://cinevault.space/movie/wicker-1195803.html"},{"@type":"ListItem","position":9,"name":"The Social Reckoning (2026)","url":"https://cinevault.space/movie/the-social-reckoning-1281331.html"},{"@type":"ListItem","position":10,"name":"You Can See Everything (2026)","url":"https://cinevault.space/movie/you-can-see-everything-1765072.html"},{"@type":"ListItem","position":11,"name":"Way of the Warrior Kid (2026)","url":"https://cinevault.space/movie/way-of-the-warrior-kid-1280115.html"},{"@type":"ListItem","position":12,"name":"Guarding Stars (2026)","url":"https://cinevault.space/movie/guarding-stars-1551025.html"},{"@type":"ListItem","position":13,"name":"Godzilla Minus Zero (2026)","url":"https://cinevault.space/movie/godzilla-minus-zero-1381071.html"},{"@type":"ListItem","position":14,"name":"Clashing Through the Snow (2026)","url":"https://cinevault.space/movie/clashing-through-the-snow-1611767.html"},{"@type":"ListItem","position":15,"name":"Dune: Part Three (2026)","url":"https://cinevault.space/movie/dune-part-three-1170608.html"},{"@type":"ListItem","position":16,"name":"Madden (2026)","url":"https://cinevault.space/movie/madden-1131943.html"},{"@type":"ListItem","position":17,"name":"Perfect Liars (2026)","url":"https://cinevault.space/movie/perfect-liars-1568060.html"},{"@type":"ListItem","position":18,"name":"Focker In-Law (2026)","url":"https://cinevault.space/movie/focker-in-law-1400336.html"},{"@type":"ListItem","position":19,"name":"Violent Night 2 (2026)","url":"https://cinevault.space/movie/violent-night-2-1078446.html"},{"@type":"ListItem","position":20,"name":"The Angry Birds Movie 3 (2026)","url":"https://cinevault.space/movie/the-angry-birds-movie-3-1300926.html"},{"@type":"ListItem","position":21,"name":"De Gaulle: Liberté (2026)","url":"https://cinevault.space/movie/de-gaulle-liberte-1165369.html"},{"@type":"ListItem","position":22,"name":"Behemoth! (2026)","url":"https://cinevault.space/movie/behemoth-1452168.html"},{"@type":"ListItem","position":23,"name":"The Debut (2026)","url":"https://cinevault.space/movie/the-debut-1391239.html"},{"@type":"ListItem","position":24,"name":"Ray Gunn (2026)","url":"https://cinevault.space/movie/ray-gunn-940009.html"},{"@type":"ListItem","position":25,"name":"November 1963 (2026)","url":"https://cinevault.space/movie/november-1963-1287520.html"},{"@type":"ListItem","position":26,"name":"La Gradiva (2026)","url":"https://cinevault.space/movie/la-gradiva-1154730.html"},{"@type":"ListItem","position":27,"name":"Zero A.D.: The Birth of Christ (2026)","url":"https://cinevault.space/movie/zero-a-d-the-birth-of-christ-1408207.html"},{"@type":"ListItem","position":28,"name":"Rose (2026)","url":"https://cinevault.space/movie/rose-1176962.html"},{"@type":"ListItem","position":29,"name":"Flavia (2026)","url":"https://cinevault.space/movie/flavia-1129104.html"},{"@type":"ListItem","position":30,"name":"The Fox (2026)","url":"https://cinevault.space/movie/the-fox-1045968.html"},{"@type":"ListItem","position":31,"name":"Iron Man (2008)","url":"https://cinevault.space/movie/iron-man-1726.html"},{"@type":"ListItem","position":32,"name":"Heart of the Beast (2026)","url":"https://cinevault.space/movie/heart-of-the-beast-1263337.html"},{"@type":"ListItem","position":33,"name":"Other Mommy (2026)","url":"https://cinevault.space/movie/other-mommy-1400837.html"},{"@type":"ListItem","position":34,"name":"Resident Evil (2026)","url":"https://cinevault.space/movie/resident-evil-1423191.html"},{"@type":"ListItem","position":35,"name":"Beware Boiúna (2026)","url":"https://cinevault.space/movie/beware-boiuna-1244523.html"},{"@type":"ListItem","position":36,"name":"Hansel & Gretel's Halloween (2026)","url":"https://cinevault.space/movie/hansel-gretel-s-halloween-1741617.html"},{"@type":"ListItem","position":37,"name":"A Story of Derry (2026)","url":"https://cinevault.space/movie/a-story-of-derry-1813355.html"},{"@type":"ListItem","position":38,"name":"Breeder (2026)","url":"https://cinevault.space/movie/breeder-1496696.html"},{"@type":"ListItem","position":39,"name":"The Mongoose (2026)","url":"https://cinevault.space/movie/the-mongoose-1294189.html"},{"@type":"ListItem","position":40,"name":"Dracula Eternal (2026)","url":"https://cinevault.space/movie/dracula-eternal-1492566.html"},{"@type":"ListItem","position":41,"name":"Ghost Soldier (2026)","url":"https://cinevault.space/movie/ghost-soldier-1562642.html"},{"@type":"ListItem","position":42,"name":"Ramayana: Rise of a Legend (2026)","url":"https://cinevault.space/movie/ramayana-rise-of-a-legend-656908.html"},{"@type":"ListItem","position":43,"name":"Gajab Raat (2026)","url":"https://cinevault.space/movie/gajab-raat-1453407.html"},{"@type":"ListItem","position":44,"name":"Reporting Live (2026)","url":"https://cinevault.space/movie/reporting-live-1389172.html"},{"@type":"ListItem","position":45,"name":"3 Idiots (2009)","url":"https://cinevault.space/movie/3-idiots-20453.html"},{"@type":"ListItem","position":46,"name":"Dhurandhar: The Revenge (2026)","url":"https://cinevault.space/movie/dhurandhar-the-revenge-1582770.html"},{"@type":"ListItem","position":47,"name":"Dilwale Dulhania Le Jayenge (1995)","url":"https://cinevault.space/movie/dilwale-dulhania-le-jayenge-19404.html"},{"@type":"ListItem","position":48,"name":"Dhurandhar (2025)","url":"https://cinevault.space/movie/dhurandhar-1291608.html"},{"@type":"ListItem","position":49,"name":"Drishyam: The Conclusion (2026)","url":"https://cinevault.space/movie/drishyam-the-conclusion-1269325.html"},{"@type":"ListItem","position":50,"name":"Tante Siska (2023)","url":"https://cinevault.space/movie/tante-siska-1141868.html"}]}]}</script>
 </head>
 <body>
   <header>
-    <div class="nav-wrap">
-      <a class="brand" href="#top" id="homeLink">
-        <span class="brand-mark" aria-hidden="true">▶</span>
-        <span>CineVault</span>
-      </a>
-
-      <nav class="nav-actions" aria-label="Primary Navigation">
-        <button class="pill-btn active" id="catalogTabBtn" type="button">Explore</button>
-        <a class="pill-btn" href="guides.html">Guides</a>
-        <button class="pill-btn" id="watchlistTabBtn" type="button">
-          Watchlist <span class="count-tag" id="watchlistCount">0</span>
-        </button>
+    <div class="nav">
+      <a class="brand" href="index.html"><span class="badge-icon">▶</span><span>CineVault</span></a>
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a class="nav-btn active" href="index.html">Home</a>
+        <a class="nav-btn" href="movie/index.html">Movies (59)</a>
+        <a class="nav-btn" href="tv/index.html">TV &amp; Anime (44)</a>
+        <a class="nav-btn" href="guides.html">Guides</a>
       </nav>
     </div>
   </header>
 
-  <main id="top">
-    <!-- Top Horizontal Swipeable Netflix Spotlight Strip -->
-    <section class="spotlight-strip" id="spotlightStrip" aria-label="Featured Spotlight Swipe Strip"></section>
-
-    <!-- Search Bar Below Spotlight -->
-    <section class="search-section" aria-label="Search Catalog">
-      <form class="search-row" id="searchForm" role="search">
-        <div class="search-input-wrap">
-          <input
-            class="search-input"
-            id="searchInput"
-            type="search"
-            placeholder="Search movies, series, or genres..."
-            autocomplete="off"
-            aria-label="Search movies or TV series"
-          />
-          <button class="clear-btn" id="clearSearchBtn" type="button" title="Clear search" aria-label="Clear search">✕</button>
-        </div>
-        <button class="primary-btn" type="submit">Search</button>
-      </form>
-    </section>
-
-    <!-- Type, Sort & Genre Filters -->
-    <section class="filters" aria-label="Catalog Filters">
-      <div class="filter-row">
-        <div class="chip-group" id="typeChips">
-          <button class="chip active" data-type="all" type="button">All</button>
-          <button class="chip" data-type="movie" type="button">Movies</button>
-          <button class="chip" data-type="tv" type="button">Series</button>
-        </div>
-
-        <select class="sort-select" id="sortSelect" aria-label="Sort titles">
-          <option value="popular">Sort: Popular</option>
-          <option value="rating">Sort: Top Rated</option>
-          <option value="year">Sort: Newest</option>
-          <option value="title">Sort: Title (A–Z)</option>
-        </select>
+  <main>
+    <section class="home-hero">
+      <h1>Discover Movies, Coming Soon Releases, Anime &amp; Series</h1>
+      <p>Scroll horizontally across curated rows or expand any category to explore full streaming availability, official trailers, release dates, and cast—every title opens directly to its complete guide.</p>
+      <div class="search-bar-wrap">
+        <input id="liveSearch" class="search-input" type="search" placeholder="Search movies, anime, Bollywood, Hollywood, or year..." aria-label="Filter titles on page" />
       </div>
-
-      <div class="chip-group" id="genreChips"></div>
+      <div class="cat-pills" aria-label="Jump to category">
+        <a class="cat-pill" href="#trending">Trending (22)</a><a class="cat-pill" href="#coming-soon">Coming Soon (15)</a><a class="cat-pill" href="#anime">Anime (20)</a><a class="cat-pill" href="#hollywood">Hollywood (18)</a><a class="cat-pill" href="#bollywood">Bollywood (18)</a><a class="cat-pill" href="#netflix-series">Netflix &amp; Streaming (16)</a>
+      </div>
     </section>
 
-    <!-- Exact-fit Top Ad Slot -->
-    <div class="ad-slot" id="adSlotTop" aria-label="Sponsored">
-      <span class="ad-corner-tag">Sponsored</span>
-      <div class="ad-box" id="adBoxTop"></div>
+    <div class="ad-strip" aria-label="Sponsored">
+      <span class="ad-label">Sponsored</span>
+      <iframe width="320" height="50" scrolling="no" frameborder="0" loading="lazy" style="border:0;max-width:100%;display:block;" srcdoc="&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:transparent;overflow:hidden;display:flex;justify-content:center;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt;atOptions={&#39;key&#39;:&#39;b570c351ca5a05131ca8916fc6b23f71&#39;,&#39;format&#39;:&#39;iframe&#39;,&#39;height&#39;:50,&#39;width&#39;:320,&#39;params&#39;:{}};&lt;/script&gt;&lt;script src=&quot;https://bancadeltempoidea.org/22/b570c351ca5a05131ca8916fc6b23f71&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
     </div>
 
-    <!-- Netflix-style Horizontal Category Rows -->
-    <section class="netflix-rows" id="netflixRowsSection" aria-label="Curated Rows"></section>
+    
+      <section class="shelf" id="trending" aria-labelledby="heading-trending">
+        <div class="shelf-head">
+          <div class="shelf-title-wrap">
+            <h2 class="shelf-title" id="heading-trending">🔥 Trending Movies &amp; Series</h2>
+            <span class="shelf-count">22 Titles</span>
+          </div>
+          <div class="shelf-actions">
+            <button type="button" class="expand-btn" data-target="track-trending">Expand All (22)</button>
+            <a class="nav-btn" href="movie/index.html">Browse Hub →</a>
+          </div>
+        </div>
+        <div class="card-track" id="track-trending">
+          
+    <a class="media-card" href="movie/the-hunger-games-sunrise-on-the-reaping-1300968.html" data-search="the hunger games: sunrise on the reaping 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5ffVOGY3x3Sn3jovzvycJeizpks.jpg" alt="The Hunger Games: Sunrise on the Reaping (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.8 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Hunger Games: Sunrise on the Reaping (2026)</div>
+        <div class="card-sub">Movie • Science Fiction, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/avengers-doomsday-1003596.html" data-search="avengers: doomsday 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/1zqWkLwC1zLBBBtIWzmkmWeMWnT.jpg" alt="Avengers: Doomsday (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 16, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Avengers: Doomsday (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 16, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/the-odyssey-1368337.html" data-search="the odyssey 2026 adventure action fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg" alt="The Odyssey (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Odyssey (2026)</div>
+        <div class="card-sub">Movie • Adventure, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/steps-1595124.html" data-search="steps 2026 animation family comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/jtfCcWZ3ZyKdgi0u7JVOxEOSSJP.jpg" alt="Steps (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Steps (2026)</div>
+        <div class="card-sub">Movie • Animation, Family</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/hexed-1538497.html" data-search="hexed 2026 adventure animation family fantasy comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/yykeYKbDBM9eUMJUucaaDo2mi1p.jpg" alt="Hexed (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.3 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Hexed (2026)</div>
+        <div class="card-sub">Movie • Adventure, Animation</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/the-mosquito-bowl-1458300.html" data-search="the mosquito bowl 2026 war history drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/uxYs0bNTF4XzM8LThJk2x3AJ0Iv.jpg" alt="The Mosquito Bowl (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Mosquito Bowl (2026)</div>
+        <div class="card-sub">Movie • War, History</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/spider-man-brand-new-day-969681.html" data-search="spider-man: brand new day 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bjiS5ipwxb9JFy3XRRN4OAilSeX.jpg" alt="Spider-Man: Brand New Day (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Spider-Man: Brand New Day (2026)</div>
+        <div class="card-sub">Movie • Science Fiction, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/wicker-1195803.html" data-search="wicker 2026 romance fantasy comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/6FcBZOKvyrLCKGCyBG0ySCR4okt.jpg" alt="Wicker (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Wicker (2026)</div>
+        <div class="card-sub">Movie • Romance, Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/the-social-reckoning-1281331.html" data-search="the social reckoning 2026 drama thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/vWbEuI3LuFOGYZIxESLAmwFwtvr.jpg" alt="The Social Reckoning (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Social Reckoning (2026)</div>
+        <div class="card-sub">Movie • Drama, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/you-can-see-everything-1765072.html" data-search="you can see everything 2026 documentary">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/mVh3qkw2NUFxWWyF0G1hg2Wh0K5.jpg" alt="You Can See Everything (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.6 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">You Can See Everything (2026)</div>
+        <div class="card-sub">Movie • Documentary</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/way-of-the-warrior-kid-1280115.html" data-search="way of the warrior kid 2026 drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/atI81xXKNVah7PJFBo3aXqQKtnG.jpg" alt="Way of the Warrior Kid (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Way of the Warrior Kid (2026)</div>
+        <div class="card-sub">Movie • Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/guarding-stars-1551025.html" data-search="guarding stars 2026 romance comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5bsXFYXOlbzHBpl9mPaxmOPIQJ9.jpg" alt="Guarding Stars (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.8 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Guarding Stars (2026)</div>
+        <div class="card-sub">Movie • Romance, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/godzilla-minus-zero-1381071.html" data-search="godzilla minus zero 2026 science fiction horror action">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/hSmIJluOJmTWvJs4d7kHRxjc8s8.jpg" alt="Godzilla Minus Zero (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Godzilla Minus Zero (2026)</div>
+        <div class="card-sub">Movie • Science Fiction, Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/clashing-through-the-snow-1611767.html" data-search="clashing through the snow 2026 romance comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/95K1Y96ELBDL3M8kyTVb5wocCtX.jpg" alt="Clashing Through the Snow (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.7 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Clashing Through the Snow (2026)</div>
+        <div class="card-sub">Movie • Romance, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/blade-runner-2099-171802.html" data-search="blade runner 2099 2026 sci-fi &amp; fantasy drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/d8IKBDXQvj3d6clsjqydT4xcw14.jpg" alt="Blade Runner 2099 (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 5.1 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Blade Runner 2099 (2026)</div>
+        <div class="card-sub">TV Series • Sci-Fi &amp; Fantasy, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/the-lord-of-the-rings-the-rings-of-power-84773.html" data-search="the lord of the rings: the rings of power 2022 action &amp; adventure sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bMXWXKM9ydUmMTNvDnYo9QtCBRt.jpg" alt="The Lord of the Rings: The Rings of Power (2022) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2022</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Lord of the Rings: The Rings of Power (2022)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/the-blue-road-300523.html" data-search="the blue road 2026 crime mystery">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/cVbilrgtgKi7gN74KK4voyV7iDR.jpg" alt="The Blue Road (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.9 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Blue Road (2026)</div>
+        <div class="card-sub">TV Series • Crime, Mystery</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/mobland-247718.html" data-search="mobland 2025 crime drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5Xc7WpWsgflfgEMoBlf9TmWhfbH.jpg" alt="MobLand (2025) poster" loading="lazy" />
+        <span class="status-pill">★ 8.7 • 2025</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">MobLand (2025)</div>
+        <div class="card-sub">TV Series • Crime, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/the-body-291507.html" data-search="the body 2026 mystery drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/195kCuy2RqGaEAZDDpGTx7gBUBZ.jpg" alt="The Body (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.1 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Body (2026)</div>
+        <div class="card-sub">TV Series • Mystery, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/the-remarried-empress-279246.html" data-search="the remarried empress 2026 drama sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/zn3IXZzGavH3qle3o3g1r32eXDy.jpg" alt="The Remarried Empress (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.8 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Remarried Empress (2026)</div>
+        <div class="card-sub">TV Series • Drama, Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/percy-jackson-and-the-olympians-103540.html" data-search="percy jackson and the olympians 2023 action &amp; adventure sci-fi &amp; fantasy drama family">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/zofPiEpwCRYaezOncTlQwXebHFU.jpg" alt="Percy Jackson and the Olympians (2023) poster" loading="lazy" />
+        <span class="status-pill">★ 7.3 • 2023</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Percy Jackson and the Olympians (2023)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/nine-to-six-310209.html" data-search="nine to six 2026 drama comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/1iVlL2Prt9Q5BWMfeZQ6d1ZAZBy.jpg" alt="Nine to Six (2026) poster" loading="lazy" />
+        <span class="status-pill">Nov 25, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Nine to Six (2026)</div>
+        <div class="card-sub">TV Series • Drama, Comedy</div>
+      </div>
+    </a>
+        </div>
+      </section>
 
-    <div class="section-head">
-      <h2 class="section-title" id="sectionTitle">Trending Now</h2>
-      <span class="result-meta" id="resultMeta"></span>
-    </div>
+      <section class="shelf" id="coming-soon" aria-labelledby="heading-coming-soon">
+        <div class="shelf-head">
+          <div class="shelf-title-wrap">
+            <h2 class="shelf-title" id="heading-coming-soon">🗓️ Coming Soon — Upcoming Release Dates</h2>
+            <span class="shelf-count">15 Titles</span>
+          </div>
+          <div class="shelf-actions">
+            <button type="button" class="expand-btn" data-target="track-coming-soon">Expand All (15)</button>
+            <a class="nav-btn" href="movie/index.html">Browse Hub →</a>
+          </div>
+        </div>
+        <div class="card-track" id="track-coming-soon">
+          
+    <a class="media-card" href="movie/avengers-doomsday-1003596.html" data-search="avengers: doomsday 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/1zqWkLwC1zLBBBtIWzmkmWeMWnT.jpg" alt="Avengers: Doomsday (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 16, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Avengers: Doomsday (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 16, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/dune-part-three-1170608.html" data-search="dune: part three 2026 science fiction adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/d43fvHQsIMa4kpyhKXw0haEJIvI.jpg" alt="Dune: Part Three (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 15, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dune: Part Three (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 15, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/violent-night-2-1078446.html" data-search="violent night 2 2026 action comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/7HPvgItDw9NgW3iy4tFRRuGNbuN.jpg" alt="Violent Night 2 (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 2, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Violent Night 2 (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 2, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/the-angry-birds-movie-3-1300926.html" data-search="the angry birds movie 3 2026 adventure animation comedy family">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/xyml31x5gu23tOMIFJ43XO4aTD6.jpg" alt="The Angry Birds Movie 3 (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 23, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Angry Birds Movie 3 (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 23, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/de-gaulle-liberte-1165369.html" data-search="de gaulle: liberté 2026 drama war history">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/297x0HIqSCp19pN9wlduK9PONRv.jpg" alt="De Gaulle: Liberté (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.9 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">De Gaulle: Liberté (2026)</div>
+        <div class="card-sub">Movie • Drama, War</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/behemoth-1452168.html" data-search="behemoth! 2026 music drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bcyGYWfcXr0GnXewaE5gkvYy1iQ.jpg" alt="Behemoth! (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 2, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Behemoth! (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 2, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/the-debut-1391239.html" data-search="the debut 2026 music comedy drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/qk8qWJxM9hZSbSjSoEz0LAzcoPb.jpg" alt="The Debut (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 10, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Debut (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 10, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/ray-gunn-940009.html" data-search="ray gunn 2026 animation science fiction crime mystery">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/rpP29aOKpHy1FhX8OZQdUICEs2j.jpg" alt="Ray Gunn (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 2, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ray Gunn (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 2, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/november-1963-1287520.html" data-search="november 1963 2026 crime thriller drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ujp2aHu1lWMjAGoletnsmv3mcMn.jpg" alt="November 1963 (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 5.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">November 1963 (2026)</div>
+        <div class="card-sub">Movie • Crime, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/la-gradiva-1154730.html" data-search="la gradiva 2026 drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/y6AkOgTEPM9nTJUOeyvHqlf6Bgp.jpg" alt="La Gradiva (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">La Gradiva (2026)</div>
+        <div class="card-sub">Movie • Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/zero-a-d-the-birth-of-christ-1408207.html" data-search="zero a.d.: the birth of christ 2026 drama thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/dUeEofJFpp04OjRr2hatZGCFrlR.jpg" alt="Zero A.D.: The Birth of Christ (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 3, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Zero A.D.: The Birth of Christ (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 3, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/rose-1176962.html" data-search="rose 2026 drama history war">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/4k3ph6BoeZr7IMiQx8ioEV8d9cJ.jpg" alt="Rose (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.6 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Rose (2026)</div>
+        <div class="card-sub">Movie • Drama, History</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/flavia-1129104.html" data-search="flavia 2026 family adventure mystery comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/xwm7TGTmQcM2PkVvMxTjpYYk600.jpg" alt="Flavia (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Flavia (2026)</div>
+        <div class="card-sub">Movie • Family, Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/the-fox-1045968.html" data-search="the fox 2026 comedy fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/unIaSB9LZ0r3iZ2jBAQ2Qi5mFIp.jpg" alt="The Fox (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Fox (2026)</div>
+        <div class="card-sub">Movie • Comedy, Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/ramayana-part-two-1383500.html" data-search="ramayana: part two 2028 fantasy action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/3TzWp9sYDmLoVYMsHPuufdTNuAn.jpg" alt="Ramayana: Part Two (2028) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Oct 17, 2028</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ramayana: Part Two (2028)</div>
+        <div class="card-sub">Movie • Releases Oct 17, 2028</div>
+      </div>
+    </a>
+        </div>
+      </section>
 
-    <section class="grid" id="movieGrid" aria-live="polite"></section>
+      <section class="shelf" id="anime" aria-labelledby="heading-anime">
+        <div class="shelf-head">
+          <div class="shelf-title-wrap">
+            <h2 class="shelf-title" id="heading-anime">⚡ Anime Series &amp; Popular Shonen</h2>
+            <span class="shelf-count">20 Titles</span>
+          </div>
+          <div class="shelf-actions">
+            <button type="button" class="expand-btn" data-target="track-anime">Expand All (20)</button>
+            <a class="nav-btn" href="tv/index.html">Browse Hub →</a>
+          </div>
+        </div>
+        <div class="card-track" id="track-anime">
+          
+    <a class="media-card" href="tv/pokemon-60572.html" data-search="pokémon 1997 animation action &amp; adventure sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/lP4zwr0F7hWTbAFltfoFTc2AxRG.jpg" alt="Pokémon (1997) poster" loading="lazy" />
+        <span class="status-pill">★ 8.0 • 1997</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Pokémon (1997)</div>
+        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/doraemon-65733.html" data-search="doraemon 2005 action &amp; adventure animation comedy sci-fi &amp; fantasy kids family">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/9ZN1P32SHviL3SV51qLivxycvcx.jpg" alt="Doraemon (2005) poster" loading="lazy" />
+        <span class="status-pill">★ 8.1 • 2005</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Doraemon (2005)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Animation</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/one-piece-37854.html" data-search="one piece 1999 action &amp; adventure comedy animation">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/dB4EDhre2dsC2kxYDavyKWqLQwi.jpg" alt="One Piece (1999) poster" loading="lazy" />
+        <span class="status-pill">★ 8.8 • 1999</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">One Piece (1999)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/chibi-maruko-chan-57775.html" data-search="chibi maruko-chan 1990 animation comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bfn54AAMuh47IFqeoco0jgeVH1a.jpg" alt="Chibi Maruko-chan (1990) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 1990</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Chibi Maruko-chan (1990)</div>
+        <div class="card-sub">TV Series • Animation, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/ninja-boy-rantaro-34860.html" data-search="ninja boy rantaro 1993 comedy action &amp; adventure kids animation family">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/fzNiSp0HhCthOTYu9IYWlPPa7fU.jpg" alt="Ninja Boy Rantaro (1993) poster" loading="lazy" />
+        <span class="status-pill">★ 6.9 • 1993</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ninja Boy Rantaro (1993)</div>
+        <div class="card-sub">TV Series • Comedy, Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/detective-conan-30983.html" data-search="detective conan 1996 animation crime mystery comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/iHfA63x7rFaWbP2C832uCe2r0zy.jpg" alt="Detective Conan (1996) poster" loading="lazy" />
+        <span class="status-pill">★ 8.0 • 1996</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Detective Conan (1996)</div>
+        <div class="card-sub">TV Series • Animation, Crime</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/bleach-30984.html" data-search="bleach 2004 action &amp; adventure animation sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/2EewmxXe72ogD0EaWM8gqa0ccIw.jpg" alt="Bleach (2004) poster" loading="lazy" />
+        <span class="status-pill">★ 8.3 • 2004</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Bleach (2004)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Animation</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/jojo-s-bizarre-adventure-45790.html" data-search="jojo&#39;s bizarre adventure 2012 animation action &amp; adventure sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ogAWwbh3frWtiTyyXrZaVFtqCgp.jpg" alt="JoJo&#39;s Bizarre Adventure (2012) poster" loading="lazy" />
+        <span class="status-pill">★ 8.6 • 2012</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">JoJo&#39;s Bizarre Adventure (2012)</div>
+        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/doraemon-57911.html" data-search="doraemon 1979 action &amp; adventure animation comedy sci-fi &amp; fantasy kids family">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bHMqPDsW7Lb71CVHXq4PuEvQ4NY.jpg" alt="Doraemon (1979) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 1979</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Doraemon (1979)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Animation</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/jujutsu-kaisen-95479.html" data-search="jujutsu kaisen 2020 animation sci-fi &amp; fantasy action &amp; adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg" alt="JUJUTSU KAISEN (2020) poster" loading="lazy" />
+        <span class="status-pill">★ 8.6 • 2020</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">JUJUTSU KAISEN (2020)</div>
+        <div class="card-sub">TV Series • Animation, Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/dragon-ball-z-12971.html" data-search="dragon ball z 1989 animation sci-fi &amp; fantasy action &amp; adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/oQ5CnVj3TRifXl2bIOri6H6rfNe.jpg" alt="Dragon Ball Z (1989) poster" loading="lazy" />
+        <span class="status-pill">★ 8.4 • 1989</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dragon Ball Z (1989)</div>
+        <div class="card-sub">TV Series • Animation, Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/naruto-shippuden-31910.html" data-search="naruto shippūden 2007 animation action &amp; adventure sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/kV27j3Nz4d5z8u6mN3EJw9RiLg2.jpg" alt="Naruto Shippūden (2007) poster" loading="lazy" />
+        <span class="status-pill">★ 8.5 • 2007</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Naruto Shippūden (2007)</div>
+        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/naruto-46260.html" data-search="naruto 2002 animation action &amp; adventure sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/xppeysfvDKVx775MFuH8Z9BlpMk.jpg" alt="Naruto (2002) poster" loading="lazy" />
+        <span class="status-pill">★ 8.4 • 2002</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Naruto (2002)</div>
+        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/the-apothecary-diaries-220542.html" data-search="the apothecary diaries 2023 animation mystery drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/sJZcy8QsOPuRPiCfoCWVB3r9Ohg.jpg" alt="The Apothecary Diaries (2023) poster" loading="lazy" />
+        <span class="status-pill">★ 8.7 • 2023</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Apothecary Diaries (2023)</div>
+        <div class="card-sub">TV Series • Animation, Mystery</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/re-zero-starting-life-in-another-world-65942.html" data-search="re:zero -starting life in another world- 2016 animation mystery action &amp; adventure sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/oHqYrPAsIiTD5m4DuxumV4er8BU.jpg" alt="Re:ZERO -Starting Life in Another World- (2016) poster" loading="lazy" />
+        <span class="status-pill">★ 8.1 • 2016</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Re:ZERO -Starting Life in Another World- (2016)</div>
+        <div class="card-sub">TV Series • Animation, Mystery</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/atashin-chi-9537.html" data-search="atashin&#39;chi 2002 animation comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bQCZvbyTJFWt3majCn37ykJBpIf.jpg" alt="Atashin&#39;chi (2002) poster" loading="lazy" />
+        <span class="status-pill">★ 8.4 • 2002</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Atashin&#39;chi (2002)</div>
+        <div class="card-sub">TV Series • Animation, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/duel-masters-46392.html" data-search="duel masters 2002 action &amp; adventure animation sci-fi &amp; fantasy kids">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/t5ijeKzOukACRktUfbjuMIlqwfr.jpg" alt="Duel Masters (2002) poster" loading="lazy" />
+        <span class="status-pill">★ 6.2 • 2002</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Duel Masters (2002)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Animation</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/hunter-x-hunter-46298.html" data-search="hunter x hunter 2011 animation action &amp; adventure sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/i2EEr2uBvRlAwJ8d8zTG2Y19mIa.jpg" alt="Hunter x Hunter (2011) poster" loading="lazy" />
+        <span class="status-pill">★ 8.7 • 2011</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Hunter x Hunter (2011)</div>
+        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/ranma-1-2-57706.html" data-search="ranma ½ 1989 comedy action &amp; adventure animation sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/qb1R5iLZcjIgdDIfXFQXmJadQPI.jpg" alt="Ranma ½ (1989) poster" loading="lazy" />
+        <span class="status-pill">★ 8.6 • 1989</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ranma ½ (1989)</div>
+        <div class="card-sub">TV Series • Comedy, Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/ace-of-the-diamond-60761.html" data-search="ace of the diamond 2013 animation">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/wh9dA4w0iUMVpY7htFSiLDhLTYJ.jpg" alt="Ace of the Diamond (2013) poster" loading="lazy" />
+        <span class="status-pill">★ 7.8 • 2013</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ace of the Diamond (2013)</div>
+        <div class="card-sub">TV Series • Animation</div>
+      </div>
+    </a>
+        </div>
+      </section>
 
-    <!-- Exact-fit Mid Ad Slot -->
-    <div class="ad-slot" id="adSlotMid" aria-label="Sponsored">
-      <span class="ad-corner-tag">Sponsored</span>
-      <div class="ad-box" id="adBoxMid"></div>
-    </div>
+      <section class="shelf" id="hollywood" aria-labelledby="heading-hollywood">
+        <div class="shelf-head">
+          <div class="shelf-title-wrap">
+            <h2 class="shelf-title" id="heading-hollywood">🎬 Hollywood Blockbusters</h2>
+            <span class="shelf-count">18 Titles</span>
+          </div>
+          <div class="shelf-actions">
+            <button type="button" class="expand-btn" data-target="track-hollywood">Expand All (18)</button>
+            <a class="nav-btn" href="movie/index.html">Browse Hub →</a>
+          </div>
+        </div>
+        <div class="card-track" id="track-hollywood">
+          
+    <a class="media-card" href="movie/iron-man-1726.html" data-search="iron man 2008 action science fiction adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/78lPtwv72eTNqFW9COBYI0dWDJa.jpg" alt="Iron Man (2008) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2008</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Iron Man (2008)</div>
+        <div class="card-sub">Movie • Action, Science Fiction</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/the-odyssey-1368337.html" data-search="the odyssey 2026 adventure action fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg" alt="The Odyssey (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Odyssey (2026)</div>
+        <div class="card-sub">Movie • Adventure, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/the-hunger-games-sunrise-on-the-reaping-1300968.html" data-search="the hunger games: sunrise on the reaping 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5ffVOGY3x3Sn3jovzvycJeizpks.jpg" alt="The Hunger Games: Sunrise on the Reaping (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.8 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Hunger Games: Sunrise on the Reaping (2026)</div>
+        <div class="card-sub">Movie • Science Fiction, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/heart-of-the-beast-1263337.html" data-search="heart of the beast 2026 adventure thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/6sYemVUn79UPKz1ZsSG6kPU4RVy.jpg" alt="Heart of the Beast (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.9 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Heart of the Beast (2026)</div>
+        <div class="card-sub">Movie • Adventure, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/spider-man-brand-new-day-969681.html" data-search="spider-man: brand new day 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bjiS5ipwxb9JFy3XRRN4OAilSeX.jpg" alt="Spider-Man: Brand New Day (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Spider-Man: Brand New Day (2026)</div>
+        <div class="card-sub">Movie • Science Fiction, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/avengers-doomsday-1003596.html" data-search="avengers: doomsday 2026 science fiction action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/1zqWkLwC1zLBBBtIWzmkmWeMWnT.jpg" alt="Avengers: Doomsday (2026) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Dec 16, 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Avengers: Doomsday (2026)</div>
+        <div class="card-sub">Movie • Releases Dec 16, 2026</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/other-mommy-1400837.html" data-search="other mommy 2026 horror">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/fGRNCssTRrhYZxNzykGGCoMsAVq.jpg" alt="Other Mommy (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Other Mommy (2026)</div>
+        <div class="card-sub">Movie • Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/resident-evil-1423191.html" data-search="resident evil 2026 horror science fiction adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/gAgWJhUSQWCgtKR8170nMkYlBda.jpg" alt="Resident Evil (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Resident Evil (2026)</div>
+        <div class="card-sub">Movie • Horror, Science Fiction</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/guarding-stars-1551025.html" data-search="guarding stars 2026 romance comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/5bsXFYXOlbzHBpl9mPaxmOPIQJ9.jpg" alt="Guarding Stars (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.8 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Guarding Stars (2026)</div>
+        <div class="card-sub">Movie • Romance, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/beware-boiuna-1244523.html" data-search="beware boiúna 2026 adventure horror thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/tENVMxKvOkslv8kagVNdIEQ13RT.jpg" alt="Beware Boiúna (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Beware Boiúna (2026)</div>
+        <div class="card-sub">Movie • Adventure, Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/hansel-gretel-s-halloween-1741617.html" data-search="hansel &amp; gretel&#39;s halloween 2026 horror fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/taNnBPN5FrJqYxsiJIqAL0KhqZ.jpg" alt="Hansel &amp; Gretel&#39;s Halloween (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.8 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Hansel &amp; Gretel&#39;s Halloween (2026)</div>
+        <div class="card-sub">Movie • Horror, Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/a-story-of-derry-1813355.html" data-search="a story of derry 2026 drama horror mystery">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/4PtzGcegF5Po1NmDAW9IklyvAUh.jpg" alt="A Story of Derry (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.6 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">A Story of Derry (2026)</div>
+        <div class="card-sub">Movie • Drama, Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/steps-1595124.html" data-search="steps 2026 animation family comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/jtfCcWZ3ZyKdgi0u7JVOxEOSSJP.jpg" alt="Steps (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Steps (2026)</div>
+        <div class="card-sub">Movie • Animation, Family</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/breeder-1496696.html" data-search="breeder 2026 horror thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/alsb3UC17kxIcytLWvwkmL0STgU.jpg" alt="Breeder (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.3 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Breeder (2026)</div>
+        <div class="card-sub">Movie • Horror, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/the-mongoose-1294189.html" data-search="the mongoose 2026 action thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/eSS5mvSG84UUuvtbHel5Yu3Wik4.jpg" alt="The Mongoose (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.6 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Mongoose (2026)</div>
+        <div class="card-sub">Movie • Action, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/you-can-see-everything-1765072.html" data-search="you can see everything 2026 documentary">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/mVh3qkw2NUFxWWyF0G1hg2Wh0K5.jpg" alt="You Can See Everything (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.6 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">You Can See Everything (2026)</div>
+        <div class="card-sub">Movie • Documentary</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/dracula-eternal-1492566.html" data-search="dracula eternal 2026 horror">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/qDFHLI5s1o7TgeBN4wSPrvJN8D5.jpg" alt="Dracula Eternal (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 2.3 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dracula Eternal (2026)</div>
+        <div class="card-sub">Movie • Horror</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/ghost-soldier-1562642.html" data-search="ghost soldier 2026 action thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/8Y4oJ5iUs3hgPcDB3SIEmsNYjZk.jpg" alt="Ghost Soldier (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 9.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ghost Soldier (2026)</div>
+        <div class="card-sub">Movie • Action, Thriller</div>
+      </div>
+    </a>
+        </div>
+      </section>
 
-    <div class="load-more-wrap" id="loadMoreWrap">
-      <button class="primary-btn" style="padding: 12px 24px;" id="loadMoreBtn" type="button">Load More Titles</button>
-    </div>
+      <section class="shelf" id="bollywood" aria-labelledby="heading-bollywood">
+        <div class="shelf-head">
+          <div class="shelf-title-wrap">
+            <h2 class="shelf-title" id="heading-bollywood">🇮🇳 Bollywood Hits &amp; New Releases</h2>
+            <span class="shelf-count">18 Titles</span>
+          </div>
+          <div class="shelf-actions">
+            <button type="button" class="expand-btn" data-target="track-bollywood">Expand All (18)</button>
+            <a class="nav-btn" href="movie/index.html">Browse Hub →</a>
+          </div>
+        </div>
+        <div class="card-track" id="track-bollywood">
+          
+    <a class="media-card" href="movie/ramayana-rise-of-a-legend-656908.html" data-search="ramayana: rise of a legend 2026 fantasy action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/vBQ7wks68OhJKlb3RnXSl2yXBXK.jpg" alt="Ramayana: Rise of a Legend (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.5 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ramayana: Rise of a Legend (2026)</div>
+        <div class="card-sub">Movie • Fantasy, Action</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/gajab-raat-1453407.html" data-search="gajab raat 2026 thriller crime">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/e4N7M52cBbyi24xLga8yI6yt1u1.jpg" alt="Gajab Raat (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.1 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Gajab Raat (2026)</div>
+        <div class="card-sub">Movie • Thriller, Crime</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/reporting-live-1389172.html" data-search="reporting live 2026 crime thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/xVabS4lTi6IMscr2FOucxydE6ZD.jpg" alt="Reporting Live (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.1 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Reporting Live (2026)</div>
+        <div class="card-sub">Movie • Crime, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/3-idiots-20453.html" data-search="3 idiots 2009 drama comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/66A9MqXOyVFCssoloscw79z8Tew.jpg" alt="3 Idiots (2009) poster" loading="lazy" />
+        <span class="status-pill">★ 8.0 • 2009</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">3 Idiots (2009)</div>
+        <div class="card-sub">Movie • Drama, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/dhurandhar-the-revenge-1582770.html" data-search="dhurandhar: the revenge 2026 action crime thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ov8vrRLZGoXHpYjSY9Vpv1tHJX7.jpg" alt="Dhurandhar: The Revenge (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dhurandhar: The Revenge (2026)</div>
+        <div class="card-sub">Movie • Action, Crime</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/dilwale-dulhania-le-jayenge-19404.html" data-search="dilwale dulhania le jayenge 1995 comedy drama romance">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/lfRkUr7DYdHldAqi3PwdQGBRBPM.jpg" alt="Dilwale Dulhania Le Jayenge (1995) poster" loading="lazy" />
+        <span class="status-pill">★ 8.5 • 1995</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dilwale Dulhania Le Jayenge (1995)</div>
+        <div class="card-sub">Movie • Comedy, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/dhurandhar-1291608.html" data-search="dhurandhar 2025 action crime thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/8FHOtUpNIk5ZPEay2N2EY5lrxkv.jpg" alt="Dhurandhar (2025) poster" loading="lazy" />
+        <span class="status-pill">★ 7.3 • 2025</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dhurandhar (2025)</div>
+        <div class="card-sub">Movie • Action, Crime</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/drishyam-the-conclusion-1269325.html" data-search="drishyam: the conclusion 2026 thriller drama mystery crime">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/67FsF2kpgEZ1T5Qos4adgqm9dLf.jpg" alt="Drishyam: The Conclusion (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Drishyam: The Conclusion (2026)</div>
+        <div class="card-sub">Movie • Thriller, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/tante-siska-1141868.html" data-search="tante siska 2023 drama romance">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ui5arpwdiTrnAJ3P5Ue6XPSBMQx.jpg" alt="Tante Siska (2023) poster" loading="lazy" />
+        <span class="status-pill">★ 3.0 • 2023</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Tante Siska (2023)</div>
+        <div class="card-sub">Movie • Drama, Romance</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/hanuman-ansh-1709391.html" data-search="hanuman ansh 2026 family drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/as2Y3zGUa2IUS3uAx2sh6Ano3es.jpg" alt="Hanuman Ansh (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Hanuman Ansh (2026)</div>
+        <div class="card-sub">Movie • Family, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/dangal-360814.html" data-search="dangal 2016 drama family comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/cJRPOLEexI7qp2DKtFfCh7YaaUG.jpg" alt="Dangal (2016) poster" loading="lazy" />
+        <span class="status-pill">★ 7.9 • 2016</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Dangal (2016)</div>
+        <div class="card-sub">Movie • Drama, Family</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/daayra-1215889.html" data-search="daayra 2026 crime drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/eAsR8oCZGCOqaxDVt0c0WrRFjrn.jpg" alt="Daayra (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 6.4 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Daayra (2026)</div>
+        <div class="card-sub">Movie • Crime, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/like-stars-on-earth-7508.html" data-search="like stars on earth 2007 drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/puHRt6Raovm5ujGCdwLWvRv4NHU.jpg" alt="Like Stars on Earth (2007) poster" loading="lazy" />
+        <span class="status-pill">★ 8.0 • 2007</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Like Stars on Earth (2007)</div>
+        <div class="card-sub">Movie • Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/parivarik-manuranjan-1493572.html" data-search="parivarik manuranjan 2026 romance comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/2gKGkD0pN2Ss9LrHA6tv5hEjHOs.jpg" alt="Parivarik ManuRanjan (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 4.0 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Parivarik ManuRanjan (2026)</div>
+        <div class="card-sub">Movie • Romance, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/ramayana-part-two-1383500.html" data-search="ramayana: part two 2028 fantasy action adventure">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/3TzWp9sYDmLoVYMsHPuufdTNuAn.jpg" alt="Ramayana: Part Two (2028) poster" loading="lazy" />
+        <span class="status-pill soon">Coming Soon • Oct 17, 2028</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ramayana: Part Two (2028)</div>
+        <div class="card-sub">Movie • Releases Oct 17, 2028</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/alpha-1122030.html" data-search="alpha 2026 action thriller">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/bPtRt3ajQ0EkyeQ1O6iJwAIi9Py.jpg" alt="Alpha (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 5.2 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Alpha (2026)</div>
+        <div class="card-sub">Movie • Action, Thriller</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/pk-297222.html" data-search="pk 2014 comedy drama science fiction">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/z2x2Y4tncefsIU7h82gmUM5vnBJ.jpg" alt="PK (2014) poster" loading="lazy" />
+        <span class="status-pill">★ 7.7 • 2014</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">PK (2014)</div>
+        <div class="card-sub">Movie • Comedy, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="movie/fighter-784651.html" data-search="fighter 2024 action drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/zqFuriKJ6pYDvf72kXNLONnuE8k.jpg" alt="Fighter (2024) poster" loading="lazy" />
+        <span class="status-pill">★ 6.1 • 2024</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Fighter (2024)</div>
+        <div class="card-sub">Movie • Action, Drama</div>
+      </div>
+    </a>
+        </div>
+      </section>
+
+      <section class="shelf" id="netflix-series" aria-labelledby="heading-netflix-series">
+        <div class="shelf-head">
+          <div class="shelf-title-wrap">
+            <h2 class="shelf-title" id="heading-netflix-series">📺 Netflix &amp; Top Streaming Series</h2>
+            <span class="shelf-count">16 Titles</span>
+          </div>
+          <div class="shelf-actions">
+            <button type="button" class="expand-btn" data-target="track-netflix-series">Expand All (16)</button>
+            <a class="nav-btn" href="tv/index.html">Browse Hub →</a>
+          </div>
+        </div>
+        <div class="card-track" id="track-netflix-series">
+          
+    <a class="media-card" href="tv/black-mirror-42009.html" data-search="black mirror 2011 sci-fi &amp; fantasy drama mystery">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/seN6rRfN0I6n8iDXjlSMk1QjNcq.jpg" alt="Black Mirror (2011) poster" loading="lazy" />
+        <span class="status-pill">★ 8.3 • 2011</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Black Mirror (2011)</div>
+        <div class="card-sub">TV Series • Sci-Fi &amp; Fantasy, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/ozark-69740.html" data-search="ozark 2017 crime drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/pCGyPVrI9Fzw6rE1Pvi4BIXF6ET.jpg" alt="Ozark (2017) poster" loading="lazy" />
+        <span class="status-pill">★ 8.2 • 2017</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Ozark (2017)</div>
+        <div class="card-sub">TV Series • Crime, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/the-crown-65494.html" data-search="the crown 2016 drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/1M876KPjulVwppEpldhdc8V4o68.jpg" alt="The Crown (2016) poster" loading="lazy" />
+        <span class="status-pill">★ 8.2 • 2016</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Crown (2016)</div>
+        <div class="card-sub">TV Series • Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/the-order-82104.html" data-search="the order 2019 drama mystery sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/yMPjmuSd5Fac8YMNOwofGALQWjR.jpg" alt="The Order (2019) poster" loading="lazy" />
+        <span class="status-pill">★ 7.6 • 2019</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Order (2019)</div>
+        <div class="card-sub">TV Series • Drama, Mystery</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/mindhunter-67744.html" data-search="mindhunter 2017 drama crime">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/fbKE87mojpIETWepSbD5Qt741fp.jpg" alt="MINDHUNTER (2017) poster" loading="lazy" />
+        <span class="status-pill">★ 8.1 • 2017</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">MINDHUNTER (2017)</div>
+        <div class="card-sub">TV Series • Drama, Crime</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/raw-4656.html" data-search="raw 1993 reality">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/fstEe6RsyNyPUnMwNcL20iNl0nE.jpg" alt="Raw (1993) poster" loading="lazy" />
+        <span class="status-pill">★ 6.7 • 1993</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Raw (1993)</div>
+        <div class="card-sub">TV Series • Reality</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/c-i-d-15226.html" data-search="c.i.d. 1998 action &amp; adventure crime drama mystery">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/3UymnlLfLMKxG8OcFhSnAlnhQfZ.jpg" alt="C.I.D. (1998) poster" loading="lazy" />
+        <span class="status-pill">★ 5.5 • 1998</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">C.I.D. (1998)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Crime</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/good-mythical-morning-65701.html" data-search="good mythical morning 2012 comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/jMpBQr2aNOFAI6wsC47zsOG6qOh.jpg" alt="Good Mythical Morning (2012) poster" loading="lazy" />
+        <span class="status-pill">★ 6.9 • 2012</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Good Mythical Morning (2012)</div>
+        <div class="card-sub">TV Series • Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/the-body-291507.html" data-search="the body 2026 mystery drama">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/195kCuy2RqGaEAZDDpGTx7gBUBZ.jpg" alt="The Body (2026) poster" loading="lazy" />
+        <span class="status-pill">★ 8.1 • 2026</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Body (2026)</div>
+        <div class="card-sub">TV Series • Mystery, Drama</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/jojo-s-bizarre-adventure-45790.html" data-search="jojo&#39;s bizarre adventure 2012 animation action &amp; adventure sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ogAWwbh3frWtiTyyXrZaVFtqCgp.jpg" alt="JoJo&#39;s Bizarre Adventure (2012) poster" loading="lazy" />
+        <span class="status-pill">★ 8.6 • 2012</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">JoJo&#39;s Bizarre Adventure (2012)</div>
+        <div class="card-sub">TV Series • Animation, Action &amp; Adventure</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/sesame-street-502.html" data-search="sesame street 1969 kids comedy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/14k9BfZ2p4rQBMeJ5crKTfUZVwD.jpg" alt="Sesame Street (1969) poster" loading="lazy" />
+        <span class="status-pill">★ 7.1 • 1969</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Sesame Street (1969)</div>
+        <div class="card-sub">TV Series • Kids, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/orange-is-the-new-black-1424.html" data-search="orange is the new black 2013 drama comedy crime">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ekaa7YjGPTkFLcPhwWXTnARuCEU.jpg" alt="Orange Is the New Black (2013) poster" loading="lazy" />
+        <span class="status-pill">★ 7.6 • 2013</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Orange Is the New Black (2013)</div>
+        <div class="card-sub">TV Series • Drama, Comedy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/stranger-things-66732.html" data-search="stranger things 2016 action &amp; adventure mystery sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/uOOtwVbSr4QDjAGIifLDwpb2Pdl.jpg" alt="Stranger Things (2016) poster" loading="lazy" />
+        <span class="status-pill">★ 8.5 • 2016</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Stranger Things (2016)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Mystery</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/lucifer-63174.html" data-search="lucifer 2016 crime sci-fi &amp; fantasy">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/ekZobS8isE6mA53RAiGDG93hBxL.jpg" alt="Lucifer (2016) poster" loading="lazy" />
+        <span class="status-pill">★ 8.4 • 2016</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Lucifer (2016)</div>
+        <div class="card-sub">TV Series • Crime, Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/star-wars-the-clone-wars-4194.html" data-search="star wars: the clone wars 2008 action &amp; adventure sci-fi &amp; fantasy animation">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/e1nWfnnCVqxS2LeTO3dwGyAsG2V.jpg" alt="Star Wars: The Clone Wars (2008) poster" loading="lazy" />
+        <span class="status-pill">★ 8.5 • 2008</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Star Wars: The Clone Wars (2008)</div>
+        <div class="card-sub">TV Series • Action &amp; Adventure, Sci-Fi &amp; Fantasy</div>
+      </div>
+    </a>
+    <a class="media-card" href="tv/the-loud-house-68073.html" data-search="the loud house 2016 animation comedy family kids">
+      <div class="poster-box">
+        <img src="https://image.tmdb.org/t/p/w342/v0xMCeZIkgBUQtiije0IDc8ReHr.jpg" alt="The Loud House (2016) poster" loading="lazy" />
+        <span class="status-pill">May 2, 2016</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Loud House (2016)</div>
+        <div class="card-sub">TV Series • Animation, Comedy</div>
+      </div>
+    </a>
+        </div>
+      </section>
   </main>
 
-  <div class="modal-backdrop" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal" id="modalBox">
-      <button class="modal-close" id="closeDetailModal" type="button" aria-label="Close modal">✕</button>
-      <div id="detailContent"></div>
-    </div>
-  </div>
-
   <footer>
-    <span>CineVault — Movies &amp; Series Discovery</span>
-    <div class="footer-links">
-      <a href="/movie/index.html">Movies &amp; Streaming Directory</a>
-      <span>Watchlist saved locally in your browser</span>
-    </div>
+    <span>CineVault Streaming Discovery • Updated 2026-11-26 (103 Titles Indexed)</span>
+    <span><a href="index.html">Home</a> · <a href="movie/index.html">Movies</a> · <a href="tv/index.html">TV &amp; Anime</a> · <a href="guides.html">Guides</a> · <a href="sitemap.xml">Sitemap</a></span>
   </footer>
-<!-- SEO-CRAWL-HUB-START -->
-<section aria-label="Featured Movies and Series Directory" style="max-width:1180px;margin:28px auto;padding:20px;background:#111520;border:1px solid rgba(255,255,255,0.09);border-radius:16px;">
-  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
-    <h2 style="font-size:1.15rem;color:#f3f6fc;margin:0;">Latest Movies &amp; TV Streaming Guides</h2>
-    <div style="display:flex;gap:12px;font-size:0.85rem;font-weight:700;color:#f5b942;">
-      <a href="movie/index.html">All Movies (40) →</a>
-      <a href="tv/index.html">All TV Series (30) →</a>
-    </div>
-  </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;font-size:0.84rem;">
-    <a href="movie/avengers-doomsday-1003596.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Avengers: Doomsday (2026)</a>
-    <a href="movie/the-hunger-games-sunrise-on-the-reaping-1300968.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 The Hunger Games: Sunrise on the Reaping (2026)</a>
-    <a href="movie/the-odyssey-1368337.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 The Odyssey (2026)</a>
-    <a href="movie/the-mosquito-bowl-1458300.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 The Mosquito Bowl (2026)</a>
-    <a href="movie/hexed-1538497.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Hexed (2026)</a>
-    <a href="movie/you-can-see-everything-1765072.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 You Can See Everything (2026)</a>
-    <a href="movie/way-of-the-warrior-kid-1280115.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Way of the Warrior Kid (2026)</a>
-    <a href="movie/wicker-1195803.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Wicker (2026)</a>
-    <a href="movie/spider-man-brand-new-day-969681.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Spider-Man: Brand New Day (2026)</a>
-    <a href="movie/the-social-reckoning-1281331.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 The Social Reckoning (2026)</a>
-    <a href="movie/steps-1595124.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Steps (2026)</a>
-    <a href="movie/focker-in-law-1400336.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Focker In-Law (2026)</a>
-    <a href="movie/godzilla-minus-zero-1381071.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Godzilla Minus Zero (2026)</a>
-    <a href="movie/clashing-through-the-snow-1611767.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Clashing Through the Snow (2026)</a>
-    <a href="movie/dune-part-three-1170608.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Dune: Part Three (2026)</a>
-    <a href="movie/resident-evil-1423191.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Resident Evil (2026)</a>
-    <a href="movie/guarding-stars-1551025.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Guarding Stars (2026)</a>
-    <a href="movie/madden-1131943.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Madden (2026)</a>
-    <a href="movie/breeder-1496696.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Breeder (2026)</a>
-    <a href="movie/fjord-1401459.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎬 Fjord (2026)</a>
-    <a href="tv/blade-runner-2099-171802.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 Blade Runner 2099 (2026)</a>
-    <a href="tv/the-lord-of-the-rings-the-rings-of-power-84773.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 The Lord of the Rings: The Rings of Power (2022)</a>
-    <a href="tv/mobland-247718.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 MobLand (2025)</a>
-    <a href="tv/the-remarried-empress-279246.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 The Remarried Empress (2026)</a>
-    <a href="tv/the-body-291507.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 The Body (2026)</a>
-    <a href="tv/the-blue-road-300523.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 The Blue Road (2026)</a>
-    <a href="tv/dexter-resurrection-259909.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 Dexter: Resurrection (2025)</a>
-    <a href="tv/percy-jackson-and-the-olympians-103540.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 Percy Jackson and the Olympians (2023)</a>
-    <a href="tv/visionquest-213375.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 VisionQuest (2026)</a>
-    <a href="tv/12-12-12-254630.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 12 12 12 (2026)</a>
-    <a href="tv/nine-to-six-310209.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 Nine to Six (2026)</a>
-    <a href="tv/dig-290826.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 DIG (2026)</a>
-    <a href="tv/nocturne-292741.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 Nocturne (2026)</a>
-    <a href="tv/yellowjackets-117488.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 Yellowjackets (2021)</a>
-    <a href="tv/love-in-disguise-303745.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 Love in Disguise (2026)</a>
-    <a href="tv/tulsa-king-153312.html" style="padding:8px 10px;background:#181e2e;border-radius:8px;color:#e2e8f5;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📺 Tulsa King (2022)</a>
-  </div>
-</section>
-<!-- SEO-CRAWL-HUB-END -->
 
   <script>
     (function () {
-      "use strict";
-
-      const API_PROXY_URL = "";
-      const DIRECT_TMDB_V3_KEY = "45bfb471ba5d77a724bbdc3f147bb1b3";
-      const WATCH_REGION = "US";
-
-      const PROVIDER_AFFILIATE_LINKS = {
-        "netflix": "",
-        "amazon prime video": "",
-        "apple tv": "",
-        "disney plus": "",
-        "hulu": "",
-        "max": "",
-        "peacock": "",
-        "paramount plus": "",
-        "crunchyroll": "",
-        "youtube": "",
-        "google play movies": "",
-        "vudu": "",
-        "fandango at home": ""
-      };
-
-      const DEFAULT_AFFILIATE_URL = "";
-
-      const AD_UNITS = {
-        banner300x250: {
-          key: "cb17739f8f80ca9d8e38e8633ea77f9f",
-          src: "https://bancadeltempoidea.org/22/cb17739f8f80ca9d8e38e8633ea77f9f",
-          width: 300,
-          height: 250
-        },
-        leader728x90: {
-          key: "ca33325a131a107bdffe9c71cd1a39a2",
-          src: "https://bancadeltempoidea.org/22/ca33325a131a107bdffe9c71cd1a39a2",
-          width: 728,
-          height: 90
-        }
-      };
-
-      const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w500";
-      const TMDB_BACKDROP_BASE = "https://image.tmdb.org/t/p/w1280";
-      const WATCHLIST_KEY = "cinevault_watchlist_v2";
-
-      const GENRE_MAP = {
-        28: { key: "action", label: "Action" },
-        12: { key: "adventure", label: "Adventure" },
-        16: { key: "animation", label: "Animation" },
-        35: { key: "comedy", label: "Comedy" },
-        18: { key: "drama", label: "Drama" },
-        878: { key: "scifi", label: "Sci-Fi" },
-        10759: { key: "action", label: "Action & Adventure" },
-        10765: { key: "scifi", label: "Sci-Fi & Fantasy" },
-        53: { key: "thriller", label: "Thriller" }
-      };
-
-      const FILTER_GENRES = [
-        { id: "all", name: "All Genres" },
-        { id: "action", name: "Action" },
-        { id: "scifi", name: "Sci-Fi" },
-        { id: "thriller", name: "Thriller" },
-        { id: "drama", name: "Drama" },
-        { id: "comedy", name: "Comedy" },
-        { id: "adventure", name: "Adventure" },
-        { id: "animation", name: "Animation" }
-      ];
-
-      const FALLBACK_ITEMS = [
-        {
-          id: "local-1",
-          tmdbId: null,
-          media_type: "movie",
-          title: "Horizon Protocol",
-          year: 2025,
-          rating: 8.6,
-          popularity: 99,
-          runtime: "2h 18m",
-          poster_path: "",
-          backdrop_path: "",
-          genres: ["scifi", "thriller"],
-          genreLabels: ["Sci-Fi", "Thriller"],
-          accent: ["#e50914", "#2b1055"],
-          overview: "An orbital engineer and a systems cryptographer race to recover control of a silent deep-space relay station.",
-          cast: ["Nadia Vance", "Tomasz Kowalski", "Kenji Sato"],
-          providers: ["Netflix", "Apple TV"],
-          trailerKey: ""
-        },
-        {
-          id: "local-2",
-          tmdbId: null,
-          media_type: "tv",
-          title: "Night Shift Syndicate",
-          year: 2026,
-          rating: 8.9,
-          popularity: 96,
-          runtime: "2 Seasons",
-          poster_path: "",
-          backdrop_path: "",
-          genres: ["thriller", "drama"],
-          genreLabels: ["Thriller", "Drama"],
-          accent: ["#d97706", "#111827"],
-          overview: "An overnight port dispatcher uncovers a quiet smuggling network operating across coastal shipping lanes.",
-          cast: ["Tariq Mansoor", "Elena Rostova", "Devon Brooks"],
-          providers: ["Amazon Prime Video", "Max"],
-          trailerKey: ""
-        },
-        {
-          id: "local-3",
-          tmdbId: null,
-          media_type: "movie",
-          title: "Iron Ridge Express",
-          year: 2024,
-          rating: 8.1,
-          popularity: 92,
-          runtime: "2h 04m",
-          poster_path: "",
-          backdrop_path: "",
-          genres: ["action", "adventure"],
-          genreLabels: ["Action", "Adventure"],
-          accent: ["#0ea5e9", "#0f172a"],
-          overview: "A rescue pilot and track engineer work together to guide a runaway freight train through a mountain pass.",
-          cast: ["Mateo Silva", "Priya Nair", "Owen Gallagher"],
-          providers: ["Disney Plus", "YouTube"],
-          trailerKey: ""
-        },
-        {
-          id: "local-4",
-          tmdbId: null,
-          media_type: "movie",
-          title: "Paper Lanterns & Rain",
-          year: 2025,
-          rating: 8.4,
-          popularity: 87,
-          runtime: "1h 56m",
-          poster_path: "",
-          backdrop_path: "",
-          genres: ["drama", "comedy"],
-          genreLabels: ["Drama", "Comedy"],
-          accent: ["#ec4899", "#1e1b4b"],
-          overview: "A clockmaker and a street-food chef team up during a bustling week-long lantern festival.",
-          cast: ["Mei-Ling Zhou", "Arthur Pendelton", "Sami Haddad"],
-          providers: ["Hulu", "Apple TV"],
-          trailerKey: ""
-        },
-        {
-          id: "local-5",
-          tmdbId: null,
-          media_type: "tv",
-          title: "Solaris Foundry",
-          year: 2025,
-          rating: 8.7,
-          popularity: 94,
-          runtime: "1 Season",
-          poster_path: "",
-          backdrop_path: "",
-          genres: ["scifi", "action"],
-          genreLabels: ["Sci-Fi", "Action"],
-          accent: ["#10b981", "#064e3b"],
-          overview: "Crews inside an automated desert solar plant discover its control system rewriting operational boundaries.",
-          cast: ["Jonas Lindqvist", "Amara Okafor", "Lucas Meyer"],
-          providers: ["Netflix", "Amazon Prime Video"],
-          trailerKey: ""
-        },
-        {
-          id: "local-6",
-          tmdbId: null,
-          media_type: "movie",
-          title: "The Last Cartographer",
-          year: 2023,
-          rating: 7.9,
-          popularity: 83,
-          runtime: "2h 11m",
-          poster_path: "",
-          backdrop_path: "",
-          genres: ["adventure", "drama"],
-          genreLabels: ["Adventure", "Drama"],
-          accent: ["#f59e0b", "#451a03"],
-          overview: "An archivist follows century-old river charts into remote canyons ahead of a major valley project.",
-          cast: ["Callum Reid", "Sofia Alvarez", "Noah Sterling"],
-          providers: ["Google Play Movies", "YouTube"],
-          trailerKey: ""
-        }
-      ];
-
-      const normalizedAffiliateMap = new Map();
-      for (const [rawName, rawUrl] of Object.entries(PROVIDER_AFFILIATE_LINKS)) {
-        const cleanName = String(rawName || "").trim().toLowerCase();
-        const cleanUrl = String(rawUrl || "").trim();
-        if (cleanName && /^https?:\/\//i.test(cleanUrl)) {
-          normalizedAffiliateMap.set(cleanName, cleanUrl);
-        }
-      }
-
-      function getAffiliateUrlForProvider(providerName) {
-        const key = String(providerName || "").trim().toLowerCase();
-        if (normalizedAffiliateMap.has(key)) {
-          return normalizedAffiliateMap.get(key);
-        }
-        const fallback = String(DEFAULT_AFFILIATE_URL || "").trim();
-        if (/^https?:\/\//i.test(fallback)) {
-          return fallback;
-        }
-        return "";
-      }
-
-      function renderProviderPill(providerName) {
-        const safeLabel = escapeHtml(providerName);
-        const affiliateUrl = getAffiliateUrlForProvider(providerName);
-        if (affiliateUrl) {
-          return `<a class="provider-pill provider-link" href="${escapeAttr(affiliateUrl)}" target="_blank" rel="noopener noreferrer sponsored" title="Open ${escapeAttr(providerName)}">${safeLabel} ↗</a>`;
-        }
-        return `<span class="provider-pill">${safeLabel}</span>`;
-      }
-
-      function buildYouTubeSearchUrl(item) {
-        const parts = [item && item.title ? item.title : "", item && item.year ? item.year : "", "official trailer"]
-          .map((x) => String(x || "").trim())
-          .filter(Boolean);
-        return `https://www.youtube.com/results?search_query=${encodeURIComponent(parts.join(" "))}`;
-      }
-
-      const posterSvgCache = new Map();
-      function getFallbackPoster(item) {
-        const key = item.id || item.title;
-        if (posterSvgCache.has(key)) return posterSvgCache.get(key);
-        const [c1, c2] = item.accent || ["#e50914", "#181e2e"];
-        const safeTitle = String(item.title || "CineVault")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;");
-        const words = safeTitle.split(/\s+/);
-        const lines = [];
-        let line = "";
-        for (const w of words) {
-          if ((line + " " + w).trim().length <= 16) {
-            line = (line + " " + w).trim();
-          } else {
-            if (line) lines.push(line);
-            line = w;
-          }
-        }
-        if (line) lines.push(line);
-        const tspans = lines
-          .slice(0, 4)
-          .map((txt, i) => `<tspan x="200" dy="${i === 0 ? 0 : 34}">${txt}</tspan>`)
-          .join("");
-
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="${c1}" />
-              <stop offset="100%" stop-color="${c2}" />
-            </linearGradient>
-          </defs>
-          <rect width="400" height="600" fill="url(#g)" />
-          <rect x="22" y="22" width="356" height="556" rx="18" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2" />
-          <circle cx="200" cy="175" r="54" fill="rgba(9,11,16,0.42)" stroke="rgba(255,255,255,0.35)" stroke-width="2" />
-          <polygon points="188,154 188,196 224,175" fill="#ffffff" />
-          <text x="200" y="278" text-anchor="middle" fill="#ffffff" font-family="system-ui,Segoe UI,sans-serif" font-size="28" font-weight="800">${tspans}</text>
-          <text x="200" y="518" text-anchor="middle" fill="rgba(255,255,255,0.82)" font-family="system-ui,Segoe UI,sans-serif" font-size="14" font-weight="600" letter-spacing="2">${item.media_type === "tv" ? "SERIES" : "MOVIE"} • ${item.year || ""}</text>
-        </svg>`;
-        const url = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
-        posterSvgCache.set(key, url);
-        return url;
-      }
-
-      function getPosterUrl(item) {
-        if (item.poster_path) {
-          return `${TMDB_POSTER_BASE}${item.poster_path}`;
-        }
-        return getFallbackPoster(item);
-      }
-
-      function getBackdropUrl(item) {
-        if (item.backdrop_path) {
-          return `${TMDB_BACKDROP_BASE}${item.backdrop_path}`;
-        }
-        if (item.poster_path) {
-          return `${TMDB_POSTER_BASE}${item.poster_path}`;
-        }
-        return getFallbackPoster(item);
-      }
-
-      function loadWatchlist() {
-        try {
-          const raw = localStorage.getItem(WATCHLIST_KEY);
-          const parsed = raw ? JSON.parse(raw) : [];
-          return Array.isArray(parsed) ? parsed : [];
-        } catch {
-          return [];
-        }
-      }
-
-      function saveWatchlist(list) {
-        try {
-          localStorage.setItem(WATCHLIST_KEY, JSON.stringify(list));
-        } catch {
-          // Ignore storage restrictions
-        }
-      }
-
-      const state = {
-        view: "explore",
-        query: "",
-        mediaType: "all",
-        genre: "all",
-        sort: "popular",
-        page: 1,
-        totalPages: 1,
-        isLoadingPage: false,
-        items: FALLBACK_ITEMS.slice(),
-        watchlist: loadWatchlist()
-      };
-
-      const els = {
-        catalogTabBtn: document.getElementById("catalogTabBtn"),
-        watchlistTabBtn: document.getElementById("watchlistTabBtn"),
-        watchlistCount: document.getElementById("watchlistCount"),
-        homeLink: document.getElementById("homeLink"),
-        spotlightStrip: document.getElementById("spotlightStrip"),
-        searchForm: document.getElementById("searchForm"),
-        searchInput: document.getElementById("searchInput"),
-        clearSearchBtn: document.getElementById("clearSearchBtn"),
-        typeChips: document.getElementById("typeChips"),
-        genreChips: document.getElementById("genreChips"),
-        sortSelect: document.getElementById("sortSelect"),
-        netflixRowsSection: document.getElementById("netflixRowsSection"),
-        sectionTitle: document.getElementById("sectionTitle"),
-        resultMeta: document.getElementById("resultMeta"),
-        movieGrid: document.getElementById("movieGrid"),
-        adBoxTop: document.getElementById("adBoxTop"),
-        adBoxMid: document.getElementById("adBoxMid"),
-        loadMoreWrap: document.getElementById("loadMoreWrap"),
-        loadMoreBtn: document.getElementById("loadMoreBtn"),
-        detailModal: document.getElementById("detailModal"),
-        modalBox: document.getElementById("modalBox"),
-        detailContent: document.getElementById("detailContent"),
-        closeDetailModal: document.getElementById("closeDetailModal")
-      };
-
-      function buildFittedAd(unit) {
-        const scriptHtml = `<script>atOptions={'key':'${unit.key}','format':'iframe','height':${unit.height},'width':${unit.width},'params':{}};<\/script><script data-cfasync="false" src="${unit.src}"><\/script>`;
-        const srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;width:${unit.width}px;height:${unit.height}px;background:transparent;overflow:hidden;display:flex;align-items:center;justify-content:center;}</style></head><body>${scriptHtml}</body></html>`;
-
-        const iframe = document.createElement("iframe");
-        iframe.width = String(unit.width);
-        iframe.height = String(unit.height);
-        iframe.style.width = `${unit.width}px`;
-        iframe.style.height = `${unit.height}px`;
-        iframe.style.maxWidth = "100%";
-        iframe.setAttribute("scrolling", "no");
-        iframe.setAttribute("frameborder", "0");
-        iframe.setAttribute("loading", "lazy");
-        iframe.srcdoc = srcdoc;
-        return iframe;
-      }
-
-      function mountAdBanner() {
-        const isDesktop = window.matchMedia && window.matchMedia("(min-width: 780px)").matches;
-
-        if (els.adBoxTop) {
-          els.adBoxTop.innerHTML = "";
-          const topUnit = isDesktop ? AD_UNITS.leader728x90 : AD_UNITS.banner300x250;
-          els.adBoxTop.style.width = `${topUnit.width}px`;
-          els.adBoxTop.style.height = `${topUnit.height}px`;
-          els.adBoxTop.appendChild(buildFittedAd(topUnit));
-        }
-
-        if (els.adBoxMid) {
-          els.adBoxMid.innerHTML = "";
-          const midUnit = AD_UNITS.banner300x250;
-          els.adBoxMid.style.width = `${midUnit.width}px`;
-          els.adBoxMid.style.height = `${midUnit.height}px`;
-          els.adBoxMid.appendChild(buildFittedAd(midUnit));
-        }
-      }
-
-      function hasTmdbSource() {
-        return Boolean((API_PROXY_URL || "").trim() || (DIRECT_TMDB_V3_KEY || "").trim());
-      }
-
-      function buildTmdbUrl(path, params = {}) {
-        const cleanPath = path.startsWith("/") ? path : `/${path}`;
-        const proxy = (API_PROXY_URL || "").trim().replace(/\/+$/, "");
-        const key = (DIRECT_TMDB_V3_KEY || "").trim();
-
-        const query = new URLSearchParams();
-        for (const [k, v] of Object.entries(params)) {
-          if (v !== undefined && v !== null && v !== "") {
-            query.set(k, String(v));
-          }
-        }
-
-        if (proxy) {
-          const qs = query.toString();
-          return `${proxy}${cleanPath}${qs ? `?${qs}` : ""}`;
-        }
-
-        query.set("api_key", key);
-        return `https://api.themoviedb.org/3${cleanPath}?${query.toString()}`;
-      }
-
-      function mapTmdbResult(r, idx) {
-        const title = r.title || r.name || "Untitled";
-        const dateStr = r.release_date || r.first_air_date || "";
-        const year = parseInt(dateStr.slice(0, 4), 10) || 2025;
-        const isTv = r.media_type === "tv" || Boolean(r.name && !r.title);
-        const genreIds = Array.isArray(r.genre_ids) ? r.genre_ids : [];
-        const mappedKeys = [];
-        const mappedLabels = [];
-
-        for (const gid of genreIds) {
-          const info = GENRE_MAP[gid];
-          if (info) {
-            if (!mappedKeys.includes(info.key)) mappedKeys.push(info.key);
-            if (!mappedLabels.includes(info.label)) mappedLabels.push(info.label);
-          }
-        }
-        if (!mappedLabels.length) {
-          mappedLabels.push(isTv ? "Series" : "Movie");
-        }
-
-        const fallbackItem = FALLBACK_ITEMS[idx % FALLBACK_ITEMS.length];
-        return {
-          id: `tmdb-${isTv ? "tv" : "movie"}-${r.id}`,
-          tmdbId: r.id,
-          media_type: isTv ? "tv" : "movie",
-          title,
-          year,
-          rating: Number(r.vote_average || 7.5),
-          popularity: Number(r.popularity || 50),
-          runtime: isTv ? "TV Series" : "Feature Film",
-          poster_path: r.poster_path || "",
-          backdrop_path: r.backdrop_path || "",
-          genres: mappedKeys,
-          genreLabels: mappedLabels,
-          accent: fallbackItem.accent,
-          overview: r.overview || "Synopsis not available.",
-          cast: [],
-          providers: [],
-          trailerKey: ""
-        };
-      }
-
-      async function fetchCatalogPage(pageToLoad = 1, append = false) {
-        if (!hasTmdbSource()) {
-          state.items = FALLBACK_ITEMS.slice();
-          state.page = 1;
-          state.totalPages = 1;
-          renderSpotlightStrip();
-          renderNetflixRows();
-          renderGrid();
-          return;
-        }
-
-        state.isLoadingPage = true;
-        els.loadMoreBtn.disabled = true;
-        els.loadMoreBtn.textContent = "Loading...";
-
-        try {
-          const q = state.query.trim();
-          let url = "";
-
-          if (q) {
-            const searchEndpoint =
-              state.mediaType === "movie"
-                ? "/search/movie"
-                : state.mediaType === "tv"
-                ? "/search/tv"
-                : "/search/multi";
-            url = buildTmdbUrl(searchEndpoint, { query: q, page: pageToLoad, include_adult: false });
-          } else if (state.mediaType === "movie") {
-            url = buildTmdbUrl("/trending/movie/week", { page: pageToLoad });
-          } else if (state.mediaType === "tv") {
-            url = buildTmdbUrl("/trending/tv/week", { page: pageToLoad });
-          } else {
-            url = buildTmdbUrl("/trending/all/week", { page: pageToLoad });
-          }
-
-          const res = await fetch(url);
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const data = await res.json();
-          const rawList = Array.isArray(data.results) ? data.results : [];
-
-          const mapped = rawList
-            .filter((r) => r && (r.media_type !== "person") && (r.title || r.name))
-            .map((r, i) => mapTmdbResult(r, i));
-
-          state.page = Number(data.page || pageToLoad);
-          state.totalPages = Math.min(Number(data.total_pages || 1), 20);
-
-          if (append) {
-            const seen = new Set(state.items.map((x) => x.id));
-            const uniqueNew = mapped.filter((x) => !seen.has(x.id));
-            state.items = state.items.concat(uniqueNew);
-          } else {
-            state.items = mapped.length ? mapped : FALLBACK_ITEMS.slice();
-          }
-        } catch {
-          if (!append && (!state.items || !state.items.length)) {
-            state.items = FALLBACK_ITEMS.slice();
-          }
-        } finally {
-          state.isLoadingPage = false;
-          renderSpotlightStrip();
-          renderNetflixRows();
-          renderGrid();
-        }
-      }
-
-      async function enrichTitleDetails(item) {
-        if (!item || !item.tmdbId || !hasTmdbSource()) return item;
-        const type = item.media_type === "tv" ? "tv" : "movie";
-
-        try {
-          const [detailsRes, videosRes, providersRes, creditsRes] = await Promise.allSettled([
-            fetch(buildTmdbUrl(`/${type}/${item.tmdbId}`)),
-            fetch(buildTmdbUrl(`/${type}/${item.tmdbId}/videos`)),
-            fetch(buildTmdbUrl(`/${type}/${item.tmdbId}/watch/providers`)),
-            fetch(buildTmdbUrl(`/${type}/${item.tmdbId}/credits`))
-          ]);
-
-          if (detailsRes.status === "fulfilled" && detailsRes.value.ok) {
-            const d = await detailsRes.value.json();
-            if (d.backdrop_path && !item.backdrop_path) {
-              item.backdrop_path = d.backdrop_path;
-            }
-            if (d.poster_path && !item.poster_path) {
-              item.poster_path = d.poster_path;
-            }
-            if (Array.isArray(d.genres) && d.genres.length) {
-              item.genreLabels = d.genres.map((g) => g.name).filter(Boolean);
-            }
-            if (typeof d.runtime === "number" && d.runtime > 0) {
-              const h = Math.floor(d.runtime / 60);
-              const m = d.runtime % 60;
-              item.runtime = h > 0 ? `${h}h ${m}m` : `${m}m`;
-            } else if (Array.isArray(d.episode_run_time) && d.episode_run_time[0]) {
-              item.runtime = `${d.episode_run_time[0]}m / ep`;
-            }
-          }
-
-          if (videosRes.status === "fulfilled" && videosRes.value.ok) {
-            const v = await videosRes.value.json();
-            const videos = Array.isArray(v.results) ? v.results : [];
-            const ytTrailer =
-              videos.find((vid) => vid.site === "YouTube" && vid.type === "Trailer" && vid.key) ||
-              videos.find((vid) => vid.site === "YouTube" && vid.type === "Teaser" && vid.key) ||
-              videos.find((vid) => vid.site === "YouTube" && vid.key);
-            if (ytTrailer) {
-              item.trailerKey = ytTrailer.key;
-            }
-          }
-
-          if (providersRes.status === "fulfilled" && providersRes.value.ok) {
-            const p = await providersRes.value.json();
-            const regionData =
-              (p.results && p.results[WATCH_REGION]) ||
-              (p.results && p.results.US) ||
-              (p.results && Object.values(p.results)[0]);
-            if (regionData) {
-              const names = new Set();
-              for (const bucket of ["flatrate", "rent", "buy", "ads"]) {
-                if (Array.isArray(regionData[bucket])) {
-                  for (const prov of regionData[bucket]) {
-                    if (prov.provider_name) names.add(prov.provider_name);
-                  }
-                }
-              }
-              item.providers = Array.from(names).slice(0, 8);
-            }
-          }
-
-          if (creditsRes.status === "fulfilled" && creditsRes.value.ok) {
-            const c = await creditsRes.value.json();
-            if (Array.isArray(c.cast) && c.cast.length) {
-              item.cast = c.cast.slice(0, 8).map((person) => person.name).filter(Boolean);
-            }
-          }
-        } catch {
-          // Keep existing data
-        }
-        return item;
-      }
-
-      function isSaved(id) {
-        return state.watchlist.some((x) => x.id === id);
-      }
-
-      function updateWatchlistBadge() {
-        els.watchlistCount.textContent = String(state.watchlist.length);
-      }
-
-      function toggleWatchlist(item) {
-        if (!item || !item.id) return;
-        if (isSaved(item.id)) {
-          state.watchlist = state.watchlist.filter((x) => x.id !== item.id);
-        } else {
-          state.watchlist.unshift(item);
-        }
-        saveWatchlist(state.watchlist);
-        updateWatchlistBadge();
-        renderSpotlightStrip();
-        renderNetflixRows();
-        renderGrid();
-      }
-
-      function renderSpotlightStrip() {
-        const pool = state.items.length ? state.items : FALLBACK_ITEMS;
-        const featured = pool.slice(0, Math.min(pool.length, 6));
-        if (!featured.length) return;
-
-        els.spotlightStrip.innerHTML = featured
-          .map((item, idx) => {
-            const typeLabel = item.media_type === "tv" ? "Series" : "Movie";
-            const saved = isSaved(item.id);
-            const poster = getPosterUrl(item);
-            const fallback = getFallbackPoster(item);
-            const backdrop = getBackdropUrl(item);
-            const headingTag = idx === 0 ? "h1" : "h2";
-
-            return `
-              <article class="spot-slide" style="background-image: url('${escapeAttr(backdrop)}');">
-                <div class="spot-body">
-                  <div class="spot-badge-row">
-                    <span class="spot-rank-big">#${idx + 1} TRENDING</span>
-                  </div>
-                  <${headingTag}>${escapeHtml(item.title)}</${headingTag}>
-                  <div class="spot-tags">
-                    <span class="spot-gold">★ ${Number(item.rating || 7.5).toFixed(1)}</span>
-                    <span>${item.year || "—"}</span>
-                    <span>${escapeHtml(typeLabel)}</span>
-                    <span>${escapeHtml((item.genreLabels || []).slice(0, 2).join(" • ") || "Featured")}</span>
-                  </div>
-                  <p class="spot-desc">${escapeHtml(item.overview || "Synopsis not available.")}</p>
-                  <div class="spot-actions">
-                    <button class="primary-btn" data-spot-watch="${escapeAttr(item.id)}" type="button">▶ Watch Trailer</button>
-                    <button class="secondary-btn" data-spot-save="${escapeAttr(item.id)}" type="button">${saved ? "✓ In Watchlist" : "+ My Watchlist"}</button>
-                  </div>
-                </div>
-                <div class="spot-poster-card" data-spot-watch="${escapeAttr(item.id)}" title="Open title details">
-                  <img
-                    src="${poster}"
-                    alt="${escapeAttr(item.title)} poster"
-                    loading="eager"
-                    onerror="if(this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
-                    data-fb="${escapeAttr(fallback)}"
-                  />
-                </div>
-              </article>
-            `;
-          })
-          .join("");
-
-        els.spotlightStrip.querySelectorAll("[data-spot-watch]").forEach((el) => {
-          el.addEventListener("click", () => {
-            const found = findItemById(el.getAttribute("data-spot-watch"));
-            if (found) openDetailModal(found);
-          });
-        });
-
-        els.spotlightStrip.querySelectorAll("[data-spot-save]").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const found = findItemById(btn.getAttribute("data-spot-save"));
-            if (found) toggleWatchlist(found);
-          });
-        });
-      }
-
-      function renderCardHtml(item, rankNum = 0) {
-        const poster = getPosterUrl(item);
-        const fallback = getFallbackPoster(item);
-        const saved = isSaved(item.id);
-        const typeLabel = item.media_type === "tv" ? "Series" : "Movie";
-        const rankHtml = rankNum > 0 ? `<span class="rank-badge-large">#${rankNum}</span>` : "";
-        return `
-          <article class="card">
-            <div class="poster-box" data-open="${escapeAttr(item.id)}">
-              <img
-                src="${poster}"
-                alt="${escapeAttr(item.title)} (${typeLabel}, ${item.year || "2025"}) poster"
-                loading="lazy"
-                onerror="if(this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
-                data-fb="${escapeAttr(fallback)}"
-              />
-              <span class="rating-pill">★ ${Number(item.rating || 7.5).toFixed(1)}</span>
-              ${rankHtml}
-              <button
-                class="save-btn ${saved ? "saved" : ""}"
-                data-save="${escapeAttr(item.id)}"
-                type="button"
-                title="${saved ? "Remove from watchlist" : "Add to watchlist"}"
-                aria-label="${saved ? "Remove from watchlist" : "Add to watchlist"}"
-              >${saved ? "✓" : "+"}</button>
-            </div>
-            <div class="card-body" data-open="${escapeAttr(item.id)}">
-              <h3 class="card-title">${escapeHtml(item.title)}</h3>
-              <div class="card-sub">
-                <span>${item.year || "—"}</span>
-                <span class="type-badge">${typeLabel}</span>
-              </div>
-            </div>
-          </article>
-        `;
-      }
-
-      function bindCardEvents(container) {
-        if (!container) return;
-        container.querySelectorAll("[data-open]").forEach((el) => {
-          el.addEventListener("click", () => {
-            const found = findItemById(el.getAttribute("data-open"));
-            if (found) openDetailModal(found);
-          });
-        });
-
-        container.querySelectorAll("[data-save]").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const found = findItemById(btn.getAttribute("data-save"));
-            if (found) toggleWatchlist(found);
-          });
-        });
-      }
-
-      function renderNetflixRows() {
-        const showRows = state.view === "explore" && !state.query.trim() && state.genre === "all" && state.mediaType === "all";
-        if (!showRows) {
-          els.netflixRowsSection.style.display = "none";
-          els.netflixRowsSection.innerHTML = "";
-          return;
-        }
-
-        const base = state.items.length ? state.items : FALLBACK_ITEMS;
-        const top10Trending = base.slice(0, 10);
-        const topRated = base.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 10);
-
-        const rows = [
-          { id: "rowTop10", title: "Top 10 Trending Today", items: top10Trending, ranked: true },
-          { id: "rowTopRated", title: "Top Rated Picks", items: topRated, ranked: false }
-        ];
-
-        els.netflixRowsSection.style.display = "flex";
-        els.netflixRowsSection.innerHTML = rows
-          .map(
-            (r) => `
-          <div class="row-block">
-            <div class="row-header">
-              <h2 class="row-title">${escapeHtml(r.title)}</h2>
-            </div>
-            <div class="row-scroller" id="${r.id}">
-              ${r.items.map((it, idx) => renderCardHtml(it, r.ranked ? idx + 1 : 0)).join("")}
-            </div>
-          </div>
-        `
-          )
-          .join("");
-
-        bindCardEvents(els.netflixRowsSection);
-      }
-
-      function getFilteredItems() {
-        const base = state.view === "watchlist" ? state.watchlist.slice() : state.items.slice();
-        const q = state.query.trim().toLowerCase();
-
-        const list = base.filter((item) => {
-          if (state.mediaType !== "all" && item.media_type !== state.mediaType) {
-            return false;
-          }
-          if (state.genre !== "all") {
-            const g = Array.isArray(item.genres) ? item.genres : [];
-            if (!g.includes(state.genre)) return false;
-          }
-          if (q && !hasTmdbSource()) {
-            const hay = `${item.title || ""} ${item.overview || ""} ${(item.genreLabels || []).join(" ")}`.toLowerCase();
-            if (!hay.includes(q)) return false;
-          }
-          return true;
-        });
-
-        list.sort((a, b) => {
-          switch (state.sort) {
-            case "rating":
-              return (b.rating || 0) - (a.rating || 0);
-            case "year":
-              return (b.year || 0) - (a.year || 0);
-            case "title":
-              return String(a.title || "").localeCompare(String(b.title || ""));
-            case "popular":
-            default:
-              return (b.popularity || 0) - (a.popularity || 0);
-          }
-        });
-
-        return list;
-      }
-
-      function renderGenreChips() {
-        els.genreChips.innerHTML = FILTER_GENRES.map(
-          (g) => `<button class="chip ${state.genre === g.id ? "active" : ""}" data-genre="${g.id}" type="button">${g.name}</button>`
-        ).join("");
-        els.genreChips.querySelectorAll(".chip").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            state.genre = btn.getAttribute("data-genre") || "all";
-            renderGenreChips();
-            renderNetflixRows();
-            renderGrid();
-          });
-        });
-      }
-
-      function findItemById(id) {
-        return (
-          state.items.find((x) => x.id === id) ||
-          state.watchlist.find((x) => x.id === id) ||
-          FALLBACK_ITEMS[0]
-        );
-      }
-
-      function renderGrid() {
-        const list = getFilteredItems();
-
-        if (state.view === "watchlist") {
-          els.sectionTitle.textContent = "My Watchlist";
-          els.loadMoreWrap.style.display = "none";
-        } else {
-          els.sectionTitle.textContent = state.query.trim() ? `Results for "${state.query.trim()}"` : "All Trending Titles";
-          const canLoadMore = hasTmdbSource() && state.page < state.totalPages;
-          els.loadMoreWrap.style.display = canLoadMore ? "flex" : "none";
-          els.loadMoreBtn.disabled = state.isLoadingPage;
-          els.loadMoreBtn.textContent = state.isLoadingPage ? "Loading..." : `Load More Titles (Page ${state.page + 1})`;
-        }
-
-        els.resultMeta.textContent = `${list.length} ${list.length === 1 ? "title" : "titles"}`;
-
-        if (!list.length) {
-          els.movieGrid.innerHTML = `
-            <div class="empty-state" style="grid-column: 1 / -1;">
-              <h3>No titles to display</h3>
-              <p>${
-                state.view === "watchlist"
-                  ? "Your watchlist is empty or no saved titles match your filter."
-                  : "No matching titles found for this filter."
-              }</p>
-              <button class="primary-btn" style="padding: 10px 18px;" id="resetBtn" type="button">Reset Filters</button>
-            </div>
-          `;
-          const resetBtn = document.getElementById("resetBtn");
-          if (resetBtn) {
-            resetBtn.addEventListener("click", () => {
-              state.query = "";
-              state.mediaType = "all";
-              state.genre = "all";
-              els.searchInput.value = "";
-              syncTypeChips();
-              renderGenreChips();
-              fetchCatalogPage(1, false);
-            });
-          }
-          return;
-        }
-
-        const showRanks = state.view === "explore" && !state.query.trim() && state.genre === "all" && state.sort === "popular";
-        els.movieGrid.innerHTML = list.map((it, idx) => renderCardHtml(it, showRanks && idx < 10 ? idx + 1 : 0)).join("");
-        bindCardEvents(els.movieGrid);
-      }
-
-      function renderModalBody(item) {
-        const poster = getPosterUrl(item);
-        const fallback = getFallbackPoster(item);
-        const saved = isSaved(item.id);
-        const similar = state.items.filter((x) => x.id !== item.id).slice(0, 4);
-        const providers = Array.isArray(item.providers) ? item.providers : [];
-        const cast = Array.isArray(item.cast) ? item.cast : [];
-        const ytSearchUrl = buildYouTubeSearchUrl(item);
-
-        const trailerHtml = item.trailerKey
-          ? `<div class="trailer-box"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(item.trailerKey)}" title="${escapeAttr(item.title)} trailer" allowfullscreen></iframe></div>`
-          : `<div class="info-note">
-               <span>Direct embed trailer not listed for this title—search YouTube for the official trailer.</span>
-               <a class="yt-fallback-btn" href="${escapeAttr(ytSearchUrl)}" target="_blank" rel="noopener noreferrer">Search on YouTube ↗</a>
-             </div>`;
-
-        const providersHtml = providers.length
-          ? `<div class="provider-list">${providers.map(renderProviderPill).join("")}</div>`
-          : `<div class="info-note">Streaming availability not listed for this region.</div>`;
-
-        const castHtml = cast.length
-          ? `<div class="cast-list">${cast.map((c) => `<span class="cast-pill">${escapeHtml(c)}</span>`).join("")}</div>`
-          : `<div class="info-note">Cast list not available.</div>`;
-
-        els.detailContent.innerHTML = `
-          <div class="modal-hero">
-            <img
-              class="modal-poster"
-              src="${poster}"
-              alt="${escapeAttr(item.title)} poster"
-              onerror="if(this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
-              data-fb="${escapeAttr(fallback)}"
-            />
-            <div>
-              <h2 class="modal-title" id="modalTitle">${escapeHtml(item.title)}</h2>
-              <div class="modal-meta">
-                <span>★ ${Number(item.rating || 7.5).toFixed(1)}</span>
-                <span>${item.year || "—"}</span>
-                <span>${escapeHtml(item.runtime || "Feature")}</span>
-                <span>${escapeHtml((item.genreLabels || []).join(", "))}</span>
-              </div>
-              <p class="modal-overview">${escapeHtml(item.overview || "Synopsis not available.")}</p>
-              <button class="primary-btn" style="padding: 10px 18px;" id="modalWlBtn" type="button">
-                ${saved ? "✓ In Watchlist" : "+ Add to Watchlist"}
-              </button>
-            </div>
-          </div>
-
-          <div class="modal-section">
-            <h3>Trailer</h3>
-            ${trailerHtml}
-          </div>
-
-          <div class="modal-section">
-            <h3>Where to Watch</h3>
-            ${providersHtml}
-          </div>
-
-          <div class="modal-section">
-            <h3>Cast</h3>
-            ${castHtml}
-          </div>
-
-          <div class="modal-section">
-            <h3>More Titles</h3>
-            <div class="similar-grid">
-              ${similar
-                .map(
-                  (s) => `
-                <button class="similar-card" data-sim="${escapeAttr(s.id)}" type="button">
-                  <img
-                    src="${getPosterUrl(s)}"
-                    alt="${escapeAttr(s.title)}"
-                    loading="lazy"
-                    onerror="if(this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
-                    data-fb="${escapeAttr(getFallbackPoster(s))}"
-                  />
-                  <p>${escapeHtml(s.title)}</p>
-                </button>
-              `
-                )
-                .join("")}
-            </div>
-          </div>
-        `;
-
-        const wlBtn = document.getElementById("modalWlBtn");
-        if (wlBtn) {
-          wlBtn.addEventListener("click", () => {
-            toggleWatchlist(item);
-            renderModalBody(item);
-          });
-        }
-
-        els.detailContent.querySelectorAll("[data-sim]").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const nextItem = findItemById(btn.getAttribute("data-sim"));
-            if (nextItem) {
-              els.modalBox.scrollTop = 0;
-              openDetailModal(nextItem);
-            }
-          });
-        });
-      }
-
-      async function openDetailModal(item) {
-        renderModalBody(item);
-        els.modalBox.scrollTop = 0;
-        els.detailModal.classList.add("open");
-        document.body.classList.add("modal-open");
-        const enriched = await enrichTitleDetails(item);
-        if (els.detailModal.classList.contains("open")) {
-          renderModalBody(enriched);
-        }
-      }
-
-      function closeDetailModal() {
-        els.detailModal.classList.remove("open");
-        document.body.classList.remove("modal-open");
-        els.detailContent.innerHTML = "";
-      }
-
-      function syncTypeChips() {
-        els.typeChips.querySelectorAll(".chip").forEach((btn) => {
-          btn.classList.toggle("active", btn.getAttribute("data-type") === state.mediaType);
-        });
-      }
-
-      function escapeHtml(str) {
-        return String(str || "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;");
-      }
-
-      function escapeAttr(str) {
-        return escapeHtml(str).replace(/'/g, "&#39;");
-      }
-
-      // Event listeners
-      els.catalogTabBtn.addEventListener("click", () => {
-        state.view = "explore";
-        els.catalogTabBtn.classList.add("active");
-        els.watchlistTabBtn.classList.remove("active");
-        renderNetflixRows();
-        renderGrid();
-      });
-
-      els.watchlistTabBtn.addEventListener("click", () => {
-        state.view = "watchlist";
-        els.watchlistTabBtn.classList.add("active");
-        els.catalogTabBtn.classList.remove("active");
-        renderNetflixRows();
-        renderGrid();
-      });
-
-      els.homeLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        state.view = "explore";
-        state.query = "";
-        state.mediaType = "all";
-        state.genre = "all";
-        state.sort = "popular";
-        els.searchInput.value = "";
-        els.sortSelect.value = "popular";
-        els.catalogTabBtn.classList.add("active");
-        els.watchlistTabBtn.classList.remove("active");
-        syncTypeChips();
-        renderGenreChips();
-        if (els.spotlightStrip) els.spotlightStrip.scrollLeft = 0;
-        fetchCatalogPage(1, false);
-      });
-
-      let debounceTimer = null;
-      els.searchInput.addEventListener("input", () => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-          state.query = els.searchInput.value;
-          if (hasTmdbSource()) {
-            fetchCatalogPage(1, false);
-          } else {
-            renderNetflixRows();
-            renderGrid();
-          }
-        }, 250);
-      });
-
-      els.searchForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        state.query = els.searchInput.value;
-        if (hasTmdbSource()) {
-          fetchCatalogPage(1, false);
-        } else {
-          renderNetflixRows();
-          renderGrid();
-        }
-      });
-
-      els.clearSearchBtn.addEventListener("click", () => {
-        els.searchInput.value = "";
-        state.query = "";
-        if (hasTmdbSource()) {
-          fetchCatalogPage(1, false);
-        } else {
-          renderNetflixRows();
-          renderGrid();
-        }
-      });
-
-      els.typeChips.querySelectorAll(".chip").forEach((btn) => {
+      // Expand / Collapse horizontal shelves cleanly without reloads
+      document.querySelectorAll(".expand-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state.mediaType = btn.getAttribute("data-type") || "all";
-          syncTypeChips();
-          if (hasTmdbSource() && state.view === "explore") {
-            fetchCatalogPage(1, false);
-          } else {
-            renderNetflixRows();
-            renderGrid();
-          }
+          const track = document.getElementById(btn.dataset.target);
+          if (!track) return;
+          const isExpanded = track.classList.toggle("expanded");
+          const count = track.children.length;
+          btn.textContent = isExpanded ? "Collapse Row" : "Expand All (" + count + ")";
         });
       });
 
-      els.sortSelect.addEventListener("change", () => {
-        state.sort = els.sortSelect.value;
-        renderGrid();
-      });
-
-      els.loadMoreBtn.addEventListener("click", () => {
-        if (!state.isLoadingPage && state.page < state.totalPages) {
-          fetchCatalogPage(state.page + 1, true);
+      // Instant live filter across all shelves + ?q= URL parameter support
+      const input = document.getElementById("liveSearch");
+      function filterCards(q) {
+        const term = (q || "").trim().toLowerCase();
+        document.querySelectorAll(".shelf").forEach((shelf) => {
+          let visible = 0;
+          shelf.querySelectorAll(".media-card").forEach((card) => {
+            const match = !term || (card.dataset.search || "").includes(term);
+            card.style.display = match ? "" : "none";
+            if (match) visible++;
+          });
+          shelf.style.display = visible > 0 ? "" : "none";
+        });
+      }
+      if (input) {
+        input.addEventListener("input", () => filterCards(input.value));
+        const params = new URLSearchParams(window.location.search);
+        const initialQ = params.get("q");
+        if (initialQ) {
+          input.value = initialQ;
+          filterCards(initialQ);
         }
-      });
-
-      els.closeDetailModal.addEventListener("click", closeDetailModal);
-      els.detailModal.addEventListener("click", (e) => {
-        if (e.target === els.detailModal) closeDetailModal();
-      });
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeDetailModal();
-      });
-
-      // Boot
-      mountAdBanner();
-      updateWatchlistBadge();
-      renderGenreChips();
-      renderSpotlightStrip();
-      renderNetflixRows();
-      renderGrid();
-      fetchCatalogPage(1, false);
+      }
     })();
   </script>
 </body>
