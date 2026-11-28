@@ -3,1396 +3,1612 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CineVault — Movies, Coming Soon, Anime &amp; Series</title>
-  <meta name="description" content="Browse Trending Now, Coming Soon releases, Action, Sci-Fi, Crime, Drama, Anime, and TV Shows on CineVault with direct title pages and streaming info." />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <title>CineVault — Movies, Shows, Anime &amp; Where to Watch</title>
+  <meta name="description" content="Browse trending movies, TV shows, anime, and upcoming releases on CineVault. Discover genres, trailers, cast, and where to watch." />
   <link rel="canonical" href="https://cinevault.space/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
   <style>
     :root {
       --bg: #050608;
-      --bg-elevated: #0b0e14;
-      --surface: #121620;
-      --surface-2: #1a202e;
-      --surface-3: #242c3f;
+      --bg-elevated: #0c0f16;
+      --surface: #131722;
+      --surface-2: #1b2130;
+      --surface-3: #252d40;
       --text: #f6f8fc;
-      --muted: #9aa6be;
+      --muted: #a4afc6;
       --accent: #e50914;
-      --accent-2: #ff1f2d;
+      --accent-2: #ff1e2d;
       --gold: #f5c518;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-strong: rgba(255, 255, 255, 0.2);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.22);
       --radius: 10px;
-      --shadow: 0 20px 44px rgba(0, 0, 0, 0.75);
+      --shadow: 0 20px 44px rgba(0, 0, 0, 0.72);
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
-      --max: 1400px;
+      --max: 1360px;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
     html, body {
-      background: radial-gradient(ellipse at top center, rgba(229, 9, 20, 0.14) 0%, rgba(13, 18, 30, 0.4) 35%, var(--bg) 75%);
+      background:
+        radial-gradient(ellipse at top center, rgba(229, 9, 20, 0.16) 0%, rgba(16, 22, 38, 0.44) 36%, var(--bg) 76%);
       background-color: var(--bg);
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       min-height: 100vh;
-      line-height: 1.55;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
+
     a { color: inherit; text-decoration: none; }
     button, input, select { font-family: inherit; color: inherit; }
     button { cursor: pointer; border: none; background: none; }
 
+    /* Header */
     header {
-      position: sticky; top: 0; z-index: 50;
+      position: sticky;
+      top: 0;
+      z-index: 40;
       backdrop-filter: blur(16px);
-      background: linear-gradient(180deg, rgba(5, 6, 8, 0.96) 0%, rgba(5, 6, 8, 0.85) 100%);
-      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(5, 6, 8, 0.96) 0%, rgba(5, 6, 8, 0.84) 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
+
     .nav-wrap {
-      max-width: var(--max); margin: 0 auto; padding: 12px 20px;
-      display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
-    .nav-left { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+
     .brand {
-      display: inline-flex; align-items: center; gap: 9px;
-      font-weight: 900; font-size: 1.3rem; letter-spacing: 0.04em; text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      font-size: 1.32rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
-    .brand-mark { color: var(--accent); font-size: 1.4rem; line-height: 1; }
-    .nav-links { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .nav-link {
-      padding: 6px 11px; border-radius: 6px; font-size: 0.84rem; font-weight: 600; color: #d0d8e8;
+
+    .brand-mark {
+      color: var(--accent);
+      font-size: 1.45rem;
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(229, 9, 20, 0.65);
     }
-    .nav-link:hover, .nav-link.active { color: #fff; background: rgba(255, 255, 255, 0.1); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .pill-btn {
-      padding: 7px 13px; border-radius: 6px;
-      background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border);
-      font-size: 0.83rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      font-size: 0.84rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.18s var(--ease), border-color 0.18s var(--ease);
     }
-    .pill-btn:hover { background: rgba(255, 255, 255, 0.15); border-color: var(--border-strong); }
-    .pill-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .count-tag { background: rgba(255, 255, 255, 0.22); padding: 1px 6px; border-radius: 999px; font-size: 0.72rem; }
 
-    main { max-width: var(--max); margin: 0 auto; padding: 16px 20px 56px; }
+    .pill-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: var(--border-strong);
+    }
 
+    .pill-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(229, 9, 20, 0.35);
+    }
+
+    .nav-select {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-strong);
+      font-size: 0.84rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    .count-tag {
+      background: rgba(255, 255, 255, 0.22);
+      padding: 1px 7px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    /* Main */
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px 20px 56px;
+    }
+
+    /* Spotlight Hero */
     .spotlight-strip {
-      display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 16px;
-      overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-      scrollbar-width: none; margin-bottom: 16px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100%;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      margin-bottom: 16px;
     }
+
     .spotlight-strip::-webkit-scrollbar { display: none; }
+
     .spot-slide {
-      scroll-snap-align: center; position: relative;
-      background-color: var(--bg-elevated); background-size: cover; background-position: center 25%;
-      border: 1px solid var(--border-strong); border-radius: 14px; padding: 26px 24px;
-      box-shadow: var(--shadow); display: grid; grid-template-columns: 1fr 178px; gap: 24px;
-      align-items: center; overflow: hidden; min-height: 290px;
+      scroll-snap-align: center;
+      position: relative;
+      background-color: var(--bg-elevated);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 176px;
+      gap: 22px;
+      align-items: center;
+      overflow: hidden;
+      min-height: 270px;
     }
+
     .spot-slide::before {
-      content: ""; position: absolute; inset: 0;
+      content: "";
+      position: absolute;
+      inset: 0;
       background:
-        linear-gradient(95deg, rgba(5, 6, 8, 0.97) 0%, rgba(8, 11, 20, 0.84) 56%, rgba(5, 6, 8, 0.58) 100%),
-        linear-gradient(180deg, rgba(5, 6, 8, 0.2) 0%, rgba(5, 6, 8, 0.94) 100%);
+        linear-gradient(95deg, rgba(5, 6, 8, 0.96) 0%, rgba(8, 11, 20, 0.86) 60%, rgba(5, 6, 8, 0.65) 100%),
+        linear-gradient(180deg, rgba(5, 6, 8, 0.25) 0%, rgba(5, 6, 8, 0.94) 100%);
       z-index: 0;
     }
+
     .spot-body, .spot-poster-link { position: relative; z-index: 1; }
-    .spot-badge-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .spot-body { min-width: 0; }
+
+    .spot-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
     .spot-rank-big {
-      background: var(--accent); color: #fff; font-size: 0.78rem; font-weight: 900;
-      padding: 3px 9px; border-radius: 5px; letter-spacing: 0.04em;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.03em;
     }
+
     .spot-soon-pill {
-      background: rgba(245, 197, 24, 0.16); color: var(--gold);
-      border: 1px solid rgba(245, 197, 24, 0.45); font-size: 0.76rem; font-weight: 800;
-      padding: 3px 9px; border-radius: 5px;
+      background: rgba(245, 197, 24, 0.16);
+      color: var(--gold);
+      border: 1px solid rgba(245, 197, 24, 0.45);
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 6px;
     }
-    .spot-slide h1, .spot-slide h2 { font-size: clamp(1.48rem, 3.2vw, 2.2rem); font-weight: 900; line-height: 1.14; }
-    .spot-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; font-size: 0.79rem; color: var(--muted); }
-    .spot-tags span { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border); padding: 3px 8px; border-radius: 5px; }
+
+    .spot-slide h1, .spot-slide h2 {
+      font-size: clamp(1.45rem, 3.2vw, 2.2rem);
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      line-height: 1.14;
+    }
+
+    .spot-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 9px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .spot-tags span {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
     .spot-gold { color: var(--gold) !important; font-weight: 700; }
+
     .spot-desc {
-      color: #d8e0ef; font-size: 0.92rem; margin: 10px 0 16px; max-width: 650px;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      color: #dce3f2;
+      font-size: 0.9rem;
+      margin-top: 9px;
+      margin-bottom: 12px;
+      max-width: 650px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .spot-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .spot-streams {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 13px;
+    }
+
+    .spot-streams-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+
+    .stream-chip-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(229, 9, 20, 0.18);
+      border: 1px solid rgba(229, 9, 20, 0.5);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .stream-chip-link:hover { background: var(--accent); border-color: var(--accent-2); }
+
+    .spot-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+
     .primary-btn {
-      padding: 10px 18px; border-radius: 7px; background: #fff; color: #050608;
-      font-weight: 800; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
     }
-    .primary-btn:hover { background: #e6ebf5; }
+
+    .primary-btn:hover { background: var(--accent-2); }
+
     .secondary-btn {
-      padding: 10px 16px; border-radius: 7px; background: rgba(255, 255, 255, 0.15);
-      border: 1px solid var(--border-strong); color: #fff; font-weight: 700; font-size: 0.86rem;
-      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.86rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
     }
-    .secondary-btn:hover { background: rgba(255, 255, 255, 0.24); }
+
+    .secondary-btn:hover { background: rgba(255, 255, 255, 0.22); }
+
     .spot-poster-link {
-      display: block; width: 100%; aspect-ratio: 2 / 3; border-radius: 10px; overflow: hidden;
-      border: 1px solid var(--border-strong); background: var(--surface-2);
+      display: block;
+      width: 100%;
+      max-width: 176px;
+      aspect-ratio: 2 / 3;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.78);
+      background: var(--surface-2);
     }
+
     .spot-poster-link img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .control-bar {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-      padding: 12px 14px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;
-    }
-    .search-row { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; }
+    /* Search & Filters */
+    .search-section { margin-bottom: 12px; }
+    .search-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
     .search-input-wrap { position: relative; display: flex; align-items: center; }
+
     .search-input {
-      width: 100%; padding: 9px 36px 9px 13px; border-radius: 7px;
-      background: var(--bg-elevated); border: 1px solid var(--border-strong); font-size: 0.9rem; outline: none;
-    }
-    .search-input:focus { border-color: var(--accent); }
-    .clear-btn {
-      position: absolute; right: 8px; width: 24px; height: 24px; border-radius: 5px;
-      color: var(--muted); display: grid; place-items: center; font-size: 0.85rem;
-    }
-    .filter-toggle-btn {
-      padding: 9px 13px; border-radius: 7px; background: var(--surface-2);
-      border: 1px solid var(--border); font-size: 0.83rem; font-weight: 700;
-    }
-    .filter-drawer { display: flex; flex-direction: column; gap: 9px; padding-top: 8px; border-top: 1px solid var(--border); }
-    .filter-drawer.collapsed { display: none; }
-    .filter-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .chip-group { display: flex; flex-wrap: wrap; gap: 6px; }
-    .chip {
-      padding: 5px 11px; border-radius: 999px; background: var(--bg-elevated);
-      border: 1px solid var(--border); font-size: 0.78rem; font-weight: 600; color: var(--muted);
-    }
-    .chip:hover { color: #fff; border-color: var(--border-strong); }
-    .chip.active { background: #fff; color: #050608; border-color: #fff; }
-    .sort-select {
-      padding: 6px 10px; border-radius: 7px; background: var(--bg-elevated);
-      border: 1px solid var(--border); font-size: 0.8rem; font-weight: 600; outline: none;
+      width: 100%;
+      padding: 10px 40px 10px 14px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      font-size: 0.92rem;
+      outline: none;
     }
 
-    .netflix-rows { display: flex; flex-direction: column; gap: 26px; margin-bottom: 24px; }
-    .row-block { display: flex; flex-direction: column; gap: 10px; }
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.22);
+    }
+
+    .clear-btn {
+      position: absolute;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+    }
+
+    .filters { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+    .filter-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .chip-group { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .chip {
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .chip:hover { color: var(--text); background: var(--surface-2); }
+    .chip.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+    .sort-select {
+      padding: 7px 12px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* Direct Streaming Panel */
+    .watch-direct-panel {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 15px 18px;
+      margin-bottom: 18px;
+    }
+
+    .watch-direct-panel.active { display: block; }
+    .watch-direct-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 11px; }
+    .watch-direct-title { font-size: 1rem; font-weight: 800; }
+    .watch-direct-sub { font-size: 0.76rem; color: var(--muted); }
+    .watch-platform-grid { display: flex; flex-wrap: wrap; gap: 9px; }
+
+    .watch-platform-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-strong);
+      font-size: 0.83rem;
+      font-weight: 700;
+    }
+
+    .watch-platform-btn:hover { background: var(--accent); border-color: var(--accent-2); color: #fff; }
+    .watch-mode-tag { font-size: 0.68rem; padding: 2px 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.12); }
+
+    /* Netflix Category Rows */
+    .netflix-rows { display: flex; flex-direction: column; gap: 22px; margin-bottom: 24px; }
+
+    .row-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(19, 23, 34, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
     .row-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
     .row-title-wrap { display: flex; align-items: center; gap: 8px; }
-    .row-title { font-size: 1.12rem; font-weight: 800; }
-    .row-count {
-      font-size: 0.72rem; color: var(--muted); font-weight: 700;
-      background: var(--surface); border: 1px solid var(--border); padding: 1px 7px; border-radius: 999px;
+    .row-title { font-size: 1.06rem; font-weight: 800; }
+    .row-title-link:hover { color: #ff6b72; }
+    .row-count { font-size: 0.74rem; color: var(--muted); font-weight: 700; background: var(--surface-2); padding: 2px 8px; border-radius: 999px; }
+    .row-actions { display: flex; align-items: center; gap: 8px; }
+
+    .row-hub-link, .row-expand-btn {
+      padding: 5px 11px;
+      border-radius: 6px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 0.75rem;
+      font-weight: 700;
     }
-    .row-controls { display: flex; align-items: center; gap: 6px; }
-    .row-arrow-btn, .row-expand-btn {
-      padding: 4px 10px; border-radius: 6px; background: var(--surface);
-      border: 1px solid var(--border); font-size: 0.76rem; font-weight: 700; color: var(--text);
-    }
-    .row-arrow-btn:hover, .row-expand-btn:hover { background: var(--surface-2); border-color: var(--border-strong); }
+
+    .row-hub-link:hover, .row-expand-btn:hover { border-color: var(--border-strong); background: var(--surface-3); }
+
     .row-scroller {
-      display: grid; grid-auto-flow: column; grid-auto-columns: minmax(148px, 168px);
-      gap: 11px; overflow-x: auto; padding: 4px 2px 8px;
-      scrollbar-width: thin; scrollbar-color: var(--surface-3) transparent;
-      scroll-snap-type: x proximity; scroll-behavior: smooth;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(144px, 166px);
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--surface-3) transparent;
+      scroll-snap-type: x proximity;
     }
+
     .row-scroller.expanded {
-      grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(154px, 1fr)); overflow-x: visible;
+      grid-auto-flow: row;
+      grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+      overflow-x: visible;
     }
+
     .row-scroller > .card { scroll-snap-align: start; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(162px, 1fr)); gap: 13px; }
+    /* Grid */
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; gap: 12px; flex-wrap: wrap; }
+    .section-title { font-size: 1.15rem; font-weight: 800; }
+    .result-meta { font-size: 0.82rem; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(166px, 1fr)); gap: 14px; }
+
     .card {
-      position: relative; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
       transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
     }
-    .card:hover { transform: scale(1.03); border-color: rgba(255, 255, 255, 0.36); z-index: 3; }
+
+    .card:hover { transform: translateY(-3px); border-color: rgba(229, 9, 20, 0.55); }
     .card-link-main { display: flex; flex-direction: column; flex: 1; }
+
     .poster-box { position: relative; aspect-ratio: 2 / 3; background: var(--surface-2); overflow: hidden; }
     .poster-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
     .soon-badge {
-      position: absolute; bottom: 7px; left: 7px; right: 7px; background: var(--accent); color: #fff;
-      padding: 3px 7px; border-radius: 4px; font-size: 0.68rem; font-weight: 800;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .rank-badge-large {
-      position: absolute; bottom: 7px; left: 7px; background: rgba(5, 6, 8, 0.9);
-      border: 1px solid var(--accent); color: #fff; padding: 2px 8px; border-radius: 4px;
-      font-size: 0.78rem; font-weight: 900;
-    }
-    .rating-pill {
-      position: absolute; top: 7px; left: 7px; background: rgba(5, 6, 8, 0.86);
-      padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 800; color: var(--gold);
-    }
-    .save-btn {
-      position: absolute; top: 7px; right: 7px; z-index: 2; width: 28px; height: 28px;
-      border-radius: 50%; background: rgba(5, 6, 8, 0.85); border: 1px solid rgba(255, 255, 255, 0.2);
-      display: grid; place-items: center; font-size: 0.85rem;
-    }
-    .save-btn:hover, .save-btn.saved { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .card-body { padding: 8px 9px 10px; display: flex; flex-direction: column; gap: 3px; flex: 1; }
-    .card-title { font-size: 0.83rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-sub { font-size: 0.71rem; color: var(--muted); display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-    .type-badge {
-      text-transform: uppercase; font-size: 0.61rem; font-weight: 800;
-      padding: 1px 5px; border-radius: 3px; background: rgba(255, 255, 255, 0.08); color: #d4dcee;
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      background: linear-gradient(135deg, var(--accent-2) 0%, #8e030a 100%);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* Detail Page Styles */
-    .crumbs { display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.8rem; color: var(--muted); margin-bottom: 14px; }
-    .crumbs a:hover { color: #fff; text-decoration: underline; }
-    .detail-hero {
-      display: grid; grid-template-columns: 240px 1fr; gap: 24px;
-      background: var(--surface); border: 1px solid var(--border-strong); border-radius: 14px; padding: 22px;
-      margin-bottom: 20px;
+    .rank-badge-large {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: linear-gradient(135deg, var(--accent-2) 0%, #8e030a 100%);
+      color: #fff;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      font-weight: 900;
     }
-    .detail-poster { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 10px; background: var(--surface-2); }
-    .detail-h1 { font-size: clamp(1.5rem, 3.2vw, 2.25rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .detail-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; font-size: 0.8rem; }
-    .dpill { background: var(--surface-2); border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; font-weight: 600; }
-    .dpill.gold { color: var(--gold); font-weight: 800; }
-    .dpill.soon { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 800; }
-    .detail-overview { color: #dce3f2; font-size: 0.95rem; margin-bottom: 16px; }
-    .detail-panel {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-      padding: 18px 20px; margin-bottom: 20px;
+
+    .rating-pill {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(5, 6, 8, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
     }
-    .detail-panel h2 { font-size: 1.08rem; font-weight: 800; margin-bottom: 12px; }
-    .provider-grid { display: flex; flex-wrap: wrap; gap: 9px; }
-    .provider-btn {
-      padding: 9px 14px; border-radius: 8px; background: var(--surface-2);
-      border: 1px solid var(--border-strong); font-size: 0.84rem; font-weight: 700;
-      display: inline-flex; align-items: center; gap: 7px;
-      transition: background 0.16s var(--ease), border-color 0.16s var(--ease);
+
+    .save-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 2;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(5, 6, 8, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: grid;
+      place-items: center;
+      font-size: 0.86rem;
     }
-    .provider-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .provider-mode { font-size: 0.72rem; opacity: 0.8; font-weight: 600; }
-    .trailer-frame { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000; border: 1px solid var(--border); }
-    .trailer-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .cast-chips { display: flex; flex-wrap: wrap; gap: 7px; }
-    .cast-chip { background: var(--surface-2); border: 1px solid var(--border); padding: 5px 11px; border-radius: 999px; font-size: 0.8rem; }
+
+    .save-btn:hover, .save-btn.saved { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    .card-body { padding: 9px 10px 11px; display: flex; flex-direction: column; gap: 5px; flex: 1; }
+    .card-title { font-size: 0.85rem; font-weight: 700; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-streams { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .mini-stream-link {
+      font-size: 0.64rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #e6ecf8;
+      white-space: nowrap;
+    }
+
+    .mini-stream-link:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    .card-sub { font-size: 0.72rem; color: var(--muted); display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: auto; }
+    .type-badge { text-transform: uppercase; font-size: 0.62rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(229, 9, 20, 0.16); color: #ff6b72; }
+
+    /* SEO Interlink Directory Footer Block */
+    .seo-hub-directory {
+      margin-top: 28px;
+      background: rgba(19, 23, 34, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .seo-hub-directory h2 { font-size: 1rem; font-weight: 800; margin-bottom: 10px; }
+    .seo-hub-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .seo-hub-link {
+      padding: 6px 12px;
+      border-radius: 7px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #dce3f2;
+    }
+
+    .seo-hub-link:hover { border-color: var(--accent); color: #fff; }
+
+    /* Ad Slot */
+    .ad-slot { margin: 20px auto; width: fit-content; max-width: 100%; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+    .ad-corner-tag { font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: rgba(19, 23, 34, 0.92); border: 1px solid rgba(255, 255, 255, 0.1); padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+    .ad-box { border-radius: 8px; overflow: hidden; background: var(--surface); border: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; max-width: 100%; }
+    .ad-box iframe { display: block; border: 0; max-width: 100%; }
+
+    .empty-state { background: var(--surface); border: 1px dashed rgba(255, 255, 255, 0.18); border-radius: var(--radius); padding: 34px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .empty-state p { color: var(--muted); max-width: 440px; font-size: 0.9rem; }
 
     footer {
-      max-width: var(--max); margin: 0 auto; padding: 20px;
-      border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem;
-      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 20px 20px 30px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
-    footer a:hover { color: #fff; }
 
     @media (max-width: 720px) {
-      .spot-slide { grid-template-columns: 1fr; padding: 18px 16px; }
-      .spot-poster-link { width: 140px; margin: 4px auto 0; }
-      .detail-hero { grid-template-columns: 1fr; padding: 16px; }
-      .detail-poster { max-width: 190px; margin: 0 auto; }
-      .row-arrow-btn { display: none; }
+      .spot-slide { grid-template-columns: 100px minmax(0, 1fr); padding: 15px 14px; gap: 13px; min-height: 0; }
+      .spot-poster-link { max-width: 100px; grid-column: 1; grid-row: 1; align-self: start; }
+      .spot-body { grid-column: 2; grid-row: 1; }
+      .spot-slide h1, .spot-slide h2 { font-size: 1.2rem; }
+      .spot-desc { font-size: 0.8rem; margin-top: 6px; margin-bottom: 9px; }
+      .primary-btn, .secondary-btn { padding: 8px 12px; font-size: 0.8rem; }
+    }
+
+    @media (max-width: 640px) {
+      main { padding: 14px 14px 48px; }
+      .search-row { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .row-scroller { grid-auto-columns: minmax(132px, 148px); }
+      .row-scroller.expanded { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="nav-wrap">
-      <div class="nav-left">
-        <a class="brand" href="#top" id="homeLink"><span class="brand-mark">▶</span><span>CineVault</span></a>
-        <nav class="nav-links" aria-label="Categories">
-          <a class="nav-link active" href="#top" id="navHome">Home</a>
-          <a class="nav-link" href="#row-trending">Trending</a>
-          <a class="nav-link" href="#row-coming-soon">Coming Soon</a>
-          <a class="nav-link" href="#row-series">TV Shows</a>
-          <a class="nav-link" href="#row-anime">Anime</a>
-          <a class="nav-link" href="#row-action">Action</a>
-        </nav>
-      </div>
-      <button class="pill-btn" id="myListBtn" type="button">My List <span class="count-tag" id="listCount">0</span></button>
+      <a class="brand" href="#top" id="homeLink">
+        <span class="brand-mark" aria-hidden="true">▶</span>
+        <span>CineVault</span>
+      </a>
+
+      <nav class="nav-actions" aria-label="Primary Navigation">
+        <button class="pill-btn active" id="exploreTabBtn" type="button">Home</button>
+        <button class="pill-btn" id="showsTabBtn" type="button">Shows</button>
+        <button class="pill-btn" id="moviesTabBtn" type="button">Movies</button>
+        <a class="pill-btn" href="#row-coming-soon">Coming Soon</a>
+        <select class="nav-select" id="navCategorySelect" aria-label="Jump to Category">
+          <option value="all">Categories ▾</option>
+          <option value="action">Action</option>
+          <option value="anime">Anime</option>
+          <option value="comedy">Comedy</option>
+          <option value="crime">Crime</option>
+          <option value="documentary">Documentaries</option>
+          <option value="drama">Drama</option>
+          <option value="fantasy">Fantasy</option>
+          <option value="horror">Horror</option>
+          <option value="kids">Kids &amp; Family</option>
+          <option value="romance">Romance</option>
+          <option value="scifi">Sci-Fi</option>
+          <option value="sports">Sports</option>
+          <option value="thriller">Thrillers</option>
+        </select>
+        <button class="pill-btn" id="watchlistTabBtn" type="button">
+          My List <span class="count-tag" id="watchlistCount">0</span>
+        </button>
+      </nav>
     </div>
   </header>
 
   <main id="top">
-    <section class="spotlight-strip" id="spotlightStrip">
-        <article class="spot-slide" style="background-image:url('https://image.tmdb.org/t/p/w1280/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg')">
-          <div class="spot-body">
-            <div class="spot-badge-row">
-              <span class="spot-rank-big">#1 IN CINEVAULT TODAY</span>
-              
-            </div>
-            <h1><a href="movie/avengers-endgame-299534.html">Avengers: Endgame</a></h1>
-            <div class="spot-tags">
-              <span class="spot-gold">★ 8.2</span>
-              <span>2019</span>
-              <span>Movie</span>
-              <span>Adventure • Science Fiction</span>
-            </div>
-            <p class="spot-desc">After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos&#39; actions and restore order to the universe once and for all, no matter what consequences may be in store.</p>
-            <div class="spot-actions">
-              <a class="primary-btn" href="movie/avengers-endgame-299534.html">▶ Open Page &amp; Where to Watch</a>
-              <button class="secondary-btn" data-spot-save="movie-299534" type="button">+ My List</button>
-            </div>
-          </div>
-          <a class="spot-poster-link" href="movie/avengers-endgame-299534.html" title="Avengers: Endgame">
-            <img src="https://image.tmdb.org/t/p/w500/jtDv3lCnST0fZRvdYFwR5CVwK2x.jpg" alt="Avengers: Endgame poster" loading="eager" />
-          </a>
-        </article>
-        <article class="spot-slide" style="background-image:url('https://image.tmdb.org/t/p/w1280/dKtAOxVC79Y5SkYaMJFe6qRINFI.jpg')">
-          <div class="spot-body">
-            <div class="spot-badge-row">
-              <span class="spot-rank-big">#2 IN CINEVAULT TODAY</span>
-              
-            </div>
-            <h2><a href="movie/v-1567937.html">V</a></h2>
-            <div class="spot-tags">
-              <span class="spot-gold">★ 7.0</span>
-              <span>2026</span>
-              <span>Movie</span>
-              <span>Drama • Crime</span>
-            </div>
-            <p class="spot-desc">In the early 1990s, this city of desire, once a land of opportunity, was plagued by rampant crime and a breakdown of order. Man Tsz-keung, a working-class man desperate to change his fate, meets flight attendant Lok Ka-yuen, and the two team up to rob a large sum of money. This success fuels Man Tsz-keung&#39;s madness, pushing him into a deeper power struggle with wealthy businessman Chan Fai-yin. Meanwhile, mainland police officer Qi Honggang and Hong Kong police officer Guan Suchen continue their investigation of Wan Ziqiang, leading to a joint operation between the two police forces, setting the stage for a clash between good and evil. This film is fictional.</p>
-            <div class="spot-actions">
-              <a class="primary-btn" href="movie/v-1567937.html">▶ Open Page &amp; Where to Watch</a>
-              <button class="secondary-btn" data-spot-save="movie-1567937" type="button">+ My List</button>
-            </div>
-          </div>
-          <a class="spot-poster-link" href="movie/v-1567937.html" title="V">
-            <img src="https://image.tmdb.org/t/p/w500/rNqQQ3hFknhKpy8OTyGfzk7FY20.jpg" alt="V poster" loading="eager" />
-          </a>
-        </article>
-        <article class="spot-slide" style="background-image:url('https://image.tmdb.org/t/p/w1280/57cJShfnln2CkL4tBNpYGtxFDn4.jpg')">
-          <div class="spot-body">
-            <div class="spot-badge-row">
-              <span class="spot-rank-big">#3 IN CINEVAULT TODAY</span>
-              
-            </div>
-            <h2><a href="movie/sad-girlz-1536433.html">Sad Girlz</a></h2>
-            <div class="spot-tags">
-              <span class="spot-gold">★ 7.0</span>
-              <span>2026</span>
-              <span>Movie</span>
-              <span>Drama</span>
-            </div>
-            <p class="spot-desc">La Maestra and Paula are the best swimmers on their team and best friends, until an incident at a party changes everything. La Maestra, intense and unstoppable, realises that something in Paula has changed, making her sad. When the truth comes to light, the duo are faced with an impossible decision: Paula wants to keep quiet, while La Maestra wants revenge. Their friendship, previously unbreakable, will be put to the test as never before.</p>
-            <div class="spot-actions">
-              <a class="primary-btn" href="movie/sad-girlz-1536433.html">▶ Open Page &amp; Where to Watch</a>
-              <button class="secondary-btn" data-spot-save="movie-1536433" type="button">+ My List</button>
-            </div>
-          </div>
-          <a class="spot-poster-link" href="movie/sad-girlz-1536433.html" title="Sad Girlz">
-            <img src="https://image.tmdb.org/t/p/w500/daj02QrJmvhLvmVUuoxa1Srq02y.jpg" alt="Sad Girlz poster" loading="eager" />
-          </a>
-        </article>
-        <article class="spot-slide" style="background-image:url('https://image.tmdb.org/t/p/w1280/dVIm10SWH9drCmKO95ofv2BMVgD.jpg')">
-          <div class="spot-body">
-            <div class="spot-badge-row">
-              <span class="spot-rank-big">#4 IN CINEVAULT TODAY</span>
-              
-            </div>
-            <h2><a href="movie/brawlers-1418709.html">Brawlers</a></h2>
-            <div class="spot-tags">
-              <span class="spot-gold">★ 6.3</span>
-              <span>2026</span>
-              <span>Movie</span>
-              <span>Action • Adventure</span>
-            </div>
-            <p class="spot-desc">Naïm is a sweetheart in everyday life but a beast when it comes to fighting. To afford treatment for his aging dog, he&#39;s forced to join &quot;Hello Brawl&quot;, a service of street fighters resolving conflicts with punches.</p>
-            <div class="spot-actions">
-              <a class="primary-btn" href="movie/brawlers-1418709.html">▶ Open Page &amp; Where to Watch</a>
-              <button class="secondary-btn" data-spot-save="movie-1418709" type="button">+ My List</button>
-            </div>
-          </div>
-          <a class="spot-poster-link" href="movie/brawlers-1418709.html" title="Brawlers">
-            <img src="https://image.tmdb.org/t/p/w500/lQRKadGZSBUjkFfjF7kDV047MUN.jpg" alt="Brawlers poster" loading="eager" />
-          </a>
-        </article>
-        <article class="spot-slide" style="background-image:url('https://image.tmdb.org/t/p/w1280/fAlQZsCOCvxOj0PmFmt4i8IWR2u.jpg')">
-          <div class="spot-body">
-            <div class="spot-badge-row">
-              <span class="spot-rank-big">#5 IN CINEVAULT TODAY</span>
-              
-            </div>
-            <h2><a href="movie/masterplan-1561726.html">Masterplan</a></h2>
-            <div class="spot-tags">
-              <span class="spot-gold">★ 6.7</span>
-              <span>2026</span>
-              <span>Movie</span>
-              <span>Action • Thriller</span>
-            </div>
-            <p class="spot-desc">When a legendary thief sets his sights on the Mona Lisa, he recruits two young strangers to help him before revealing they are long-lost siblings… and oh yes, by the way, he is their father. Thrown into a chaotic reunion they never asked for, this new family must learn to work together — and try not to kill each other — if they want any chance at pulling off the heist of the century.</p>
-            <div class="spot-actions">
-              <a class="primary-btn" href="movie/masterplan-1561726.html">▶ Open Page &amp; Where to Watch</a>
-              <button class="secondary-btn" data-spot-save="movie-1561726" type="button">+ My List</button>
-            </div>
-          </div>
-          <a class="spot-poster-link" href="movie/masterplan-1561726.html" title="Masterplan">
-            <img src="https://image.tmdb.org/t/p/w500/5xmXVd7nCK3tAo34XkO58SxUCip.jpg" alt="Masterplan poster" loading="eager" />
-          </a>
-        </article>
-        <article class="spot-slide" style="background-image:url('https://image.tmdb.org/t/p/w1280/pUNfHmVqfwRdILhCkU8TdysVOXo.jpg')">
-          <div class="spot-body">
-            <div class="spot-badge-row">
-              <span class="spot-rank-big">#6 IN CINEVAULT TODAY</span>
-              
-            </div>
-            <h2><a href="movie/tron-ares-533533.html">TRON: Ares</a></h2>
-            <div class="spot-tags">
-              <span class="spot-gold">★ 6.4</span>
-              <span>2025</span>
-              <span>Movie</span>
-              <span>Science Fiction • Adventure</span>
-            </div>
-            <p class="spot-desc">A highly sophisticated Program called Ares is sent from the digital world into the real world on a dangerous mission, marking humankind&#39;s first encounter with A.I. beings.</p>
-            <div class="spot-actions">
-              <a class="primary-btn" href="movie/tron-ares-533533.html">▶ Open Page &amp; Where to Watch</a>
-              <button class="secondary-btn" data-spot-save="movie-533533" type="button">+ My List</button>
-            </div>
-          </div>
-          <a class="spot-poster-link" href="movie/tron-ares-533533.html" title="TRON: Ares">
-            <img src="https://image.tmdb.org/t/p/w500/chpWmskl3aKm1aTZqUHRCtviwPy.jpg" alt="TRON: Ares poster" loading="eager" />
-          </a>
-        </article></section>
+    <section class="spotlight-strip" id="spotlightStrip" aria-label="Featured Spotlight Swipe Strip"></section>
 
-    <section class="control-bar" aria-label="Search and Filters">
+    <section class="search-section" aria-label="Search Catalog">
       <form class="search-row" id="searchForm" role="search">
         <div class="search-input-wrap">
-          <input class="search-input" id="searchInput" type="search" placeholder="Search titles, genres, or release year..." autocomplete="off" />
-          <button class="clear-btn" id="clearBtn" type="button" title="Clear">✕</button>
+          <input
+            class="search-input"
+            id="searchInput"
+            type="search"
+            placeholder="Search movies, shows, anime, or genres..."
+            autocomplete="off"
+            aria-label="Search movies or shows"
+          />
+          <button class="clear-btn" id="clearSearchBtn" type="button" title="Clear search" aria-label="Clear search">✕</button>
         </div>
-        <button class="filter-toggle-btn" id="filterToggle" type="button">Filters ▾</button>
-        <button class="primary-btn" type="submit" style="padding:9px 15px;">Search</button>
+        <button class="primary-btn" type="submit">Search</button>
       </form>
-      <div class="filter-drawer collapsed" id="filterDrawer">
-        <div class="filter-row">
-          <div class="chip-group" id="typeChips">
-            <button class="chip active" data-type="all" type="button">All</button>
-            <button class="chip" data-type="movie" type="button">Movies</button>
-            <button class="chip" data-type="tv" type="button">Series</button>
-          </div>
-          <select class="sort-select" id="sortSelect">
-            <option value="popular">Sort: Popular</option>
-            <option value="rating">Sort: Top Rated</option>
-            <option value="year">Sort: Newest</option>
-            <option value="title">Sort: A–Z</option>
-          </select>
-        </div>
-        <div class="chip-group" id="genreChips">
-          <button class="chip active" data-genre="all" type="button">All Genres</button>
-          <button class="chip" data-genre="action" type="button">Action</button>
-          <button class="chip" data-genre="scifi" type="button">Sci-Fi &amp; Fantasy</button>
-          <button class="chip" data-genre="crime" type="button">Crime &amp; Mystery</button>
-          <button class="chip" data-genre="thriller" type="button">Thriller</button>
-          <button class="chip" data-genre="drama" type="button">Drama</button>
-          <button class="chip" data-genre="comedy" type="button">Comedy</button>
-          <button class="chip" data-genre="anime" type="button">Anime</button>
-          <button class="chip" data-genre="horror" type="button">Horror</button>
-          <button class="chip" data-genre="family" type="button">Family</button>
-          <button class="chip" data-genre="romance" type="button">Romance</button>
-        </div>
-      </div>
     </section>
 
-    <section class="netflix-rows" id="rowsContainer">
-        <div class="row-block" id="row-trending">
-          <div class="row-header">
-            <div class="row-title-wrap">
-              <h2 class="row-title">Top 10 Trending Today</h2>
-              <span class="row-count">40</span>
-            </div>
-            <div class="row-controls">
-              <button class="row-arrow-btn" data-scroll="track-trending" data-dir="-1" type="button">‹</button>
-              <button class="row-arrow-btn" data-scroll="track-trending" data-dir="1" type="button">›</button>
-              <button class="row-expand-btn" data-expand="track-trending" type="button">Show All</button>
-            </div>
-          </div>
-          <div class="row-scroller" id="track-trending">
-            
-    <article class="card">
-      <a class="card-link-main" href="movie/avengers-endgame-299534.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/jtDv3lCnST0fZRvdYFwR5CVwK2x.jpg" alt="Avengers: Endgame (2019)" loading="lazy" />
-          <span class="rating-pill">★ 8.2</span>
-          <span class="rank-badge-large">#1</span>
+    <section class="filters" aria-label="Catalog Filters">
+      <div class="filter-row">
+        <div class="chip-group" id="typeChips">
+          <button class="chip active" data-type="all" type="button">All</button>
+          <button class="chip" data-type="movie" type="button">Movies</button>
+          <button class="chip" data-type="tv" type="button">Shows</button>
         </div>
-        <div class="card-body">
-          <h3 class="card-title">Avengers: Endgame</h3>
-          <div class="card-sub">
-            <span>2019</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-299534" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/v-1567937.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/rNqQQ3hFknhKpy8OTyGfzk7FY20.jpg" alt="V (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.0</span>
-          <span class="rank-badge-large">#2</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">V</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1567937" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/sad-girlz-1536433.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/daj02QrJmvhLvmVUuoxa1Srq02y.jpg" alt="Sad Girlz (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.0</span>
-          <span class="rank-badge-large">#3</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Sad Girlz</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1536433" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/brawlers-1418709.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/lQRKadGZSBUjkFfjF7kDV047MUN.jpg" alt="Brawlers (2026)" loading="lazy" />
-          <span class="rating-pill">★ 6.3</span>
-          <span class="rank-badge-large">#4</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Brawlers</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1418709" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/masterplan-1561726.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/5xmXVd7nCK3tAo34XkO58SxUCip.jpg" alt="Masterplan (2026)" loading="lazy" />
-          <span class="rating-pill">★ 6.7</span>
-          <span class="rank-badge-large">#5</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Masterplan</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1561726" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/tron-ares-533533.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/chpWmskl3aKm1aTZqUHRCtviwPy.jpg" alt="TRON: Ares (2025)" loading="lazy" />
-          <span class="rating-pill">★ 6.4</span>
-          <span class="rank-badge-large">#6</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">TRON: Ares</h3>
-          <div class="card-sub">
-            <span>2025</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-533533" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/the-unthinkable-daughter-1664682.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/rlgUsa37CtX3zHuwXtfGOnHoRkj.jpg" alt="The Unthinkable Daughter (2026)" loading="lazy" />
-          <span class="rating-pill">★ 5.1</span>
-          <span class="rank-badge-large">#7</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">The Unthinkable Daughter</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1664682" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/one-last-order-1655112.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/ept9ZKHko1JbYPHEUxMK9cf6tzy.jpg" alt="One Last Order (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.0</span>
-          <span class="rank-badge-large">#8</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">One Last Order</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1655112" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/the-tupac-tapes-with-angie-martinez-1823449.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/hJHSHO0skbf0VWkTZ2ernyb13TB.jpg" alt="The Tupac Tapes With Angie Martinez (2026)" loading="lazy" />
-          
-          <span class="rank-badge-large">#9</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">The Tupac Tapes With Angie Martinez</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1823449" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/in-a-holidaze-1588626.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/7B4pJ0sZNJgIdFn4q5SiRnOIflZ.jpg" alt="In a Holidaze (2026)" loading="lazy" />
-          
-          <span class="soon-badge">Coming Soon • Dec 2, 2026</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">In a Holidaze</h3>
-          <div class="card-sub">
-            <span>Dec 2, 2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1588626" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/the-12-dates-of-christmas-1600653.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/w82vKEoYNZ9SxYxvccxO85CnZKE.jpg" alt="The 12 Dates of Christmas (2026)" loading="lazy" />
-          
-          <span class="soon-badge">Coming Soon • Dec 31, 2026</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">The 12 Dates of Christmas</h3>
-          <div class="card-sub">
-            <span>Dec 31, 2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1600653" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/misty-green-1381221.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/dUFtfnSfUK5IUfC5XMlMEY36EAp.jpg" alt="Misty Green (2026)" loading="lazy" />
-          <span class="rating-pill">★ 6.9</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Misty Green</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1381221" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/normal-1242332.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/bIwQxcZl2CdyhVRNDtQl36YCZVr.jpg" alt="Normal (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.2</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Normal</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1242332" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/the-secret-agent-1220564.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/iLE2YOmeboeTDC7GlOp1dzh1VFo.jpg" alt="The Secret Agent (2025)" loading="lazy" />
-          <span class="rating-pill">★ 7.1</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">The Secret Agent</h3>
-          <div class="card-sub">
-            <span>2025</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1220564" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/one-year-to-live-buy-a-man-1654940.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/fez7kLyGzpowduJapTFZZ1feCS0.jpg" alt="One Year to Live, Buy a Man (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.1</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">One Year to Live, Buy a Man</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1654940" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/the-samurai-and-the-prisoner-1620313.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/1GWVlPM1v6k84LsmDkfDzLlGf0O.jpg" alt="The Samurai and the Prisoner (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.5</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">The Samurai and the Prisoner</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1620313" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/the-love-hypothesis-1032863.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/vfZxVHextAGC70zrNhS8lsROqP1.jpg" alt="The Love Hypothesis (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.9</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">The Love Hypothesis</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1032863" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/drive-the-pretenders-1596275.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/s9syckECnUYhKePQ1A0DC0mFVZ9.jpg" alt="Drive - The Pretenders (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.6</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Drive - The Pretenders</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1596275" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/idiots-445466.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/l1JFNC1SdgyXVr7BaD5ehaYBvOC.jpg" alt="Idiots (2026)" loading="lazy" />
-          <span class="rating-pill">★ 6.3</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Idiots</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-445466" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/asterix-the-kingdom-of-nubia-1084728.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/mxDsm7jKW1G7LNTtvp1C0ID9gN5.jpg" alt="Asterix: The Kingdom of Nubia (2026)" loading="lazy" />
-          <span class="rating-pill">★ 4.8</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Asterix: The Kingdom of Nubia</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1084728" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/exit-8-1408208.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/nQXYTvm6AY4WmtcPskroqC7Skh.jpg" alt="Exit 8 (2025)" loading="lazy" />
-          <span class="rating-pill">★ 7.0</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Exit 8</h3>
-          <div class="card-sub">
-            <span>2025</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1408208" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/mission-impossible-the-final-reckoning-575265.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/iKPsC9EFUafRP9SrUznI61getVP.jpg" alt="Mission: Impossible - The Final Reckoning (2025)" loading="lazy" />
-          <span class="rating-pill">★ 7.2</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Mission: Impossible - The Final Reckoning</h3>
-          <div class="card-sub">
-            <span>2025</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-575265" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/mickey-17-696506.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/edKpE9B5qN3e559OuMCLZdW1iBZ.jpg" alt="Mickey 17 (2025)" loading="lazy" />
-          <span class="rating-pill">★ 6.8</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Mickey 17</h3>
-          <div class="card-sub">
-            <span>2025</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-696506" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/super-troopers-3-675871.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/VVU42nqsEmUtFpH1d9MHj5BIpF.jpg" alt="Super Troopers 3 (2026)" loading="lazy" />
-          <span class="rating-pill">★ 6.2</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Super Troopers 3</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-675871" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/the-only-living-pickpocket-in-new-york-1458099.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/pNdB9va2AEPQe9UfhKAdIt8nus9.jpg" alt="The Only Living Pickpocket in New York (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.2</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">The Only Living Pickpocket in New York</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1458099" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/aadarsha-kutumbam-house-no-47-ak47-1496785.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/uOo2T5pZmW4APO6o95yLycvTonU.jpg" alt="Aadarsha Kutumbam House No: 47 - AK47 (2026)" loading="lazy" />
-          <span class="rating-pill">★ 5.5</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Aadarsha Kutumbam House No: 47 - AK47</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1496785" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/mother-mary-1102883.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/uVcsN3yoHh7ZcJ6ecj1FJfv7dLa.jpg" alt="Mother Mary (2026)" loading="lazy" />
-          <span class="rating-pill">★ 5.7</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Mother Mary</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1102883" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/premada-oorali-1735270.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/wJsUmiwuZ9eKnOiYLAVk8THFk7i.jpg" alt="Premada Oorali (2026)" loading="lazy" />
-          <span class="rating-pill">★ 5.0</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Premada Oorali</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1735270" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/angel-and-the-badman-1669915.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/mJe53zlhGBdcjtN1GqncNZ5Unm0.jpg" alt="Angel and the Badman (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.8</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Angel and the Badman</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1669915" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/drive-through-fire-1378742.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/lmQKEJ4Te7CQ5mhnXwr3zCLnOvc.jpg" alt="Drive Through Fire (2026)" loading="lazy" />
-          <span class="rating-pill">★ 8.0</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Drive Through Fire</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1378742" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/mayday-1137844.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/hVXjX1jLZ1ljFSNGXpjJfbTUOa7.jpg" alt="Mayday (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.8</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Mayday</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1137844" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/sonic-the-hedgehog-4-1401586.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/t8uoHBODkFlSQJRL6qc4IclUBlH.jpg" alt="Sonic the Hedgehog 4 (2027)" loading="lazy" />
-          
-          <span class="soon-badge">Coming Soon • Mar 11, 2027</span>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Sonic the Hedgehog 4</h3>
-          <div class="card-sub">
-            <span>Mar 11, 2027</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1401586" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/ready-or-not-here-i-come-1266127.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/13ZcJzSGEqVgDSqsS9U5EkQwPkV.jpg" alt="Ready or Not: Here I Come (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.5</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Ready or Not: Here I Come</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1266127" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/tyson-fury-1811599.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/wAffyCmjFZOI3uvmVvpg7Lz8Yn5.jpg" alt="Tyson Fury (2026)" loading="lazy" />
-          <span class="rating-pill">★ 6.0</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Tyson Fury</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1811599" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/big-girls-don-t-cry-1477963.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/cuChyQhIhDvEBQqqszcAlBlw61H.jpg" alt="Big Girls Don&#39;t Cry (2026)" loading="lazy" />
-          <span class="rating-pill">★ 6.0</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Big Girls Don&#39;t Cry</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1477963" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/28-years-later-the-bone-temple-1272837.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/kK1BGkG3KAvWB0WMV1DfOx9yTMZ.jpg" alt="28 Years Later: The Bone Temple (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.1</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">28 Years Later: The Bone Temple</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1272837" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/one-last-shot-1607127.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/niQ4NBh2jqAf1hDZP5m6ReWFAb7.jpg" alt="One Last Shot (2026)" loading="lazy" />
-          <span class="rating-pill">★ 7.3</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">One Last Shot</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1607127" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/the-eyes-1383154.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/lURzEaGQFQM7bHyDnsiB1zDgvOG.jpg" alt="The Eyes (2026)" loading="lazy" />
-          <span class="rating-pill">★ 6.4</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">The Eyes</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1383154" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/lottie-dottie-chicken-the-movie-1615391.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/tkVM4lDqlF5wSD8cefONS9m15Yc.jpg" alt="Lottie Dottie Chicken: The Movie (2026)" loading="lazy" />
-          <span class="rating-pill">★ 6.8</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Lottie Dottie Chicken: The Movie</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1615391" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-    <article class="card">
-      <a class="card-link-main" href="movie/a-proud-family-wizmas-1716604.html">
-        <div class="poster-box">
-          <img src="https://image.tmdb.org/t/p/w342/11wLgcyi1712tk891oqT1SblmAY.jpg" alt="A Proud Family Wizmas (2026)" loading="lazy" />
-          <span class="rating-pill">★ 5.8</span>
-          
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">A Proud Family Wizmas</h3>
-          <div class="card-sub">
-            <span>2026</span>
-            <span class="type-badge">Movie</span>
-          </div>
-        </div>
-      </a>
-      <button class="save-btn" data-save-id="movie-1716604" type="button" title="Save to My List" aria-label="Save to My List">+</button>
-    </article>
-          </div>
-        </div></section>
 
-    <div class="section-head" id="resultHead" style="display:none;">
-      <h2 class="section-title" id="resultTitle">Results</h2>
+        <select class="sort-select" id="sortSelect" aria-label="Sort titles">
+          <option value="popular">Sort: Popular</option>
+          <option value="rating">Sort: Top Rated</option>
+          <option value="year">Sort: Newest</option>
+          <option value="title">Sort: Title (A–Z)</option>
+        </select>
+      </div>
+
+      <div class="chip-group" id="genreChips"></div>
+    </section>
+
+    <section class="watch-direct-panel" id="watchDirectPanel" aria-label="Direct Streaming Platforms"></section>
+
+    <div class="ad-slot" id="adSlotTop" aria-label="Sponsored">
+      <span class="ad-corner-tag">Sponsored</span>
+      <div class="ad-box" id="adBoxTop"></div>
+    </div>
+
+    <section class="netflix-rows" id="netflixRowsSection" aria-label="Netflix Categories"></section>
+
+    <div class="section-head" id="filteredSectionHead">
+      <h2 class="section-title" id="sectionTitle">Results</h2>
       <span class="result-meta" id="resultMeta"></span>
     </div>
-    <section class="grid" id="resultGrid" style="display:none;"></section>
+
+    <section class="grid" id="movieGrid" aria-live="polite"></section>
+
+    <section class="seo-hub-directory" aria-label="Browse All Categories & Hubs">
+      <h2>Explore Category Hubs</h2>
+      <div class="seo-hub-links" id="seoHubLinks"></div>
+    </section>
+
+    <div class="ad-slot" id="adSlotMid" aria-label="Sponsored">
+      <span class="ad-corner-tag">Sponsored</span>
+      <div class="ad-box" id="adBoxMid"></div>
+    </div>
   </main>
 
   <footer>
-    <span>CineVault • Last synced 2026-11-28</span>
-    <span><a href="sitemap.xml">Sitemap</a> · <a href="robots.txt">Robots</a></span>
+    <span>CineVault • Movies, Shows, Anime &amp; Streaming Guide</span>
+    <span><a href="/sitemap.xml">Sitemap</a> • <a href="/robots.txt">Robots</a></span>
   </footer>
 
   <script>
     (function () {
-      const CATALOG = [{"id":"movie-299534","media_type":"movie","slug":"avengers-endgame-299534","title":"Avengers: Endgame","releaseDate":"2019-04-24","year":2019,"rating":8.246,"popularity":61.5706,"poster_path":"/jtDv3lCnST0fZRvdYFwR5CVwK2x.jpg","genres":["adventure","scifi","action"],"genreLabels":["Adventure","Science Fiction","Action"],"overview":"After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store."},{"id":"movie-1567937","media_type":"movie","slug":"v-1567937","title":"V","releaseDate":"2026-08-19","year":2026,"rating":7,"popularity":4.1469,"poster_path":"/rNqQQ3hFknhKpy8OTyGfzk7FY20.jpg","genres":["drama","crime"],"genreLabels":["Drama","Crime"],"overview":"In the early 1990s, this city of desire, once a land of opportunity, was plagued by rampant crime and a breakdown of order. Man Tsz-keung, a working-class man desperate to change his fate, meets flight attendant Lok Ka-yuen, and the two team up to rob a large sum of money. This success fuels Man Tsz-keung's madness, pushing him into a deeper power struggle with wealthy businessman Chan Fai-yin. Meanwhile, mainland police officer Qi Honggang and Hong Kong police officer Guan Suchen continue their investigation of Wan Ziqiang, leading to a joint operation between the two police forces, setting the stage for a clash between good and evil. This film is fictional."},{"id":"movie-1536433","media_type":"movie","slug":"sad-girlz-1536433","title":"Sad Girlz","releaseDate":"2026-08-12","year":2026,"rating":7,"popularity":2.4948,"poster_path":"/daj02QrJmvhLvmVUuoxa1Srq02y.jpg","genres":["drama"],"genreLabels":["Drama"],"overview":"La Maestra and Paula are the best swimmers on their team and best friends, until an incident at a party changes everything. La Maestra, intense and unstoppable, realises that something in Paula has changed, making her sad. When the truth comes to light, the duo are faced with an impossible decision: Paula wants to keep quiet, while La Maestra wants revenge. Their friendship, previously unbreakable, will be put to the test as never before."},{"id":"movie-1418709","media_type":"movie","slug":"brawlers-1418709","title":"Brawlers","releaseDate":"2026-04-15","year":2026,"rating":6.328,"popularity":11.628,"poster_path":"/lQRKadGZSBUjkFfjF7kDV047MUN.jpg","genres":["action","adventure","comedy"],"genreLabels":["Action","Adventure","Comedy"],"overview":"Naïm is a sweetheart in everyday life but a beast when it comes to fighting. To afford treatment for his aging dog, he's forced to join \"Hello Brawl\", a service of street fighters resolving conflicts with punches."},{"id":"movie-1561726","media_type":"movie","slug":"masterplan-1561726","title":"Masterplan","releaseDate":"2026-10-16","year":2026,"rating":6.693,"popularity":25.6022,"poster_path":"/5xmXVd7nCK3tAo34XkO58SxUCip.jpg","genres":["action","thriller"],"genreLabels":["Action","Thriller"],"overview":"When a legendary thief sets his sights on the Mona Lisa, he recruits two young strangers to help him before revealing they are long-lost siblings… and oh yes, by the way, he is their father. Thrown into a chaotic reunion they never asked for, this new family must learn to work together — and try not to kill each other — if they want any chance at pulling off the heist of the century."},{"id":"movie-533533","media_type":"movie","slug":"tron-ares-533533","title":"TRON: Ares","releaseDate":"2025-10-08","year":2025,"rating":6.436,"popularity":10.081,"poster_path":"/chpWmskl3aKm1aTZqUHRCtviwPy.jpg","genres":["scifi","adventure","action"],"genreLabels":["Science Fiction","Adventure","Action"],"overview":"A highly sophisticated Program called Ares is sent from the digital world into the real world on a dangerous mission, marking humankind's first encounter with A.I. beings."},{"id":"movie-1664682","media_type":"movie","slug":"the-unthinkable-daughter-1664682","title":"The Unthinkable Daughter","releaseDate":"2026-11-11","year":2026,"rating":5.071,"popularity":3.4761,"poster_path":"/rlgUsa37CtX3zHuwXtfGOnHoRkj.jpg","genres":["crime"],"genreLabels":["Crime","Documentary"],"overview":"Decades of questions and a crime that shook Brazil. Suzane von Richthofen, convicted for the murder of her parents, tells the whole story in her own words."},{"id":"movie-1655112","media_type":"movie","slug":"one-last-order-1655112","title":"One Last Order","releaseDate":"2026-03-06","year":2026,"rating":7,"popularity":7.2919,"poster_path":"/ept9ZKHko1JbYPHEUxMK9cf6tzy.jpg","genres":[],"genreLabels":["Documentary"],"overview":"A cherished drive-thru worker receives the day's proceeds as her going-away gift when the community queues up to bid her farewell on her last day in Gainesville."},{"id":"movie-1823449","media_type":"movie","slug":"the-tupac-tapes-with-angie-martinez-1823449","title":"The Tupac Tapes With Angie Martinez","releaseDate":"2026-11-27","year":2026,"rating":0,"popularity":5.887,"poster_path":"/hJHSHO0skbf0VWkTZ2ernyb13TB.jpg","genres":[],"genreLabels":["Documentary"],"overview":"After almost 30 years, Angie Martinez is releasing her interview with Tupac that took place 3 months before his death."},{"id":"movie-1588626","media_type":"movie","slug":"in-a-holidaze-1588626","title":"In a Holidaze","releaseDate":"2026-12-02","year":2026,"rating":0,"popularity":1.972,"poster_path":"/7B4pJ0sZNJgIdFn4q5SiRnOIflZ.jpg","genres":["scifi","romance","comedy"],"genreLabels":["Science Fiction","Romance","Comedy"],"overview":"After making a romantic mistake of epic proportions, an aimless twentysomething finds herself trapped in a holiday time-loop, forced to relive the same Christmas at her family’s cabin until she discovers what truly makes her happy."},{"id":"movie-1600653","media_type":"movie","slug":"the-12-dates-of-christmas-1600653","title":"The 12 Dates of Christmas","releaseDate":"2026-12-31","year":2026,"rating":0,"popularity":6.4521,"poster_path":"/w82vKEoYNZ9SxYxvccxO85CnZKE.jpg","genres":["comedy","romance"],"genreLabels":["Comedy","Romance"],"overview":"Christina Walker, a successful shop owner who has devoted her energy to her career at the expense of her dating life, goes on 12 dates in the 12 weeks leading up to Christmas hoping to find Mr. Right."},{"id":"movie-1381221","media_type":"movie","slug":"misty-green-1381221","title":"Misty Green","releaseDate":"2026-10-09","year":2026,"rating":6.9,"popularity":7.8976,"poster_path":"/dUFtfnSfUK5IUfC5XMlMEY36EAp.jpg","genres":["drama","comedy"],"genreLabels":["Drama","Comedy"],"overview":"Years after her Hollywood breakthrough, a talented actress whose career has stalled fights for her second act."},{"id":"movie-1242332","media_type":"movie","slug":"normal-1242332","title":"Normal","releaseDate":"2026-04-16","year":2026,"rating":7.19,"popularity":10.8248,"poster_path":"/bIwQxcZl2CdyhVRNDtQl36YCZVr.jpg","genres":["action","crime","thriller"],"genreLabels":["Action","Crime","Thriller"],"overview":"An unassuming substitute sheriff with a troubled past responds to a bank robbery in a small, sleepy town and unknowingly uncovers something far more explosive."},{"id":"movie-1220564","media_type":"movie","slug":"the-secret-agent-1220564","title":"The Secret Agent","releaseDate":"2025-07-23","year":2025,"rating":7.13,"popularity":6.4701,"poster_path":"/iLE2YOmeboeTDC7GlOp1dzh1VFo.jpg","genres":["thriller","drama","crime"],"genreLabels":["Thriller","Drama","Crime"],"overview":"Brazil, 1977. Marcelo, a technology expert in his early 40s, is on the run. Hoping to reunite with his son, he travels to Recife during Carnival but soon realizes that the city is not the safe haven he was expecting."},{"id":"movie-1654940","media_type":"movie","slug":"one-year-to-live-buy-a-man-1654940","title":"One Year to Live, Buy a Man","releaseDate":"2026-11-05","year":2026,"rating":7.1,"popularity":9.1721,"poster_path":"/fez7kLyGzpowduJapTFZZ1feCS0.jpg","genres":["romance","drama","comedy"],"genreLabels":["Romance","Drama","Comedy"],"overview":"Given a year to live, frugal 40-year-old Yui finally lets herself spend: \"buying\" nightclub host Sena. What begins as a contract takes an unexpected turn."},{"id":"movie-1620313","media_type":"movie","slug":"the-samurai-and-the-prisoner-1620313","title":"The Samurai and the Prisoner","releaseDate":"2026-06-19","year":2026,"rating":7.5,"popularity":5.0559,"poster_path":"/1GWVlPM1v6k84LsmDkfDzLlGf0O.jpg","genres":["drama","crime"],"genreLabels":["Drama","History","Mystery"],"overview":"When Lord Murashige rises up against the tyrannical Oda, he finds himself besieged within the walls of his own castle. Isolated, he is confronted with a series of mysterious crimes that shatter the fragile order of his court, plunging the fortress into fear and suspicion. With Oda's army closing in and a traitor hiding among his ranks, Murashige is forced into an uneasy alliance with Kanbei, a brilliant and dangerous strategist held prisoner in the dungeon, as he must outwit his enemies and uncover the truth before time runs out."},{"id":"movie-1032863","media_type":"movie","slug":"the-love-hypothesis-1032863","title":"The Love Hypothesis","releaseDate":"2026-09-23","year":2026,"rating":7.855,"popularity":15.515,"poster_path":"/vfZxVHextAGC70zrNhS8lsROqP1.jpg","genres":["romance","comedy"],"genreLabels":["Romance","Comedy"],"overview":"Olive Smith, a biology PhD candidate, and Dr. Adam Carlsen, a hotshot professor and well-known tyrant, enter into a fake relationship, seeing each of their carefully calculated theories on love get thrown into chaos."},{"id":"movie-1596275","media_type":"movie","slug":"drive-the-pretenders-1596275","title":"Drive - The Pretenders","releaseDate":"2026-10-27","year":2026,"rating":7.583,"popularity":50.7799,"poster_path":"/s9syckECnUYhKePQ1A0DC0mFVZ9.jpg","genres":["romance","thriller"],"genreLabels":["Romance","Thriller"],"overview":"A young mechanic fakes an engagement with racing's most scandalous star — officially for his reputation, secretly for her own shot behind the wheel. But soon the lie threatens to destroy everything — including what's already become so much more than just a deal."},{"id":"movie-445466","media_type":"movie","slug":"idiots-445466","title":"Idiots","releaseDate":"2026-08-20","year":2026,"rating":6.3,"popularity":5.9009,"poster_path":"/l1JFNC1SdgyXVr7BaD5ehaYBvOC.jpg","genres":["comedy","crime"],"genreLabels":["Comedy","Crime"],"overview":"Two rock-bottom drivers transport a wealthy teen to rehab, but their simple job spirals into a chaotic journey of drugs, danger, and crime as their passenger derails their plans."},{"id":"movie-1084728","media_type":"movie","slug":"asterix-the-kingdom-of-nubia-1084728","title":"Asterix: The Kingdom of Nubia","releaseDate":"2026-11-22","year":2026,"rating":4.8,"popularity":5.8264,"poster_path":"/mxDsm7jKW1G7LNTtvp1C0ID9gN5.jpg","genres":["anime","adventure","comedy","family","scifi"],"genreLabels":["Animation","Adventure","Comedy","Family","Fantasy"],"overview":"The irreductible Gauls are turned into harmless children after a rare youth elixir accidentally ends up into the magic potion. To find the antidote and save the village from the Romans attack, Asterix and Obelix embark on a crazy journey to the far away Kingdom of Nubia."},{"id":"movie-1408208","media_type":"movie","slug":"exit-8-1408208","title":"Exit 8","releaseDate":"2025-08-03","year":2025,"rating":7,"popularity":14.5352,"poster_path":"/nQXYTvm6AY4WmtcPskroqC7Skh.jpg","genres":["horror","crime"],"genreLabels":["Horror","Mystery"],"overview":"A man trapped in an endless sterile subway passageway sets out to find Exit 8. The rules of his quest are simple: do not overlook anything out of the ordinary. If you discover an anomaly, turn back immediately. If you don’t, carry on. Then leave from Exit 8. But even a single oversight will send him back to the beginning. Will he ever reach his goal and escape this infinite corridor?"},{"id":"movie-575265","media_type":"movie","slug":"mission-impossible-the-final-reckoning-575265","title":"Mission: Impossible - The Final Reckoning","releaseDate":"2025-05-17","year":2025,"rating":7.165,"popularity":19.8985,"poster_path":"/iKPsC9EFUafRP9SrUznI61getVP.jpg","genres":["action","thriller","adventure"],"genreLabels":["Action","Thriller","Adventure"],"overview":"Ethan Hunt and team continue their search for the terrifying AI known as the Entity — which has infiltrated intelligence networks all over the globe — with the world's governments and a mysterious ghost from Hunt's past on their trail. Joined by new allies and armed with the means to shut the Entity down for good, Hunt is in a race against time to prevent the world as we know it from changing forever."},{"id":"movie-696506","media_type":"movie","slug":"mickey-17-696506","title":"Mickey 17","releaseDate":"2025-02-28","year":2025,"rating":6.822,"popularity":17.0852,"poster_path":"/edKpE9B5qN3e559OuMCLZdW1iBZ.jpg","genres":["scifi","comedy","adventure"],"genreLabels":["Science Fiction","Comedy","Adventure"],"overview":"Unlikely hero Mickey Barnes finds himself in the extraordinary circumstance of working for an employer who demands the ultimate commitment to the job… to die, for a living."},{"id":"movie-675871","media_type":"movie","slug":"super-troopers-3-675871","title":"Super Troopers 3","releaseDate":"2026-08-06","year":2026,"rating":6.2,"popularity":4.7341,"poster_path":"/VVU42nqsEmUtFpH1d9MHj5BIpF.jpg","genres":["comedy","crime"],"genreLabels":["Comedy","Crime","Mystery"],"overview":"When Farva’s wildly over-the-top Indian engagement to Thorny’s sister spirals into chaos, the Super Troopers must navigate Thorny’s schemes to break up the relationship, while trying to crack a pernicious new drug ring  — all to save the day and maybe the wedding itself."},{"id":"movie-1458099","media_type":"movie","slug":"the-only-living-pickpocket-in-new-york-1458099","title":"The Only Living Pickpocket in New York","releaseDate":"2026-10-16","year":2026,"rating":7.2,"popularity":7.7172,"poster_path":"/pNdB9va2AEPQe9UfhKAdIt8nus9.jpg","genres":["crime","drama","thriller"],"genreLabels":["Crime","Drama","Thriller"],"overview":"Harry Lehman is an aging pickpocket who plies his trade with ever-diminishing returns in a drastically changed New York. Wallets stuffed with cash have been replaced by easily cancelled credit cards, and Harry struggles to make ends meet as he cares for his disabled wife, Rosie. When he unwittingly purloins and fences a valuable USB stick, Harry finds himself in a race against time to return the loot or face the rage of a vengeful crime family."},{"id":"movie-1496785","media_type":"movie","slug":"aadarsha-kutumbam-house-no-47-ak47-1496785","title":"Aadarsha Kutumbam House No: 47 - AK47","releaseDate":"2026-10-30","year":2026,"rating":5.5,"popularity":3.1924,"poster_path":"/uOo2T5pZmW4APO6o95yLycvTonU.jpg","genres":["family","comedy","action"],"genreLabels":["Family","Comedy","Action"],"overview":"A tight-knit family faces an unexpected crisis that threatens their bond, forcing them to re-evaluate their values and fight to stay united."},{"id":"movie-1102883","media_type":"movie","slug":"mother-mary-1102883","title":"Mother Mary","releaseDate":"2026-04-16","year":2026,"rating":5.686,"popularity":5.9576,"poster_path":"/uVcsN3yoHh7ZcJ6ecj1FJfv7dLa.jpg","genres":["thriller","drama"],"genreLabels":["Music","Thriller","Drama"],"overview":"Long-buried wounds rise to the surface when iconic pop star Mother Mary reunites with her estranged best friend and former costume designer Sam Anselm on the eve of her comeback performance."},{"id":"movie-1735270","media_type":"movie","slug":"premada-oorali-1735270","title":"Premada Oorali","releaseDate":"2026-09-25","year":2026,"rating":5,"popularity":9.4177,"poster_path":"/wJsUmiwuZ9eKnOiYLAVk8THFk7i.jpg","genres":["family","drama"],"genreLabels":["Family","Drama"],"overview":"Premada Oorali is a heartfelt love story set in picturesque villages in the 2020s. The film intertwines romance and family drama, exploring the relationships between a father and son, as well as a boy and girl, as they navigate through intriguing, yet relatable, relationship challenges."},{"id":"movie-1669915","media_type":"movie","slug":"angel-and-the-badman-1669915","title":"Angel and the Badman","releaseDate":"2026-10-08","year":2026,"rating":7.839,"popularity":20.0565,"poster_path":"/mJe53zlhGBdcjtN1GqncNZ5Unm0.jpg","genres":["action","adventure","romance"],"genreLabels":["Western","Action","Adventure","Romance"],"overview":"A wounded outlaw finds unexpected mercy in the care of a rancher's daughter. The hope of love pulls him toward a different life until the law, and his violent past, close in on his new home. Now he must choose the kind of man he'll become."},{"id":"movie-1378742","media_type":"movie","slug":"drive-through-fire-1378742","title":"Drive Through Fire","releaseDate":"2026-09-11","year":2026,"rating":8.029,"popularity":3.927,"poster_path":"/lmQKEJ4Te7CQ5mhnXwr3zCLnOvc.jpg","genres":["action","crime","thriller"],"genreLabels":["Action","Crime","Thriller"],"overview":"The story follows an addict war veteran turned rideshare driver who helps a terrified passenger escape a human trafficking ring serving wealthy clients."},{"id":"movie-1137844","media_type":"movie","slug":"mayday-1137844","title":"Mayday","releaseDate":"2026-09-03","year":2026,"rating":7.793,"popularity":11.5777,"poster_path":"/hVXjX1jLZ1ljFSNGXpjJfbTUOa7.jpg","genres":["action","comedy"],"genreLabels":["Action","Comedy"],"overview":"When a U.S. Navy pilot on a top-secret mission during the Cold War gets trapped behind enemy lines, his only chance at survival is to form an alliance with an eccentric ex-KGB agent."},{"id":"movie-1401586","media_type":"movie","slug":"sonic-the-hedgehog-4-1401586","title":"Sonic the Hedgehog 4","releaseDate":"2027-03-11","year":2027,"rating":0,"popularity":9.8509,"poster_path":"/t8uoHBODkFlSQJRL6qc4IclUBlH.jpg","genres":["comedy","action","family","scifi"],"genreLabels":["Comedy","Action","Family","Science Fiction"],"overview":"The fourth installment in the Sonic the Hedgehog film franchise. Plot TBA."},{"id":"movie-1266127","media_type":"movie","slug":"ready-or-not-here-i-come-1266127","title":"Ready or Not: Here I Come","releaseDate":"2026-03-19","year":2026,"rating":7.48,"popularity":12.7193,"poster_path":"/13ZcJzSGEqVgDSqsS9U5EkQwPkV.jpg","genres":["horror","comedy"],"genreLabels":["Horror","Comedy"],"overview":"Moments after surviving an all-out attack from the Le Domas family, Grace discovers she’s reached the next level of the nightmarish game — and this time with her estranged sister Faith at her side. Grace has one chance to survive, keep her sister alive, and claim the High Seat of the Council that controls the world. Four rival families are hunting her for the throne, and whoever wins rules it all."},{"id":"movie-1811599","media_type":"movie","slug":"tyson-fury-1811599","title":"Tyson Fury","releaseDate":"2026-11-27","year":2026,"rating":6,"popularity":0.842,"poster_path":"/wAffyCmjFZOI3uvmVvpg7Lz8Yn5.jpg","genres":["drama"],"genreLabels":["Documentary","Drama"],"overview":"Discover the man beneath the Fury in this feature length documentary from Lucy Wilcox. With exclusive access to Paris, Tyson and John Fury, this film charts the rise, fall and redemption of the one and only Gypsy King."},{"id":"movie-1477963","media_type":"movie","slug":"big-girls-don-t-cry-1477963","title":"Big Girls Don't Cry","releaseDate":"2026-10-08","year":2026,"rating":6,"popularity":5.7598,"poster_path":"/cuChyQhIhDvEBQqqszcAlBlw61H.jpg","genres":["drama"],"genreLabels":["Drama"],"overview":"Over one transformative summer in rural New Zealand in 2006, 14-year-old Sid discovers desire, identity, and the internet as she imitates the people she longs to be loved by."},{"id":"movie-1272837","media_type":"movie","slug":"28-years-later-the-bone-temple-1272837","title":"28 Years Later: The Bone Temple","releaseDate":"2026-01-14","year":2026,"rating":7.085,"popularity":11.5924,"poster_path":"/kK1BGkG3KAvWB0WMV1DfOx9yTMZ.jpg","genres":["horror","thriller","scifi"],"genreLabels":["Horror","Thriller","Science Fiction"],"overview":"Dr. Kelson finds himself in a shocking new relationship - with consequences that could change the world as they know it - and Spike's encounter with Jimmy Crystal becomes a nightmare he can't escape."},{"id":"movie-1607127","media_type":"movie","slug":"one-last-shot-1607127","title":"One Last Shot","releaseDate":"2026-09-22","year":2026,"rating":7.282,"popularity":16.26,"poster_path":"/niQ4NBh2jqAf1hDZP5m6ReWFAb7.jpg","genres":["action","thriller"],"genreLabels":["Action","Thriller"],"overview":"Navy Seal Jake Harris must stop a team of mercenaries, led by his disillusioned former comrade, from disabling the US missile defense network."},{"id":"movie-1383154","media_type":"movie","slug":"the-eyes-1383154","title":"The Eyes","releaseDate":"2026-06-24","year":2026,"rating":6.417,"popularity":4.1282,"poster_path":"/lURzEaGQFQM7bHyDnsiB1zDgvOG.jpg","genres":["thriller","horror"],"genreLabels":["Thriller","Horror"],"overview":"Seo-jin, a renowned photographer, is shattered by the sudden and mysterious death of her twin sister and sets out to uncover the truth. As her investigation deepens, an unseen presence begins to close in, twisting reality and driving her into a spiral of paranoia as her vision fades away. Now trapped in encroaching darkness, Seo-jin faces a terrifying revelation that shatters everything she thought she knew."},{"id":"movie-1615391","media_type":"movie","slug":"lottie-dottie-chicken-the-movie-1615391","title":"Lottie Dottie Chicken: The Movie","releaseDate":"2026-10-01","year":2026,"rating":6.8,"popularity":2.7253,"poster_path":"/tkVM4lDqlF5wSD8cefONS9m15Yc.jpg","genres":["anime","family"],"genreLabels":["Animation","Family"],"overview":"When a clumsy stork mixed up the eggs during delivery, Lottie Dottie Chicken's first egg ends up in the nest of a fearsome hawk in the mountains."},{"id":"movie-1716604","media_type":"movie","slug":"a-proud-family-wizmas-1716604","title":"A Proud Family Wizmas","releaseDate":"2026-11-14","year":2026,"rating":5.8,"popularity":6.8007,"poster_path":"/11wLgcyi1712tk891oqT1SblmAY.jpg","genres":["anime","comedy"],"genreLabels":["Animation","Comedy","Music","TV Movie"],"overview":"When Penny Proud’s rant about Wizmas and the commercialization of Christmas causes Santa to quit on Christmas eve, Penny finds herself guilted into putting on the red suit and replacing him. And in the process of delivering Yuletide cheer with the help of Santa’s irreverent elves, she discovers that indeed the Christmas spirit is still alive."}];
-      const TODAY = "2026-11-28";
-      const KEY = "cinevault_watchlist_v2";
-      const byId = new Map(CATALOG.map((x) => [x.id, x]));
+      "use strict";
 
-      const state = { mode: "explore", q: "", type: "all", genre: "all", sort: "popular" };
-      const rowsContainer = document.getElementById("rowsContainer");
-      const resultHead = document.getElementById("resultHead");
-      const resultGrid = document.getElementById("resultGrid");
-      const resultTitle = document.getElementById("resultTitle");
-      const resultMeta = document.getElementById("resultMeta");
-      const listCountEl = document.getElementById("listCount");
+      const API_PROXY_URL = "";
+      const DIRECT_TMDB_V3_KEY = "45bfb471ba5d77a724bbdc3f147bb1b3";
+      const TODAY_ISO = new Date().toISOString().split("T")[0];
 
-      function getList() {
-        try { const r = JSON.parse(localStorage.getItem(KEY) || "[]"); return Array.isArray(r) ? r : []; } catch { return []; }
-      }
-      function setList(arr) {
-        try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch {}
-      }
-      function updateCount() {
-        listCountEl.textContent = String(getList().length);
-      }
-      function toggleItem(item) {
-        if (!item) return;
-        const cur = getList();
-        const exists = cur.some((x) => x.id === item.id);
-        setList(exists ? cur.filter((x) => x.id !== item.id) : [item, ...cur]);
-        updateCount();
-        syncButtons();
-        if (state.mode === "list") renderFiltered();
-      }
-      function syncButtons() {
-        const savedIds = new Set(getList().map((x) => x.id));
-        document.querySelectorAll("[data-save-id]").forEach((btn) => {
-          const on = savedIds.has(btn.getAttribute("data-save-id"));
-          btn.textContent = on ? "✓" : "+";
-          btn.classList.toggle("saved", on);
-        });
-      }
+      const AD_UNITS = {
+        banner300x250: {
+          key: "cb17739f8f80ca9d8e38e8633ea77f9f",
+          src: "https://bancadeltempoidea.org/22/cb17739f8f80ca9d8e38e8633ea77f9f",
+          width: 300,
+          height: 250
+        },
+        leader728x90: {
+          key: "ca33325a131a107bdffe9c71cd1a39a2",
+          src: "https://bancadeltempoidea.org/22/ca33325a131a107bdffe9c71cd1a39a2",
+          width: 728,
+          height: 90
+        }
+      };
 
-      function cardHtml(item) {
-        const folder = item.media_type === "tv" ? "tv" : "movie";
-        const href = folder + "/" + item.slug + ".html";
-        const soon = item.releaseDate && item.releaseDate > TODAY;
-        const poster = item.poster_path ? "https://image.tmdb.org/t/p/w342" + item.poster_path : "";
+      const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w500";
+      const TMDB_BACKDROP_BASE = "https://image.tmdb.org/t/p/w1280";
+      const WATCHLIST_KEY = "cinevault_watchlist_v2";
+
+      const STREAM_DIRECT_URLS = {
+        "netflix": "https://www.netflix.com/",
+        "amazon prime video": "https://www.primevideo.com/",
+        "prime video": "https://www.primevideo.com/",
+        "apple tv": "https://tv.apple.com/",
+        "apple tv+": "https://tv.apple.com/",
+        "disney plus": "https://www.disneyplus.com/",
+        "disney+": "https://www.disneyplus.com/",
+        "hulu": "https://www.hulu.com/",
+        "max": "https://www.max.com/",
+        "peacock": "https://www.peacocktv.com/",
+        "paramount plus": "https://www.paramountplus.com/",
+        "paramount+": "https://www.paramountplus.com/",
+        "crunchyroll": "https://www.crunchyroll.com/",
+        "youtube": "https://www.youtube.com/"
+      };
+
+      const GENRE_MAP = {
+        28: { key: "action", label: "Action" },
+        10759: { key: "action", label: "Action & Adventure" },
+        12: { key: "adventure", label: "Adventure" },
+        16: { key: "anime", label: "Anime" },
+        35: { key: "comedy", label: "Comedy" },
+        80: { key: "crime", label: "Crime" },
+        99: { key: "documentary", label: "Documentary" },
+        18: { key: "drama", label: "Drama" },
+        10751: { key: "kids", label: "Kids & Family" },
+        14: { key: "fantasy", label: "Fantasy" },
+        27: { key: "horror", label: "Horror" },
+        10749: { key: "romance", label: "Romance" },
+        878: { key: "scifi", label: "Sci-Fi" },
+        10765: { key: "scifi", label: "Sci-Fi & Fantasy" },
+        53: { key: "thriller", label: "Thriller" }
+      };
+
+      const CATEGORIES = [
+        { id: "all", name: "All Genres", slug: "all" },
+        { id: "action", name: "Action", slug: "action" },
+        { id: "anime", name: "Anime", slug: "anime" },
+        { id: "comedy", name: "Comedy", slug: "comedy" },
+        { id: "crime", name: "Crime", slug: "crime" },
+        { id: "documentary", name: "Documentaries", slug: "documentaries" },
+        { id: "drama", name: "Drama", slug: "drama" },
+        { id: "fantasy", name: "Fantasy", slug: "fantasy" },
+        { id: "horror", name: "Horror", slug: "horror" },
+        { id: "kids", name: "Kids & Family", slug: "kids-and-family" },
+        { id: "romance", name: "Romance", slug: "romance" },
+        { id: "scifi", name: "Sci-Fi", slug: "sci-fi" },
+        { id: "sports", name: "Sports", slug: "sports" },
+        { id: "thriller", name: "Thrillers", slug: "thrillers" }
+      ];
+
+      const FALLBACK_ITEMS = [
+        {
+          id: "local-movie-1008219",
+          tmdbId: 1008219,
+          media_type: "movie",
+          title: "Avengers: Doomsday",
+          releaseDate: "2026-12-18",
+          year: 2026,
+          rating: 0,
+          popularity: 120,
+          poster_path: "",
+          backdrop_path: "",
+          genres: ["action", "scifi", "fantasy"],
+          genreLabels: ["Action", "Sci-Fi", "Fantasy"],
+          streams: [
+            { name: "Disney+", mode: "Upcoming", url: "https://www.disneyplus.com/" },
+            { name: "YouTube", mode: "Trailer", url: "https://www.youtube.com/" }
+          ],
+          accent: ["#e50914", "#182038"],
+          overview: "Earth's mightiest heroes face a multiverse-shaking threat led by Doctor Doom."
+        },
+        {
+          id: "local-tv-204",
+          tmdbId: 204,
+          media_type: "tv",
+          title: "Chronicles of Neon Blade",
+          releaseDate: "2026-04-02",
+          year: 2026,
+          rating: 8.8,
+          popularity: 98,
+          poster_path: "",
+          backdrop_path: "",
+          genres: ["anime", "action", "fantasy"],
+          genreLabels: ["Anime", "Action", "Fantasy"],
+          streams: [
+            { name: "Crunchyroll", mode: "Stream", url: "https://www.crunchyroll.com/" },
+            { name: "Netflix", mode: "Stream", url: "https://www.netflix.com/" }
+          ],
+          accent: ["#10b981", "#064e3b"],
+          overview: "A young swordsmith apprentice defends a sky-lit city from ancient spirits."
+        },
+        {
+          id: "local-tv-205",
+          tmdbId: 205,
+          media_type: "tv",
+          title: "Night Shift Syndicate",
+          releaseDate: "2026-03-10",
+          year: 2026,
+          rating: 8.9,
+          popularity: 95,
+          poster_path: "",
+          backdrop_path: "",
+          genres: ["crime", "thriller", "drama"],
+          genreLabels: ["Crime", "Thriller", "Drama"],
+          streams: [
+            { name: "Netflix", mode: "Stream", url: "https://www.netflix.com/" },
+            { name: "Prime Video", mode: "Stream", url: "https://www.primevideo.com/" }
+          ],
+          accent: ["#d97706", "#111827"],
+          overview: "An overnight dispatcher uncovers a high-stakes network across coastal shipping lanes."
+        }
+      ];
+
+      function slugify(str) {
         return (
-          '<article class="card">' +
-            '<a class="card-link-main" href="' + href + '">' +
-              '<div class="poster-box">' +
-                '<img src="' + poster + '" alt="' + item.title.replace(/"/g, "&quot;") + '" loading="lazy" />' +
-                (!soon && item.rating > 0 ? '<span class="rating-pill">★ ' + Number(item.rating).toFixed(1) + '</span>' : '') +
-                (soon ? '<span class="soon-badge">Coming Soon • ' + item.releaseDate + '</span>' : '') +
-              '</div>' +
-              '<div class="card-body">' +
-                '<h3 class="card-title">' + item.title + '</h3>' +
-                '<div class="card-sub"><span>' + (soon ? item.releaseDate : (item.year || "—")) + '</span><span class="type-badge">' + (item.media_type === "tv" ? "Series" : "Movie") + '</span></div>' +
-              '</div>' +
-            '</a>' +
-            '<button class="save-btn" data-save-id="' + item.id + '" type="button" title="Save">+</button>' +
-          '</article>'
+          String(str || "title")
+            .toLowerCase()
+            .normalize("NFKD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "") || "title"
         );
       }
 
-      function activeFilter() {
-        return state.mode === "list" || Boolean(state.q.trim()) || state.type !== "all" || state.genre !== "all" || state.sort !== "popular";
+      function getItemPageUrl(item) {
+        const folder = item.media_type === "tv" ? "tv" : "movie";
+        const idPart = item.tmdbId || item.id;
+        return `/${folder}/${slugify(item.title)}-${idPart}.html`;
       }
 
-      function renderFiltered() {
-        if (!activeFilter()) {
-          rowsContainer.style.display = "flex";
-          resultHead.style.display = "none";
-          resultGrid.style.display = "none";
+      function getCategoryHubUrl(slug) {
+        return `/category/${slug}.html`;
+      }
+
+      function getDirectPlatformUrl(providerName, title) {
+        const clean = String(providerName || "").trim();
+        const key = clean.toLowerCase();
+        if (STREAM_DIRECT_URLS[key]) return STREAM_DIRECT_URLS[key];
+        return `https://www.google.com/search?q=${encodeURIComponent(`watch ${title} on ${clean}`)}`;
+      }
+
+      function extractDirectPlatforms(watchResults, title) {
+        if (!watchResults || typeof watchResults !== "object") return [];
+        const found = new Map();
+        for (const regionBlock of Object.values(watchResults)) {
+          if (!regionBlock || typeof regionBlock !== "object") continue;
+          const entries = [
+            ...(regionBlock.flatrate || []).map((x) => ({ ...x, mode: "Stream" })),
+            ...(regionBlock.free || []).map((x) => ({ ...x, mode: "Free" })),
+            ...(regionBlock.ads || []).map((x) => ({ ...x, mode: "Ads" })),
+            ...(regionBlock.rent || []).map((x) => ({ ...x, mode: "Rent" })),
+            ...(regionBlock.buy || []).map((x) => ({ ...x, mode: "Buy" }))
+          ];
+          for (const p of entries) {
+            const name = String(p.provider_name || "").trim();
+            if (!name) continue;
+            const key = name.toLowerCase();
+            if (!found.has(key)) {
+              found.set(key, { name, mode: p.mode || "Stream", url: getDirectPlatformUrl(name, title) });
+            }
+          }
+        }
+        return Array.from(found.values()).slice(0, 8);
+      }
+
+      function getFallbackStreamsForItem(item) {
+        if (Array.isArray(item.streams) && item.streams.length) return item.streams;
+        if (item.genres && item.genres.includes("anime")) {
+          return [
+            { name: "Crunchyroll", mode: "Stream", url: "https://www.crunchyroll.com/" },
+            { name: "Netflix", mode: "Stream", url: "https://www.netflix.com/" }
+          ];
+        }
+        return [
+          { name: "Netflix", mode: "Stream", url: "https://www.netflix.com/" },
+          { name: "Prime Video", mode: "Stream", url: "https://www.primevideo.com/" },
+          { name: "Apple TV", mode: "Stream", url: "https://tv.apple.com/" },
+          { name: "YouTube", mode: "Watch", url: "https://www.youtube.com/" }
+        ];
+      }
+
+      function isComingSoon(releaseDate) {
+        return Boolean(releaseDate && releaseDate > TODAY_ISO);
+      }
+
+      function formatPrettyDate(isoDate) {
+        if (!isoDate) return "TBA";
+        const d = new Date(`${isoDate}T00:00:00Z`);
+        if (Number.isNaN(d.getTime())) return isoDate;
+        return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+      }
+
+      const posterSvgCache = new Map();
+      function getFallbackPoster(item) {
+        const key = item.id || item.title;
+        if (posterSvgCache.has(key)) return posterSvgCache.get(key);
+        const [c1, c2] = item.accent || ["#e50914", "#181e2e"];
+        const safeTitle = String(item.title || "CineVault").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient></defs><rect width="400" height="600" fill="url(#g)"/><text x="200" y="300" text-anchor="middle" fill="#ffffff" font-family="system-ui,sans-serif" font-size="24" font-weight="800">${safeTitle.slice(0, 24)}</text></svg>`;
+        const url = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+        posterSvgCache.set(key, url);
+        return url;
+      }
+
+      function getPosterUrl(item) { return item.poster_path ? `${TMDB_POSTER_BASE}${item.poster_path}` : getFallbackPoster(item); }
+      function getBackdropUrl(item) { return item.backdrop_path ? `${TMDB_BACKDROP_BASE}${item.backdrop_path}` : item.poster_path ? `${TMDB_POSTER_BASE}${item.poster_path}` : getFallbackPoster(item); }
+
+      function loadWatchlist() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(WATCHLIST_KEY) || "[]");
+          return Array.isArray(parsed) ? parsed : [];
+        } catch { return []; }
+      }
+
+      function saveWatchlist(list) {
+        try { localStorage.setItem(WATCHLIST_KEY, JSON.stringify(list)); } catch {}
+      }
+
+      const state = {
+        view: "explore",
+        query: "",
+        mediaType: "all",
+        genre: "all",
+        sort: "popular",
+        activeStreamItem: null,
+        items: FALLBACK_ITEMS.slice(),
+        rows: {},
+        watchlist: loadWatchlist()
+      };
+
+      const els = {
+        exploreTabBtn: document.getElementById("exploreTabBtn"),
+        showsTabBtn: document.getElementById("showsTabBtn"),
+        moviesTabBtn: document.getElementById("moviesTabBtn"),
+        navCategorySelect: document.getElementById("navCategorySelect"),
+        watchlistTabBtn: document.getElementById("watchlistTabBtn"),
+        watchlistCount: document.getElementById("watchlistCount"),
+        homeLink: document.getElementById("homeLink"),
+        spotlightStrip: document.getElementById("spotlightStrip"),
+        searchForm: document.getElementById("searchForm"),
+        searchInput: document.getElementById("searchInput"),
+        clearSearchBtn: document.getElementById("clearSearchBtn"),
+        typeChips: document.getElementById("typeChips"),
+        genreChips: document.getElementById("genreChips"),
+        sortSelect: document.getElementById("sortSelect"),
+        watchDirectPanel: document.getElementById("watchDirectPanel"),
+        adBoxTop: document.getElementById("adBoxTop"),
+        adBoxMid: document.getElementById("adBoxMid"),
+        netflixRowsSection: document.getElementById("netflixRowsSection"),
+        filteredSectionHead: document.getElementById("filteredSectionHead"),
+        sectionTitle: document.getElementById("sectionTitle"),
+        resultMeta: document.getElementById("resultMeta"),
+        movieGrid: document.getElementById("movieGrid"),
+        seoHubLinks: document.getElementById("seoHubLinks")
+      };
+
+      function buildFittedAd(unit) {
+        const scriptHtml = `<script>atOptions={'key':'${unit.key}','format':'iframe','height':${unit.height},'width':${unit.width},'params':{}};<\/script><script data-cfasync="false" src="${unit.src}"><\/script>`;
+        const srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;width:${unit.width}px;height:${unit.height}px;background:transparent;overflow:hidden;display:flex;align-items:center;justify-content:center;}</style></head><body>${scriptHtml}</body></html>`;
+        const iframe = document.createElement("iframe");
+        iframe.width = String(unit.width);
+        iframe.height = String(unit.height);
+        iframe.style.width = `${unit.width}px`;
+        iframe.style.height = `${unit.height}px`;
+        iframe.style.maxWidth = "100%";
+        iframe.setAttribute("scrolling", "no");
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("loading", "lazy");
+        iframe.srcdoc = srcdoc;
+        return iframe;
+      }
+
+      function mountAdBanner() {
+        const isDesktop = window.matchMedia && window.matchMedia("(min-width: 780px)").matches;
+        if (els.adBoxTop) {
+          els.adBoxTop.innerHTML = "";
+          const topUnit = isDesktop ? AD_UNITS.leader728x90 : AD_UNITS.banner300x250;
+          els.adBoxTop.style.width = `${topUnit.width}px`;
+          els.adBoxTop.style.height = `${topUnit.height}px`;
+          els.adBoxTop.appendChild(buildFittedAd(topUnit));
+        }
+        if (els.adBoxMid) {
+          els.adBoxMid.innerHTML = "";
+          const midUnit = AD_UNITS.banner300x250;
+          els.adBoxMid.style.width = `${midUnit.width}px`;
+          els.adBoxMid.style.height = `${midUnit.height}px`;
+          els.adBoxMid.appendChild(buildFittedAd(midUnit));
+        }
+      }
+
+      function hasTmdbSource() {
+        return Boolean((API_PROXY_URL || "").trim() || (DIRECT_TMDB_V3_KEY || "").trim());
+      }
+
+      function buildTmdbUrl(endpoint, params = {}) {
+        const cleanPath = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+        const proxy = (API_PROXY_URL || "").trim().replace(/\/+$/, "");
+        const key = (DIRECT_TMDB_V3_KEY || "").trim();
+        const query = new URLSearchParams();
+        for (const [k, v] of Object.entries(params)) {
+          if (v !== undefined && v !== null && v !== "") query.set(k, String(v));
+        }
+        if (proxy) return `${proxy}${cleanPath}${query.toString() ? `?${query.toString()}` : ""}`;
+        query.set("api_key", key);
+        return `https://api.themoviedb.org/3${cleanPath}?${query.toString()}`;
+      }
+
+      function mapTmdbResult(r, idx, forceType = "") {
+        const title = r.title || r.name || "Untitled";
+        const dateStr = r.release_date || r.first_air_date || "";
+        const year = parseInt(dateStr.slice(0, 4), 10) || 2026;
+        const isTv = forceType ? forceType === "tv" : r.media_type === "tv" || Boolean(r.name && !r.title);
+        const genreIds = Array.isArray(r.genre_ids) ? r.genre_ids : [];
+        const mappedKeys = [];
+        const mappedLabels = [];
+        for (const gid of genreIds) {
+          const info = GENRE_MAP[gid];
+          if (info) {
+            if (!mappedKeys.includes(info.key)) mappedKeys.push(info.key);
+            if (!mappedLabels.includes(info.label)) mappedLabels.push(info.label);
+          }
+        }
+        if (!mappedLabels.length) mappedLabels.push(isTv ? "Show" : "Movie");
+        const fb = FALLBACK_ITEMS[idx % FALLBACK_ITEMS.length];
+        return {
+          id: `tmdb-${isTv ? "tv" : "movie"}-${r.id}`,
+          tmdbId: r.id,
+          media_type: isTv ? "tv" : "movie",
+          title,
+          releaseDate: dateStr,
+          year,
+          rating: Number(r.vote_average || 0),
+          popularity: Number(r.popularity || 50),
+          poster_path: r.poster_path || "",
+          backdrop_path: r.backdrop_path || "",
+          genres: mappedKeys,
+          genreLabels: mappedLabels,
+          streams: [],
+          accent: fb.accent,
+          overview: r.overview || "Explore full details, trailer, cast, and streaming platforms."
+        };
+      }
+
+      async function hydrateStreamsForItems(items) {
+        if (!hasTmdbSource() || !Array.isArray(items) || !items.length) return;
+        const targets = items.filter((it) => it && it.tmdbId && (!it.streams || !it.streams.length)).slice(0, 10);
+        await Promise.allSettled(
+          targets.map(async (item) => {
+            const folder = item.media_type === "tv" ? "tv" : "movie";
+            const res = await fetch(buildTmdbUrl(`/${folder}/${item.tmdbId}/watch/providers`));
+            if (!res.ok) return;
+            const data = await res.json();
+            const parsed = extractDirectPlatforms(data.results, item.title);
+            if (parsed.length) item.streams = parsed;
+          })
+        );
+      }
+
+      async function loadNetflixCategories() {
+        if (!hasTmdbSource()) {
+          state.items = FALLBACK_ITEMS.slice();
+          renderAll();
           return;
         }
-        rowsContainer.style.display = "none";
-        resultHead.style.display = "flex";
-        resultGrid.style.display = "grid";
 
-        const base = state.mode === "list" ? getList() : CATALOG.slice();
-        const term = state.q.trim().toLowerCase();
-        const filtered = base.filter((x) => {
-          if (state.type !== "all" && x.media_type !== state.type) return false;
-          if (state.genre !== "all" && !(x.genres || []).includes(state.genre)) return false;
-          if (term) {
-            const hay = (x.title + " " + (x.overview || "") + " " + (x.genreLabels || []).join(" ")).toLowerCase();
-            if (!hay.includes(term)) return false;
+        const q = state.query.trim();
+        if (q) {
+          try {
+            const endpoint = state.mediaType === "movie" ? "/search/movie" : state.mediaType === "tv" ? "/search/tv" : "/search/multi";
+            const res = await fetch(buildTmdbUrl(endpoint, { query: q, page: 1, include_adult: false }));
+            if (res.ok) {
+              const data = await res.json();
+              state.items = (data.results || [])
+                .filter((r) => r && r.media_type !== "person" && (r.title || r.name))
+                .map((r, i) => mapTmdbResult(r, i, state.mediaType === "all" ? "" : state.mediaType));
+              await hydrateStreamsForItems(state.items.slice(0, 6));
+            }
+          } catch {}
+          renderAll();
+          return;
+        }
+
+        try {
+          const endpoints = [
+            ["trending", "/trending/all/week", ""],
+            ["comingSoon", "/movie/upcoming", "movie", { sort_by: "popularity.desc" }],
+            ["shows", "/tv/popular", "tv"],
+            ["anime", "/discover/tv", "tv", { with_genres: 16, with_original_language: "ja", sort_by: "popularity.desc" }],
+            ["action", "/discover/movie", "movie", { with_genres: 28, sort_by: "popularity.desc" }],
+            ["scifi", "/discover/movie", "movie", { with_genres: 878, sort_by: "popularity.desc" }],
+            ["thriller", "/discover/movie", "movie", { with_genres: 53, sort_by: "popularity.desc" }],
+            ["crime", "/discover/tv", "tv", { with_genres: 80, sort_by: "popularity.desc" }],
+            ["drama", "/discover/movie", "movie", { with_genres: 18, sort_by: "popularity.desc" }],
+            ["comedy", "/discover/movie", "movie", { with_genres: 35, sort_by: "popularity.desc" }],
+            ["horror", "/discover/movie", "movie", { with_genres: 27, sort_by: "popularity.desc" }],
+            ["documentary", "/discover/movie", "movie", { with_genres: 99, sort_by: "popularity.desc" }]
+          ];
+
+          const settled = await Promise.allSettled(
+            endpoints.map(([, path, , extra]) => fetch(buildTmdbUrl(path, { page: 1, ...(extra || {}) })))
+          );
+
+          const nextRows = {};
+          for (let i = 0; i < endpoints.length; i++) {
+            const [key, , forceType] = endpoints[i];
+            const res = settled[i];
+            if (res.status === "fulfilled" && res.value.ok) {
+              const json = await res.value.json();
+              nextRows[key] = (json.results || [])
+                .filter((r) => r && r.media_type !== "person" && (r.title || r.name))
+                .map((r, idx) => mapTmdbResult(r, idx, forceType));
+            } else {
+              nextRows[key] = [];
+            }
+          }
+
+          // Ensure major upcoming titles like Avengers: Doomsday appear in Coming Soon if present or needed
+          const doomsdaySearch = await fetch(buildTmdbUrl("/search/movie", { query: "Avengers Doomsday", page: 1 }));
+          if (doomsdaySearch.ok) {
+            const ddData = await doomsdaySearch.json();
+            const ddItems = (ddData.results || []).slice(0, 2).map((r, i) => mapTmdbResult(r, i, "movie"));
+            const existingIds = new Set((nextRows.comingSoon || []).map((x) => x.id));
+            const mergedSoon = [...ddItems.filter((x) => !existingIds.has(x.id)), ...(nextRows.comingSoon || [])];
+            nextRows.comingSoon = mergedSoon;
+          }
+
+          state.rows = nextRows;
+          state.items = nextRows.trending && nextRows.trending.length ? nextRows.trending : FALLBACK_ITEMS.slice();
+          await hydrateStreamsForItems(state.items.slice(0, 5));
+        } catch {
+          state.items = FALLBACK_ITEMS.slice();
+        }
+
+        renderAll();
+      }
+
+      async function openDirectStreamPanel(item) {
+        if (!item) return;
+        state.activeStreamItem = item;
+        renderDirectStreamPanel();
+        els.watchDirectPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+        if (hasTmdbSource() && item.tmdbId && (!item.streams || !item.streams.length)) {
+          try {
+            const folder = item.media_type === "tv" ? "tv" : "movie";
+            const res = await fetch(buildTmdbUrl(`/${folder}/${item.tmdbId}/watch/providers`));
+            if (res.ok) {
+              const data = await res.json();
+              const parsed = extractDirectPlatforms(data.results, item.title);
+              if (parsed.length) {
+                item.streams = parsed;
+                renderDirectStreamPanel();
+              }
+            }
+          } catch {}
+        }
+      }
+
+      function renderDirectStreamPanel() {
+        const item = state.activeStreamItem;
+        if (!item) {
+          els.watchDirectPanel.classList.remove("active");
+          els.watchDirectPanel.innerHTML = "";
+          return;
+        }
+        const platforms = getFallbackStreamsForItem(item);
+        els.watchDirectPanel.classList.add("active");
+        els.watchDirectPanel.innerHTML = `
+          <div class="watch-direct-head">
+            <div>
+              <h2 class="watch-direct-title">Where to Watch: ${escapeHtml(item.title)} (${item.year || ""})</h2>
+              <p class="watch-direct-sub">Direct streaming platforms from TMDB provider data.</p>
+            </div>
+            <button class="pill-btn" id="closeStreamPanelBtn" type="button">Close ✕</button>
+          </div>
+          <div class="watch-platform-grid">
+            ${platforms.map((p) => `<a class="watch-platform-btn" href="${escapeAttr(p.url)}" target="_blank" rel="noopener noreferrer sponsored"><span>${escapeHtml(p.name)}</span>${p.mode ? `<span class="watch-mode-tag">${escapeHtml(p.mode)}</span>` : ""}<span>↗</span></a>`).join("")}
+          </div>
+        `;
+        const closeBtn = document.getElementById("closeStreamPanelBtn");
+        if (closeBtn) closeBtn.addEventListener("click", () => { state.activeStreamItem = null; renderDirectStreamPanel(); });
+      }
+
+      function isSaved(id) { return state.watchlist.some((x) => x.id === id); }
+      function updateWatchlistBadge() { els.watchlistCount.textContent = String(state.watchlist.length); }
+
+      function toggleWatchlist(item) {
+        if (!item || !item.id) return;
+        state.watchlist = isSaved(item.id) ? state.watchlist.filter((x) => x.id !== item.id) : [item, ...state.watchlist];
+        saveWatchlist(state.watchlist);
+        updateWatchlistBadge();
+        renderAll();
+      }
+
+      function findItemById(id) {
+        for (const list of Object.values(state.rows)) {
+          if (Array.isArray(list)) {
+            const hit = list.find((x) => x.id === id);
+            if (hit) return hit;
+          }
+        }
+        return state.items.find((x) => x.id === id) || state.watchlist.find((x) => x.id === id) || FALLBACK_ITEMS[0];
+      }
+
+      function renderSpotlightStrip() {
+        const pool = state.items.length ? state.items : FALLBACK_ITEMS;
+        const featured = pool.slice(0, Math.min(pool.length, 6));
+        els.spotlightStrip.innerHTML = featured.map((item, idx) => {
+          const typeLabel = item.media_type === "tv" ? "Show" : "Movie";
+          const saved = isSaved(item.id);
+          const poster = getPosterUrl(item);
+          const fallback = getFallbackPoster(item);
+          const backdrop = getBackdropUrl(item);
+          const href = getItemPageUrl(item);
+          const soon = isComingSoon(item.releaseDate);
+          const headingTag = idx === 0 ? "h1" : "h2";
+          const directStreams = getFallbackStreamsForItem(item).slice(0, 4);
+
+          return `
+            <article class="spot-slide" style="background-image: url('${escapeAttr(backdrop)}');">
+              <div class="spot-body">
+                <div class="spot-badge-row">
+                  <span class="spot-rank-big">#${idx + 1} TRENDING</span>
+                  ${soon ? `<span class="spot-soon-pill">Coming Soon • ${escapeHtml(formatPrettyDate(item.releaseDate))}</span>` : ""}
+                </div>
+                <${headingTag}><a href="${escapeAttr(href)}">${escapeHtml(item.title)}</a></${headingTag}>
+                <div class="spot-tags">
+                  ${!soon && item.rating > 0 ? `<span class="spot-gold">★ ${Number(item.rating).toFixed(1)}</span>` : ""}
+                  <span>${soon ? `Release: ${escapeHtml(formatPrettyDate(item.releaseDate))}` : item.year || "—"}</span>
+                  <span>${escapeHtml(typeLabel)}</span>
+                  <span>${escapeHtml((item.genreLabels || []).slice(0, 2).join(" • ") || "Featured")}</span>
+                </div>
+                <p class="spot-desc">${escapeHtml(item.overview || "")}</p>
+                <div class="spot-streams">
+                  <span class="spot-streams-label">Where to Watch:</span>
+                  ${directStreams.map((s) => `<a class="stream-chip-link" href="${escapeAttr(s.url)}" target="_blank" rel="noopener noreferrer sponsored">${escapeHtml(s.name)} ↗</a>`).join("")}
+                </div>
+                <div class="spot-actions">
+                  <a class="primary-btn" href="${escapeAttr(href)}">▶ Open Page</a>
+                  <button class="secondary-btn" data-spot-watch="${escapeAttr(item.id)}" type="button">Where to Watch</button>
+                  <button class="secondary-btn" data-spot-save="${escapeAttr(item.id)}" type="button">${saved ? "✓ In My List" : "+ My List"}</button>
+                </div>
+              </div>
+              <a class="spot-poster-link" href="${escapeAttr(href)}" title="${escapeAttr(item.title)}">
+                <img src="${poster}" alt="${escapeAttr(item.title)} poster" loading="eager" onerror="if(this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${escapeAttr(fallback)}" />
+              </a>
+            </article>
+          `;
+        }).join("");
+
+        els.spotlightStrip.querySelectorAll("[data-spot-save]").forEach((btn) => {
+          btn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); toggleWatchlist(findItemById(btn.getAttribute("data-spot-save"))); });
+        });
+        els.spotlightStrip.querySelectorAll("[data-spot-watch]").forEach((btn) => {
+          btn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openDirectStreamPanel(findItemById(btn.getAttribute("data-spot-watch"))); });
+        });
+      }
+
+      function renderCardHtml(item, rankNum = 0) {
+        const poster = getPosterUrl(item);
+        const fallback = getFallbackPoster(item);
+        const saved = isSaved(item.id);
+        const typeLabel = item.media_type === "tv" ? "Show" : "Movie";
+        const href = getItemPageUrl(item);
+        const soon = isComingSoon(item.releaseDate);
+        const streams = getFallbackStreamsForItem(item).slice(0, 2);
+
+        const bottomBadge = soon
+          ? `<span class="soon-badge">Coming Soon • ${escapeHtml(formatPrettyDate(item.releaseDate))}</span>`
+          : rankNum > 0
+          ? `<span class="rank-badge-large">#${rankNum}</span>`
+          : "";
+
+        return `
+          <article class="card">
+            <a class="card-link-main" href="${escapeAttr(href)}">
+              <div class="poster-box">
+                <img src="${poster}" alt="${escapeAttr(item.title)} (${typeLabel}, ${item.year || "2026"}) poster" loading="lazy" onerror="if(this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${escapeAttr(fallback)}" />
+                ${!soon && item.rating > 0 ? `<span class="rating-pill">★ ${Number(item.rating).toFixed(1)}</span>` : ""}
+                ${bottomBadge}
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">${escapeHtml(item.title)}</h3>
+                <div class="card-streams">
+                  ${streams.map((s) => `<a class="mini-stream-link" href="${escapeAttr(s.url)}" target="_blank" rel="noopener noreferrer sponsored">${escapeHtml(s.name)} ↗</a>`).join("")}
+                </div>
+                <div class="card-sub">
+                  <span>${escapeHtml(soon ? `Coming Soon • ${formatPrettyDate(item.releaseDate)}` : String(item.year || "—"))}</span>
+                  <span class="type-badge">${typeLabel}</span>
+                </div>
+              </div>
+            </a>
+            <button class="save-btn ${saved ? "saved" : ""}" data-save="${escapeAttr(item.id)}" type="button" title="${saved ? "Remove from list" : "Add to list"}" aria-label="Toggle list">${saved ? "✓" : "+"}</button>
+          </article>
+        `;
+      }
+
+      function bindSaveButtons(container) {
+        if (!container) return;
+        container.querySelectorAll("[data-save]").forEach((btn) => {
+          btn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); toggleWatchlist(findItemById(btn.getAttribute("data-save"))); });
+        });
+      }
+
+      function hasActiveFilter() {
+        return state.view !== "explore" || Boolean(state.query.trim()) || state.mediaType !== "all" || state.genre !== "all" || state.sort !== "popular";
+      }
+
+      function renderNetflixRows() {
+        if (hasActiveFilter()) {
+          els.netflixRowsSection.style.display = "none";
+          els.netflixRowsSection.innerHTML = "";
+          return;
+        }
+
+        const defs = [
+          { id: "row-trending", trackId: "track-trending", title: "Trending Now", hubSlug: "trending", items: state.rows.trending, ranked: true },
+          { id: "row-coming-soon", trackId: "track-coming-soon", title: "Coming Soon & Most Anticipated", hubSlug: "coming-soon", items: state.rows.comingSoon, ranked: false },
+          { id: "row-shows", trackId: "track-shows", title: "Popular Shows", hubSlug: "shows", items: state.rows.shows, ranked: false },
+          { id: "row-anime", trackId: "track-anime", title: "Anime", hubSlug: "anime", items: state.rows.anime, ranked: false },
+          { id: "row-action", trackId: "track-action", title: "Action", hubSlug: "action", items: state.rows.action, ranked: false },
+          { id: "row-scifi", trackId: "track-scifi", title: "Sci-Fi & Fantasy", hubSlug: "sci-fi", items: state.rows.scifi, ranked: false },
+          { id: "row-thriller", trackId: "track-thriller", title: "Thrillers", hubSlug: "thrillers", items: state.rows.thriller, ranked: false },
+          { id: "row-crime", trackId: "track-crime", title: "Crime Series", hubSlug: "crime", items: state.rows.crime, ranked: false },
+          { id: "row-drama", trackId: "track-drama", title: "Drama", hubSlug: "drama", items: state.rows.drama, ranked: false },
+          { id: "row-comedy", trackId: "track-comedy", title: "Comedy", hubSlug: "comedy", items: state.rows.comedy, ranked: false },
+          { id: "row-horror", trackId: "track-horror", title: "Horror", hubSlug: "horror", items: state.rows.horror, ranked: false },
+          { id: "row-documentary", trackId: "track-documentary", title: "Documentaries", hubSlug: "documentaries", items: state.rows.documentary, ranked: false }
+        ].filter((r) => Array.isArray(r.items) && r.items.length > 0);
+
+        els.netflixRowsSection.style.display = "flex";
+        els.netflixRowsSection.innerHTML = defs.map((r) => `
+          <div class="row-block" id="${escapeAttr(r.id)}">
+            <div class="row-header">
+              <div class="row-title-wrap">
+                <h2 class="row-title"><a class="row-title-link" href="${escapeAttr(getCategoryHubUrl(r.hubSlug))}">${escapeHtml(r.title)}</a></h2>
+                <span class="row-count">${r.items.length}</span>
+              </div>
+              <div class="row-actions">
+                <a class="row-hub-link" href="${escapeAttr(getCategoryHubUrl(r.hubSlug))}">Category Page →</a>
+                <button class="row-expand-btn" data-expand-track="${escapeAttr(r.trackId)}" type="button">Show All</button>
+              </div>
+            </div>
+            <div class="row-scroller" id="${escapeAttr(r.trackId)}">
+              ${r.items.map((it, i) => renderCardHtml(it, r.ranked && i < 10 ? i + 1 : 0)).join("")}
+            </div>
+          </div>
+        `).join("");
+
+        els.netflixRowsSection.querySelectorAll("[data-expand-track]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const track = document.getElementById(btn.getAttribute("data-expand-track"));
+            if (!track) return;
+            const expanded = track.classList.toggle("expanded");
+            btn.textContent = expanded ? "Collapse" : "Show All";
+          });
+        });
+
+        bindSaveButtons(els.netflixRowsSection);
+      }
+
+      function getAllPool() {
+        const merged = [...state.items, ...Object.values(state.rows).flat().filter(Boolean)];
+        return Array.from(new Map(merged.map((x) => [x.id, x])).values());
+      }
+
+      function getFilteredItems() {
+        const base = state.view === "watchlist" ? state.watchlist.slice() : getAllPool();
+        const q = state.query.trim().toLowerCase();
+
+        const list = base.filter((item) => {
+          if (state.view === "shows" && item.media_type !== "tv") return false;
+          if (state.view === "movies" && item.media_type !== "movie") return false;
+          if (state.mediaType !== "all" && item.media_type !== state.mediaType) return false;
+          if (state.genre !== "all") {
+            const g = Array.isArray(item.genres) ? item.genres : [];
+            if (!g.includes(state.genre)) return false;
+          }
+          if (q) {
+            const hay = `${item.title || ""} ${item.overview || ""} ${(item.genreLabels || []).join(" ")}`.toLowerCase();
+            if (!hay.includes(q)) return false;
           }
           return true;
         });
 
-        filtered.sort((a, b) => {
+        list.sort((a, b) => {
           if (state.sort === "rating") return (b.rating || 0) - (a.rating || 0);
           if (state.sort === "year") return (b.year || 0) - (a.year || 0);
           if (state.sort === "title") return String(a.title || "").localeCompare(String(b.title || ""));
           return (b.popularity || 0) - (a.popularity || 0);
         });
 
-        resultTitle.textContent = state.mode === "list" ? "My List" : (term ? 'Results for "' + state.q.trim() + '"' : "Filtered Titles");
-        resultMeta.textContent = filtered.length + " titles";
-        resultGrid.innerHTML = filtered.length
-          ? filtered.map(cardHtml).join("")
-          : '<div class="empty-state" style="grid-column:1/-1;"><h3>No titles found</h3></div>';
-        bindSaveClicks();
-        syncButtons();
+        return list;
       }
 
-      function bindSaveClicks() {
-        document.querySelectorAll("[data-save-id]").forEach((btn) => {
-          btn.onclick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleItem(byId.get(btn.getAttribute("data-save-id")));
-          };
+      function renderFilteredGrid() {
+        if (!hasActiveFilter()) {
+          els.filteredSectionHead.style.display = "none";
+          els.movieGrid.style.display = "none";
+          els.movieGrid.innerHTML = "";
+          return;
+        }
+
+        els.filteredSectionHead.style.display = "flex";
+        els.movieGrid.style.display = "grid";
+
+        const list = getFilteredItems();
+        els.sectionTitle.textContent =
+          state.view === "watchlist" ? "My List"
+          : state.view === "shows" ? "TV Shows"
+          : state.view === "movies" ? "Movies"
+          : state.query.trim() ? `Search Results for "${state.query.trim()}"`
+          : "Filtered Titles";
+        els.resultMeta.textContent = `${list.length} ${list.length === 1 ? "title" : "titles"}`;
+
+        if (!list.length) {
+          els.movieGrid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <h3>No titles found</h3>
+              <p>Try another search term or clear your active filters.</p>
+              <button class="primary-btn" id="resetBtn" type="button">Reset Filters</button>
+            </div>
+          `;
+          const resetBtn = document.getElementById("resetBtn");
+          if (resetBtn) resetBtn.addEventListener("click", resetAllFilters);
+          return;
+        }
+
+        els.movieGrid.innerHTML = list.map((it) => renderCardHtml(it, 0)).join("");
+        bindSaveButtons(els.movieGrid);
+      }
+
+      function renderGenreChips() {
+        els.genreChips.innerHTML = CATEGORIES.map(
+          (g) => `<button class="chip ${state.genre === g.id ? "active" : ""}" data-genre="${g.id}" type="button">${g.name}</button>`
+        ).join("");
+        els.genreChips.querySelectorAll(".chip").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            state.genre = btn.getAttribute("data-genre") || "all";
+            if (els.navCategorySelect) els.navCategorySelect.value = state.genre;
+            renderAll();
+          });
         });
       }
 
-      document.querySelectorAll("[data-scroll]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const track = document.getElementById(btn.getAttribute("data-scroll"));
-          if (track) track.scrollBy({ left: Number(btn.getAttribute("data-dir") || 1) * 420, behavior: "smooth" });
+      function renderSeoHubLinks() {
+        if (!els.seoHubLinks) return;
+        const hubs = [
+          { name: "Trending Now", slug: "trending" },
+          { name: "Coming Soon", slug: "coming-soon" },
+          { name: "Popular Shows", slug: "shows" },
+          ...CATEGORIES.filter((c) => c.id !== "all")
+        ];
+        els.seoHubLinks.innerHTML = hubs.map((h) => `<a class="seo-hub-link" href="${escapeAttr(getCategoryHubUrl(h.slug))}">${escapeHtml(h.name)} →</a>`).join("");
+      }
+
+      function syncNavTabs() {
+        els.exploreTabBtn.classList.toggle("active", state.view === "explore");
+        els.showsTabBtn.classList.toggle("active", state.view === "shows");
+        els.moviesTabBtn.classList.toggle("active", state.view === "movies");
+        els.watchlistTabBtn.classList.toggle("active", state.view === "watchlist");
+        els.typeChips.querySelectorAll(".chip").forEach((btn) => {
+          btn.classList.toggle("active", btn.getAttribute("data-type") === state.mediaType);
         });
-      });
+      }
 
-      document.querySelectorAll("[data-expand]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const track = document.getElementById(btn.getAttribute("data-expand"));
-          if (!track) return;
-          const open = track.classList.toggle("expanded");
-          btn.textContent = open ? "Collapse" : "Show All";
-        });
-      });
-
-      document.querySelectorAll("[data-spot-save]").forEach((btn) => {
-        btn.addEventListener("click", () => toggleItem(byId.get(btn.getAttribute("data-spot-save"))));
-      });
-
-      const searchInput = document.getElementById("searchInput");
-      document.getElementById("searchForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        state.q = searchInput.value;
-        renderFiltered();
-      });
-      searchInput.addEventListener("input", () => {
-        state.q = searchInput.value;
-        renderFiltered();
-      });
-      document.getElementById("clearBtn").addEventListener("click", () => {
-        searchInput.value = "";
-        state.q = "";
-        renderFiltered();
-      });
-
-      const drawer = document.getElementById("filterDrawer");
-      document.getElementById("filterToggle").addEventListener("click", () => {
-        drawer.classList.toggle("collapsed");
-      });
-
-      document.querySelectorAll("#typeChips .chip").forEach((ch) => {
-        ch.addEventListener("click", () => {
-          document.querySelectorAll("#typeChips .chip").forEach((x) => x.classList.remove("active"));
-          ch.classList.add("active");
-          state.type = ch.getAttribute("data-type") || "all";
-          renderFiltered();
-        });
-      });
-
-      document.querySelectorAll("#genreChips .chip").forEach((ch) => {
-        ch.addEventListener("click", () => {
-          document.querySelectorAll("#genreChips .chip").forEach((x) => x.classList.remove("active"));
-          ch.classList.add("active");
-          state.genre = ch.getAttribute("data-genre") || "all";
-          renderFiltered();
-        });
-      });
-
-      document.getElementById("sortSelect").addEventListener("change", (e) => {
-        state.sort = e.target.value;
-        renderFiltered();
-      });
-
-      const myListBtn = document.getElementById("myListBtn");
-      const navHome = document.getElementById("navHome");
-      myListBtn.addEventListener("click", () => {
-        state.mode = state.mode === "list" ? "explore" : "list";
-        myListBtn.classList.toggle("active", state.mode === "list");
-        navHome.classList.toggle("active", state.mode !== "list");
-        renderFiltered();
-      });
-
-      document.getElementById("homeLink").addEventListener("click", () => {
-        state.mode = "explore";
-        state.q = "";
-        state.type = "all";
+      function resetAllFilters() {
+        state.view = "explore";
+        state.query = "";
+        state.mediaType = "all";
         state.genre = "all";
         state.sort = "popular";
-        searchInput.value = "";
-        myListBtn.classList.remove("active");
-        navHome.classList.add("active");
-        renderFiltered();
+        state.activeStreamItem = null;
+        els.searchInput.value = "";
+        els.sortSelect.value = "popular";
+        if (els.navCategorySelect) els.navCategorySelect.value = "all";
+        syncNavTabs();
+        renderDirectStreamPanel();
+        loadNetflixCategories();
+      }
+
+      function renderAll() {
+        syncNavTabs();
+        renderGenreChips();
+        renderSpotlightStrip();
+        renderDirectStreamPanel();
+        renderNetflixRows();
+        renderFilteredGrid();
+        renderSeoHubLinks();
+      }
+
+      function escapeHtml(str) {
+        return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+
+      function escapeAttr(str) { return escapeHtml(str).replace(/'/g, "&#39;"); }
+
+      els.exploreTabBtn.addEventListener("click", () => { state.view = "explore"; state.mediaType = "all"; renderAll(); });
+      els.showsTabBtn.addEventListener("click", () => { state.view = "shows"; state.mediaType = "tv"; renderAll(); });
+      els.moviesTabBtn.addEventListener("click", () => { state.view = "movies"; state.mediaType = "movie"; renderAll(); });
+      els.watchlistTabBtn.addEventListener("click", () => { state.view = "watchlist"; renderAll(); });
+      if (els.navCategorySelect) {
+        els.navCategorySelect.addEventListener("change", () => {
+          state.genre = els.navCategorySelect.value || "all";
+          renderAll();
+        });
+      }
+      els.homeLink.addEventListener("click", (e) => { e.preventDefault(); if (els.spotlightStrip) els.spotlightStrip.scrollLeft = 0; resetAllFilters(); });
+
+      let debounceTimer = null;
+      els.searchInput.addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => { state.query = els.searchInput.value; loadNetflixCategories(); }, 250);
+      });
+      els.searchForm.addEventListener("submit", (e) => { e.preventDefault(); state.query = els.searchInput.value; loadNetflixCategories(); });
+      els.clearSearchBtn.addEventListener("click", () => { els.searchInput.value = ""; state.query = ""; loadNetflixCategories(); });
+
+      els.typeChips.querySelectorAll(".chip").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.mediaType = btn.getAttribute("data-type") || "all";
+          if (state.mediaType === "tv") state.view = "shows";
+          else if (state.mediaType === "movie") state.view = "movies";
+          else if (state.view !== "watchlist") state.view = "explore";
+          if (state.query.trim()) loadNetflixCategories();
+          else renderAll();
+        });
       });
 
-      bindSaveClicks();
-      updateCount();
-      syncButtons();
+      els.sortSelect.addEventListener("change", () => { state.sort = els.sortSelect.value; renderAll(); });
+
+      mountAdBanner();
+      updateWatchlistBadge();
+      const urlQ = new URLSearchParams(window.location.search).get("q");
+      if (urlQ) { state.query = urlQ; els.searchInput.value = urlQ; }
+      renderAll();
+      loadNetflixCategories();
     })();
   </script>
 </body>
