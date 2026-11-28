@@ -42,7 +42,7 @@ function renderTitlePage(item, relatedItems, primaryHub) {
   }
 
   const streamButtons = Array.from(providerMap.entries())
-    .slice(0, 5)
+    .slice(0, 6)
     .map(
       ([name, href]) =>
         `<a class="stream-btn" href="${esc(href)}" target="_blank" rel="noopener noreferrer sponsored">${esc(name)} ↗</a>`
